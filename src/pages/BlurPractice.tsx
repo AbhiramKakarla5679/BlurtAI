@@ -3,11 +3,17 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
-import { ArrowLeft, Timer, Send, BookOpen, CheckCircle } from "lucide-react";
+import { ArrowLeft, Timer, Send, BookOpen, CheckCircle, ChevronDown } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { sectionsData, PracticeItem, Subsection } from "@/data/sectionsData";
 import { useToast } from "@/hooks/use-toast";
 import { Progress } from "@/components/ui/progress";
+import SectionContent from "@/components/SectionContent";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 
 type QuestionResult = {
   questionIndex: number;
@@ -23,9 +29,10 @@ const BlurPractice = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   
-  const [subsection, setSubsection] = useState<Subsection | null>(null);
+  const [studySubsections, setStudySubsections] = useState<Subsection[]>([]);
+  const [allPracticeItems, setAllPracticeItems] = useState<(PracticeItem & { subsectionTitle: string })[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [currentPrompt, setCurrentPrompt] = useState<PracticeItem | null>(null);
+  const [currentPrompt, setCurrentPrompt] = useState<(PracticeItem & { subsectionTitle: string }) | null>(null);
   const [userAnswer, setUserAnswer] = useState("");
   const [showQuestionFeedback, setShowQuestionFeedback] = useState(false);
   const [keywordsFound, setKeywordsFound] = useState<string[]>([]);
@@ -34,24 +41,58 @@ const BlurPractice = () => {
   const [timerEnabled, setTimerEnabled] = useState(false);
   const [timeElapsed, setTimeElapsed] = useState(0);
   const [timerInterval, setTimerInterval] = useState<NodeJS.Timeout | null>(null);
-  const [showIntro, setShowIntro] = useState(true);
+  const [showStudyContent, setShowStudyContent] = useState(true);
   const [questionResults, setQuestionResults] = useState<QuestionResult[]>([]);
   const [showFinalResults, setShowFinalResults] = useState(false);
+  const [expandedSections, setExpandedSections] = useState<string[]>([]);
 
   useEffect(() => {
-    // Find the subsection
+    // Find the topic and subsection
     const topic = sectionsData.find((t) => t.id === topicId);
-    if (topic) {
-      const foundSubsection = topic.subsections.find((s) => s.id === subsectionId);
-      setSubsection(foundSubsection || null);
-      
-      // Set first question
-      if (foundSubsection && foundSubsection.practice_items.length > 0) {
-        setCurrentPrompt(foundSubsection.practice_items[0]);
-      }
+    if (!topic) return;
+
+    const targetSubsection = topic.subsections.find((s) => s.id === subsectionId);
+    if (!targetSubsection) return;
+
+    // Get study group - find all subsections in the same study group
+    const studyGroup = targetSubsection.study_group;
+    let subsectionsToStudy: Subsection[] = [];
+
+    if (studyGroup) {
+      // Find all subsections in this study group
+      subsectionsToStudy = topic.subsections.filter((s) => s.study_group === studyGroup);
+    } else {
+      // If no study group, just use this subsection
+      subsectionsToStudy = [targetSubsection];
     }
 
-    // Load timer preference from localStorage
+    setStudySubsections(subsectionsToStudy);
+    
+    // Auto-expand first section
+    if (subsectionsToStudy.length > 0) {
+      setExpandedSections([subsectionsToStudy[0].id]);
+    }
+
+    // Collect all practice items from these subsections and shuffle
+    const allItems: (PracticeItem & { subsectionTitle: string })[] = [];
+    subsectionsToStudy.forEach((subsection) => {
+      subsection.practice_items.forEach((item) => {
+        allItems.push({
+          ...item,
+          subsectionTitle: subsection.title
+        });
+      });
+    });
+
+    // Shuffle the questions for variety
+    const shuffled = allItems.sort(() => Math.random() - 0.5);
+    setAllPracticeItems(shuffled);
+
+    if (shuffled.length > 0) {
+      setCurrentPrompt(shuffled[0]);
+    }
+
+    // Load timer preference
     const timerPref = localStorage.getItem("timerEnabled");
     if (timerPref === "true") {
       setTimerEnabled(true);
@@ -65,7 +106,7 @@ const BlurPractice = () => {
   }, [topicId, subsectionId]);
 
   useEffect(() => {
-    if (timerEnabled && !showQuestionFeedback && !showIntro && !showFinalResults) {
+    if (timerEnabled && !showQuestionFeedback && !showStudyContent && !showFinalResults) {
       const interval = setInterval(() => {
         setTimeElapsed((prev) => prev + 1);
       }, 1000);
@@ -73,7 +114,7 @@ const BlurPractice = () => {
       
       return () => clearInterval(interval);
     }
-  }, [timerEnabled, showQuestionFeedback, showIntro, showFinalResults]);
+  }, [timerEnabled, showQuestionFeedback, showStudyContent, showFinalResults]);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -81,22 +122,16 @@ const BlurPractice = () => {
     return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
   };
 
-  const extractBriefContent = (html: string) => {
-    // Extract first subsection or first few paragraphs for preview
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-    const firstSubsection = doc.querySelector('.subsection');
-    if (firstSubsection) {
-      const heading = firstSubsection.querySelector('.subsection-heading')?.textContent || '';
-      const definition = firstSubsection.querySelector('.definition-block')?.textContent || '';
-      const keyFacts = firstSubsection.querySelector('.key-facts-block')?.textContent || '';
-      return { heading, definition, keyFacts: keyFacts.substring(0, 300) + '...' };
-    }
-    return { heading: '', definition: '', keyFacts: '' };
+  const toggleSection = (sectionId: string) => {
+    setExpandedSections((prev) =>
+      prev.includes(sectionId)
+        ? prev.filter((id) => id !== sectionId)
+        : [...prev, sectionId]
+    );
   };
 
   const handleStartPractice = () => {
-    setShowIntro(false);
+    setShowStudyContent(false);
   };
 
   const handleSubmit = () => {
@@ -109,14 +144,16 @@ const BlurPractice = () => {
       return;
     }
 
-    if (!subsection || !currentPrompt) return;
+    if (!currentPrompt) return;
 
     // Question-specific keyword scoring
     const answerLower = userAnswer.toLowerCase();
     const found: string[] = [];
     const missed: string[] = [];
 
-    const keywordsToCheck = currentPrompt.expected_keywords || subsection.canonical_keywords;
+    // Collect all canonical keywords from the study subsections
+    const allKeywords = studySubsections.flatMap(s => s.canonical_keywords);
+    const keywordsToCheck = currentPrompt.expected_keywords || allKeywords;
 
     keywordsToCheck.forEach((keyword) => {
       if (answerLower.includes(keyword.toLowerCase())) {
@@ -126,7 +163,7 @@ const BlurPractice = () => {
       }
     });
 
-    // Generate personalized feedback based on topic coverage
+    // Generate personalized feedback
     const feedback: string[] = [];
     
     if (currentPrompt.feedback_guidance && currentPrompt.feedback_guidance.topic_coverage) {
@@ -138,17 +175,13 @@ const BlurPractice = () => {
         const coveragePercent = topicKeywordsFound.length / topicGuide.required_keywords.length;
         
         if (coveragePercent === 0) {
-          // Missing entire topic
           feedback.push(topicGuide.feedback_if_missing);
         } else if (coveragePercent < 0.7) {
-          // Partial coverage
           feedback.push(topicGuide.feedback_if_partial);
         }
-        // If > 70% coverage, topic is good - no feedback needed
       });
     }
 
-    // Add general encouragement if answer is strong
     if (found.length / keywordsToCheck.length >= 0.8) {
       feedback.unshift("✅ **Great work!** Your answer covers most of the key concepts comprehensively.");
     }
@@ -162,7 +195,6 @@ const BlurPractice = () => {
     setPersonalizedFeedback(feedback);
     setShowQuestionFeedback(true);
 
-    // Save result
     const result: QuestionResult = {
       questionIndex: currentQuestionIndex,
       prompt: currentPrompt.prompt_template,
@@ -173,21 +205,17 @@ const BlurPractice = () => {
     };
     setQuestionResults([...questionResults, result]);
 
-    // Stop timer
     if (timerInterval) {
       clearInterval(timerInterval);
     }
   };
 
   const handleNextQuestion = () => {
-    if (!subsection) return;
-
     const nextIndex = currentQuestionIndex + 1;
     
-    if (nextIndex < subsection.practice_items.length) {
-      // Move to next question
+    if (nextIndex < allPracticeItems.length) {
       setCurrentQuestionIndex(nextIndex);
-      setCurrentPrompt(subsection.practice_items[nextIndex]);
+      setCurrentPrompt(allPracticeItems[nextIndex]);
       setUserAnswer("");
       setShowQuestionFeedback(false);
       setKeywordsFound([]);
@@ -195,7 +223,6 @@ const BlurPractice = () => {
       setPersonalizedFeedback([]);
       setTimeElapsed(0);
     } else {
-      // All questions completed - show final results
       setShowFinalResults(true);
     }
   };
@@ -210,7 +237,7 @@ const BlurPractice = () => {
     navigate(`/topic/${topicId}`);
   };
 
-  if (!subsection || !currentPrompt) {
+  if (studySubsections.length === 0 || !currentPrompt) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <Card className="p-8">
@@ -226,18 +253,16 @@ const BlurPractice = () => {
     );
   }
 
-  // Use question-specific keywords for scoring
-  const totalKeywords = currentPrompt?.expected_keywords?.length || subsection.canonical_keywords.length;
+  const allKeywords = studySubsections.flatMap(s => s.canonical_keywords);
+  const totalKeywords = currentPrompt?.expected_keywords?.length || allKeywords.length;
   const coveragePercent = totalKeywords > 0
     ? Math.round((keywordsFound.length / totalKeywords) * 100)
     : 0;
 
-  const progress = ((currentQuestionIndex + (showQuestionFeedback ? 1 : 0)) / subsection.practice_items.length) * 100;
+  const progress = ((currentQuestionIndex + (showQuestionFeedback ? 1 : 0)) / allPracticeItems.length) * 100;
 
-  // Intro screen with brief content
-  if (showIntro) {
-    const briefContent = extractBriefContent(subsection.content_html);
-    
+  // Study content screen
+  if (showStudyContent) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-background via-primary/5 to-secondary/5">
         <div className="container mx-auto px-4 py-8 max-w-4xl">
@@ -250,42 +275,50 @@ const BlurPractice = () => {
             <CardHeader>
               <div className="flex items-center gap-2 mb-2">
                 <BookOpen className="h-5 w-5 text-primary" />
-                <Badge variant="secondary">Preview</Badge>
+                <Badge variant="secondary">Study {studySubsections.length} Sections</Badge>
               </div>
-              <CardTitle className="text-2xl">{subsection.title}</CardTitle>
+              <CardTitle className="text-2xl">Review Before Blurting</CardTitle>
+              <p className="text-sm text-muted-foreground">
+                Read through these {studySubsections.length} related sections, then test your recall
+              </p>
             </CardHeader>
-            <CardContent className="space-y-6">
-              {briefContent.heading && (
-                <div>
-                  <h3 className="font-semibold text-lg mb-2">{briefContent.heading}</h3>
-                  <div className="p-4 bg-blue-50 dark:bg-blue-950/20 rounded-lg">
-                    <p className="text-sm">{briefContent.definition}</p>
-                  </div>
-                </div>
-              )}
+            <CardContent className="space-y-4">
+              {studySubsections.map((subsection) => (
+                <Card key={subsection.id} className="overflow-hidden">
+                  <Collapsible
+                    open={expandedSections.includes(subsection.id)}
+                    onOpenChange={() => toggleSection(subsection.id)}
+                  >
+                    <CardHeader className="cursor-pointer hover:bg-accent/50 transition-colors py-3">
+                      <CollapsibleTrigger asChild>
+                        <div className="flex items-center justify-between">
+                          <CardTitle className="text-lg">{subsection.title}</CardTitle>
+                          <ChevronDown
+                            className={`h-5 w-5 transition-transform ${
+                              expandedSections.includes(subsection.id) ? "transform rotate-180" : ""
+                            }`}
+                          />
+                        </div>
+                      </CollapsibleTrigger>
+                    </CardHeader>
 
-              {briefContent.keyFacts && (
-                <div className="p-4 bg-green-50 dark:bg-green-950/20 rounded-lg">
-                  <p className="text-sm">{briefContent.keyFacts}</p>
-                </div>
-              )}
+                    <CollapsibleContent>
+                      <CardContent className="pt-0">
+                        <SectionContent html={subsection.content_html} />
+                      </CardContent>
+                    </CollapsibleContent>
+                  </Collapsible>
+                </Card>
+              ))}
 
               <div className="p-6 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg border-l-4 border-primary">
-                <h3 className="font-semibold text-lg mb-3">📝 What's Next?</h3>
-                <ul className="space-y-2 text-sm mb-4">
-                  <li>✅ Answer <strong>{subsection.practice_items.length} blurting questions</strong></li>
-                  <li>✅ Get instant feedback on each answer</li>
-                  <li>✅ See your overall score at the end</li>
-                  <li>✅ Identify areas to review</li>
-                </ul>
+                <h3 className="font-semibold text-lg mb-3">✍️ Ready to Blur?</h3>
+                <p className="text-sm mb-4">
+                  You'll answer <strong>{allPracticeItems.length} questions</strong> about these {studySubsections.length} sections. 
+                  Each question will test different aspects of what you just studied.
+                </p>
                 <Button onClick={handleStartPractice} size="lg" className="w-full">
                   Start Blurting Practice →
-                </Button>
-              </div>
-
-              <div className="text-center">
-                <Button variant="link" onClick={() => navigate(`/topic/${topicId}`)}>
-                  View full notes first
                 </Button>
               </div>
             </CardContent>
@@ -307,15 +340,17 @@ const BlurPractice = () => {
               <div className="flex justify-center mb-4">
                 <CheckCircle className="h-16 w-16 text-green-500" />
               </div>
-              <CardTitle className="text-3xl mb-2">Subsection Complete! 🎉</CardTitle>
-              <p className="text-muted-foreground">{subsection.title}</p>
+              <CardTitle className="text-3xl mb-2">Practice Complete! 🎉</CardTitle>
+              <p className="text-muted-foreground">
+                {studySubsections.map(s => s.title).join(" & ")}
+              </p>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="p-8 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-lg text-center">
                 <p className="text-sm text-muted-foreground mb-2">Overall Score</p>
                 <p className="text-6xl font-bold text-primary mb-2">{overallScore}%</p>
                 <p className="text-sm text-muted-foreground">
-                  Completed {questionResults.length} of {subsection.practice_items.length} questions
+                  Completed {questionResults.length} of {allPracticeItems.length} questions
                 </p>
               </div>
 
@@ -331,7 +366,7 @@ const BlurPractice = () => {
                     </div>
                     <p className="text-xs text-muted-foreground mb-2">{result.prompt}</p>
                     <div className="flex gap-4 text-xs">
-                      <span className="text-green-600">✓ {result.keywordsFound.length} found</span>
+                      <span className="text-green-600">✓ {result.keywordsFound.length} key ideas</span>
                       <span className="text-yellow-600">⚠ {result.keywordsMissed.length} missed</span>
                     </div>
                   </div>
@@ -342,30 +377,33 @@ const BlurPractice = () => {
                 <h3 className="font-semibold text-blue-700 dark:text-blue-400 mb-2">💡 Next Steps</h3>
                 <p className="text-sm mb-3">
                   {overallScore >= 80 
-                    ? "Excellent work! You've mastered this subsection. Ready for the next one?"
+                    ? "Excellent work! You've mastered these sections. Ready for the next group?"
                     : overallScore >= 60
-                    ? "Good effort! Review the missed keywords and try another subsection."
-                    : "Review the full notes and try practicing again to improve your score."}
+                    ? "Good effort! Review the missed key ideas and try another study group."
+                    : "Review the sections again and retry to improve your score."}
                 </p>
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button onClick={handleFinish} className="flex-1" size="lg">
-                  Choose Next Subsection
+                  Choose Next Section
                 </Button>
                 <Button 
                   variant="outline" 
                   onClick={() => {
                     setShowFinalResults(false);
-                    setShowIntro(true);
+                    setShowStudyContent(true);
                     setCurrentQuestionIndex(0);
-                    setCurrentPrompt(subsection.practice_items[0]);
+                    // Re-shuffle questions
+                    const shuffled = allPracticeItems.sort(() => Math.random() - 0.5);
+                    setAllPracticeItems(shuffled);
+                    setCurrentPrompt(shuffled[0]);
                     setQuestionResults([]);
                     setTimeElapsed(0);
                   }} 
                   className="flex-1"
                 >
-                  Retry This Subsection
+                  Retry (New Questions)
                 </Button>
               </div>
             </CardContent>
@@ -387,7 +425,7 @@ const BlurPractice = () => {
         <div className="mb-6">
           <div className="flex items-center justify-between mb-2">
             <h1 className="text-2xl font-bold">
-              Question {currentQuestionIndex + 1} of {subsection.practice_items.length}
+              Question {currentQuestionIndex + 1} of {allPracticeItems.length}
             </h1>
             {timerEnabled && !showQuestionFeedback && (
               <div className="flex items-center gap-2 text-sm">
@@ -397,7 +435,7 @@ const BlurPractice = () => {
             )}
           </div>
           <Progress value={progress} className="h-2" />
-          <p className="text-xs text-muted-foreground mt-2">{subsection.title}</p>
+          <p className="text-xs text-muted-foreground mt-2">{currentPrompt.subsectionTitle}</p>
         </div>
 
         <Card className="mb-6">
@@ -432,7 +470,6 @@ const BlurPractice = () => {
                   <p className="text-sm whitespace-pre-wrap">{userAnswer}</p>
                 </div>
 
-                {/* Personalized Feedback Section */}
                 {personalizedFeedback.length > 0 && (
                   <div className="p-4 bg-blue-50 dark:bg-blue-950/20 rounded-lg border-l-4 border-blue-500">
                     <h3 className="font-semibold text-blue-700 dark:text-blue-400 mb-3 flex items-center gap-2">
@@ -451,7 +488,7 @@ const BlurPractice = () => {
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="p-4 bg-green-50 dark:bg-green-950/20 rounded-lg border-l-4 border-green-500">
                     <h3 className="font-semibold text-green-700 dark:text-green-400 mb-2">
-                      ✅ Keywords Found ({keywordsFound.length})
+                      ✅ Key Ideas Covered ({keywordsFound.length})
                     </h3>
                     <div className="flex flex-wrap gap-2">
                       {keywordsFound.map((kw, idx) => (
@@ -464,7 +501,7 @@ const BlurPractice = () => {
 
                   <div className="p-4 bg-yellow-50 dark:bg-yellow-950/20 rounded-lg border-l-4 border-yellow-500">
                     <h3 className="font-semibold text-yellow-700 dark:text-yellow-400 mb-2">
-                      ⚠️ Keywords Missed ({keywordsMissed.length})
+                      ⚠️ Key Ideas Missed ({keywordsMissed.length})
                     </h3>
                     <div className="flex flex-wrap gap-2">
                       {keywordsMissed.map((kw, idx) => (
@@ -478,14 +515,14 @@ const BlurPractice = () => {
 
                 <div className="p-6 bg-primary/10 rounded-lg text-center">
                   <p className="text-sm text-muted-foreground mb-2">Question Score</p>
-                  <p className="text-4xl font-bold text-primary mb-1">{coveragePercent}%</p>
+                  <p className="text-6xl font-bold text-primary mb-1">{coveragePercent}%</p>
                   <p className="text-xs text-muted-foreground">
-                    {keywordsFound.length} out of {totalKeywords} key concepts for this question
+                    {keywordsFound.length} out of {totalKeywords} key ideas covered
                   </p>
                 </div>
 
                 <Button onClick={handleNextQuestion} className="w-full" size="lg">
-                  {currentQuestionIndex < subsection.practice_items.length - 1 
+                  {currentQuestionIndex < allPracticeItems.length - 1 
                     ? "Next Question →" 
                     : "See Final Results →"}
                 </Button>

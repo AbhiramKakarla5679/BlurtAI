@@ -27,6 +27,7 @@ export interface Subsection {
   content_html: string;
   canonical_keywords: string[];
   practice_items: PracticeItem[];
+  study_group?: number; // Group 2-3 subsections together for studying
 }
 
 export interface TopicSection {
@@ -46,6 +47,7 @@ export const sectionsData: TopicSection[] = [
         id: "1-1-1-atoms-elements-compounds",
         title: "1.1.1 ATOMS, ELEMENTS AND COMPOUNDS",
         type: "content",
+        study_group: 1, // Study with 1.1.2
         content_html: `
 <div class="subsection">
   <h3 class="subsection-heading">Subsection 1 – What is an Atom?</h3>
@@ -536,6 +538,7 @@ export const sectionsData: TopicSection[] = [
         id: "1-1-2-mixtures",
         title: "1.1.2 MIXTURES",
         type: "content",
+        study_group: 1, // Study with 1.1.1
         content_html: `
 <div class="subsection">
   <h3 class="subsection-heading">Subsection 1 – What is a Mixture?</h3>
