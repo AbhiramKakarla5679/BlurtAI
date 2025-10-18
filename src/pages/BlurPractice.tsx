@@ -22,12 +22,32 @@ type InternalSubsection = {
 
 type QuestionResult = {
   questionIndex: number;
-  prompt: string;
+  question: string;
   answer: string;
-  keywordsFound: string[];
-  keywordsMissed: string[];
+  keyIdeasCovered: string[];
+  keyIdeasMissed: string[];
   score: number;
+  maxMarks: number;
   feedbackText: string;
+};
+
+type GeneratedQuestion = {
+  question: string;
+  marks: number;
+  expectedKeyPoints: string[];
+};
+
+type KnowledgeGap = {
+  topic: string;
+  issue: string;
+  recommendation: string;
+};
+
+type KnowledgeGapAnalysis = {
+  overallAssessment: string;
+  strengths: string[];
+  knowledgeGaps: KnowledgeGap[];
+  nextSteps: string[];
 };
 
 // Parse HTML to extract internal subsections
@@ -75,6 +95,11 @@ const BlurPractice = () => {
   const [expandedSections, setExpandedSections] = useState<number[]>([]);
   const [subsectionTitle, setSubsectionTitle] = useState("");
   const [canonicalKeywords, setCanonicalKeywords] = useState<string[]>([]);
+  const [generatedQuestions, setGeneratedQuestions] = useState<GeneratedQuestion[]>([]);
+  const [currentGeneratedQuestion, setCurrentGeneratedQuestion] = useState<GeneratedQuestion | null>(null);
+  const [isGeneratingQuestion, setIsGeneratingQuestion] = useState(false);
+  const [knowledgeGapAnalysis, setKnowledgeGapAnalysis] = useState<KnowledgeGapAnalysis | null>(null);
+  const [isAnalyzingGaps, setIsAnalyzingGaps] = useState(false);
 
   useEffect(() => {
     const topic = sectionsData.find((t) => t.id === topicId);
@@ -195,8 +220,69 @@ const BlurPractice = () => {
     return Math.round(coverageRatio * 100);
   };
 
-  const handleStartPractice = () => {
-    setShowStudyContent(false);
+  const handleStartPractice = async () => {
+    setIsGeneratingQuestion(true);
+    try {
+      // Generate first question
+      await generateNewQuestion();
+      setShowStudyContent(false);
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to generate question. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsGeneratingQuestion(false);
+    }
+  };
+
+  const generateNewQuestion = async () => {
+    setIsGeneratingQuestion(true);
+    try {
+      const studyContent = currentPairSubsections
+        .map(sub => {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(sub.html, 'text/html');
+          return doc.body.textContent || '';
+        })
+        .join("\n\n");
+
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/generate-questions`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          },
+          body: JSON.stringify({
+            studyContent,
+            numQuestions: 1,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to generate question");
+      }
+
+      const result = await response.json();
+      if (result.questions && result.questions.length > 0) {
+        const newQuestion = result.questions[0];
+        setCurrentGeneratedQuestion(newQuestion);
+        setGeneratedQuestions([...generatedQuestions, newQuestion]);
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to generate question. Please try again.",
+        variant: "destructive"
+      });
+      console.error("Error generating question:", error);
+    } finally {
+      setIsGeneratingQuestion(false);
+    }
   };
 
   const handleSubmit = async () => {
@@ -209,7 +295,7 @@ const BlurPractice = () => {
       return;
     }
 
-    if (!currentPrompt) return;
+    if (!currentGeneratedQuestion) return;
 
     // Show loading state
     toast({
@@ -236,10 +322,10 @@ const BlurPractice = () => {
             "Authorization": `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
           },
           body: JSON.stringify({
-            question: currentPrompt.prompt_template,
+            question: currentGeneratedQuestion.question,
             studentAnswer: userAnswer,
             expectedContent,
-            marks: currentPrompt.marks || 5,
+            marks: currentGeneratedQuestion.marks,
           }),
         }
       );
@@ -259,7 +345,6 @@ const BlurPractice = () => {
       const found = result.keyIdeasCovered || [];
       const missed = result.keyIdeasMissed || [];
       const feedback = result.feedback || "";
-      const score = Math.round((result.score / (currentPrompt.marks || 5)) * 100);
 
       setKeywordsFound(found);
       setKeywordsMissed(missed);
@@ -267,12 +352,13 @@ const BlurPractice = () => {
       setShowQuestionFeedback(true);
 
       const questionResult: QuestionResult = {
-        questionIndex: currentQuestionIndex,
-        prompt: currentPrompt.prompt_template,
+        questionIndex: questionResults.length,
+        question: currentGeneratedQuestion.question,
         answer: userAnswer,
-        keywordsFound: found,
-        keywordsMissed: missed,
-        score,
+        keyIdeasCovered: found,
+        keyIdeasMissed: missed,
+        score: result.score,
+        maxMarks: currentGeneratedQuestion.marks,
         feedbackText: feedback
       };
       setQuestionResults([...questionResults, questionResult]);
@@ -290,52 +376,97 @@ const BlurPractice = () => {
     }
   };
 
-  const handleNextQuestion = () => {
-    const nextIndex = currentQuestionIndex + 1;
+  const handleAnswerAnother = async () => {
+    setUserAnswer("");
+    setShowQuestionFeedback(false);
+    setKeywordsFound([]);
+    setKeywordsMissed([]);
+    setFeedbackText("");
+    setTimeElapsed(0);
+    await generateNewQuestion();
+  };
+
+  const handleMoveToNextSubsection = async () => {
+    // Check if there are more pairs
+    const nextPairIndex = currentPairIndex + 1;
+    const nextPairStart = nextPairIndex * 2;
     
-    if (nextIndex < allPracticeItems.length) {
-      setCurrentQuestionIndex(nextIndex);
-      setCurrentPrompt(allPracticeItems[nextIndex]);
+    if (nextPairStart < internalSubsections.length) {
+      // Move to next pair
+      const nextPair = internalSubsections.slice(nextPairStart, nextPairStart + 2);
+      setCurrentPairIndex(nextPairIndex);
+      setCurrentPairSubsections(nextPair);
+      setShowStudyContent(true);
+      setCurrentQuestionIndex(0);
       setUserAnswer("");
       setShowQuestionFeedback(false);
-      setKeywordsFound([]);
-      setKeywordsMissed([]);
-      setFeedbackText("");
-      setTimeElapsed(0);
+      setExpandedSections([0]);
+      setCurrentGeneratedQuestion(null);
     } else {
-      // Check if there are more pairs
-      const nextPairIndex = currentPairIndex + 1;
-      const nextPairStart = nextPairIndex * 2;
-      
-      if (nextPairStart < internalSubsections.length) {
-        // Move to next pair
-        const nextPair = internalSubsections.slice(nextPairStart, nextPairStart + 2);
-        setCurrentPairIndex(nextPairIndex);
-        setCurrentPairSubsections(nextPair);
-        setShowStudyContent(true);
-        setCurrentQuestionIndex(0);
-        setCurrentPrompt(allPracticeItems[0]);
-        setQuestionResults([]);
-        setUserAnswer("");
-        setShowQuestionFeedback(false);
-        setExpandedSections([0]);
-      } else {
-        setShowFinalResults(true);
+      // No more subsections, analyze knowledge gaps and show results
+      await analyzeKnowledgeGaps();
+      setShowFinalResults(true);
+    }
+  };
+
+  const analyzeKnowledgeGaps = async () => {
+    if (questionResults.length === 0) return;
+    
+    setIsAnalyzingGaps(true);
+    try {
+      const studyContent = currentPairSubsections
+        .map(sub => {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(sub.html, 'text/html');
+          return doc.body.textContent || '';
+        })
+        .join("\n\n");
+
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/analyze-knowledge-gaps`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          },
+          body: JSON.stringify({
+            studyContent,
+            questionResults,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to analyze knowledge gaps");
       }
+
+      const result = await response.json();
+      setKnowledgeGapAnalysis(result);
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to analyze knowledge gaps",
+        variant: "destructive"
+      });
+      console.error("Error analyzing knowledge gaps:", error);
+    } finally {
+      setIsAnalyzingGaps(false);
     }
   };
 
   const getOverallScore = () => {
     if (questionResults.length === 0) return 0;
-    const totalScore = questionResults.reduce((sum, result) => sum + result.score, 0);
-    return Math.round(totalScore / questionResults.length);
+    const totalMarks = questionResults.reduce((sum, result) => sum + result.maxMarks, 0);
+    const earnedMarks = questionResults.reduce((sum, result) => sum + result.score, 0);
+    return Math.round((earnedMarks / totalMarks) * 100);
   };
 
   const handleFinish = () => {
     navigate(`/topic/${topicId}`);
   };
 
-  if (!currentPrompt || internalSubsections.length === 0) {
+  if (internalSubsections.length === 0) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <Card className="p-8">
@@ -351,7 +482,7 @@ const BlurPractice = () => {
     );
   }
 
-  const progress = ((currentQuestionIndex + (showQuestionFeedback ? 1 : 0)) / allPracticeItems.length) * 100;
+  const progress = questionResults.length > 0 ? (questionResults.length / (questionResults.length + 1)) * 100 : 0;
   const totalPairs = Math.ceil(internalSubsections.length / 2);
 
   // Study content screen
@@ -412,11 +543,16 @@ const BlurPractice = () => {
               <div className="p-6 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg border-l-4 border-primary">
                 <h3 className="font-semibold text-lg mb-3">✍️ Ready to Blur?</h3>
                 <p className="text-sm mb-4">
-                  You'll answer <strong>{allPracticeItems.length} questions</strong> about what you just studied. 
-                  Each question will test different aspects of these sections.
+                  AI will generate unique exam-style questions about what you just studied. 
+                  Answer as many as you like before moving on!
                 </p>
-                <Button onClick={handleStartPractice} size="lg" className="w-full">
-                  Start Blurting Practice →
+                <Button 
+                  onClick={handleStartPractice} 
+                  size="lg" 
+                  className="w-full"
+                  disabled={isGeneratingQuestion}
+                >
+                  {isGeneratingQuestion ? "Generating Question..." : "Start Blurting Practice →"}
                 </Button>
               </div>
             </CardContent>
@@ -448,9 +584,65 @@ const BlurPractice = () => {
                 <p className="text-sm text-muted-foreground mb-2">Overall Score</p>
                 <p className="text-6xl font-bold text-primary mb-2">{overallScore}%</p>
                 <p className="text-sm text-muted-foreground">
-                  Completed {questionResults.length} of {allPracticeItems.length} questions
+                  Answered {questionResults.length} questions
                 </p>
               </div>
+
+              {isAnalyzingGaps ? (
+                <div className="p-6 text-center">
+                  <p className="text-muted-foreground">AI is analyzing your knowledge gaps...</p>
+                </div>
+              ) : knowledgeGapAnalysis && (
+                <div className="space-y-6">
+                  <div className="p-6 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-lg border-l-4 border-blue-500">
+                    <h3 className="font-semibold text-lg mb-3">📊 Overall Assessment</h3>
+                    <p className="text-sm">{knowledgeGapAnalysis.overallAssessment}</p>
+                  </div>
+
+                  {knowledgeGapAnalysis.strengths.length > 0 && (
+                    <div className="p-6 bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-lg border-l-4 border-green-500">
+                      <h3 className="font-semibold text-lg mb-3">✅ Your Strengths</h3>
+                      <ul className="space-y-2">
+                        {knowledgeGapAnalysis.strengths.map((strength, idx) => (
+                          <li key={idx} className="text-sm flex items-start gap-2">
+                            <span className="text-green-500 mt-1">•</span>
+                            <span>{strength}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {knowledgeGapAnalysis.knowledgeGaps.length > 0 && (
+                    <div className="p-6 bg-gradient-to-r from-orange-500/10 to-red-500/10 rounded-lg border-l-4 border-orange-500">
+                      <h3 className="font-semibold text-lg mb-4">🎯 Knowledge Gaps to Address</h3>
+                      <div className="space-y-4">
+                        {knowledgeGapAnalysis.knowledgeGaps.map((gap, idx) => (
+                          <div key={idx} className="bg-background/50 p-4 rounded-lg">
+                            <h4 className="font-semibold text-sm mb-2">{gap.topic}</h4>
+                            <p className="text-sm text-muted-foreground mb-2">{gap.issue}</p>
+                            <p className="text-sm text-primary">💡 {gap.recommendation}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {knowledgeGapAnalysis.nextSteps.length > 0 && (
+                    <div className="p-6 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-lg border-l-4 border-purple-500">
+                      <h3 className="font-semibold text-lg mb-3">📝 Next Steps</h3>
+                      <ul className="space-y-2">
+                        {knowledgeGapAnalysis.nextSteps.map((step, idx) => (
+                          <li key={idx} className="text-sm flex items-start gap-2">
+                            <span className="text-purple-500 mt-1">{idx + 1}.</span>
+                            <span>{step}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              )}
 
               <div className="space-y-3">
                 <h3 className="font-semibold text-lg">Question Breakdown:</h3>
@@ -458,14 +650,14 @@ const BlurPractice = () => {
                   <div key={idx} className="p-4 bg-muted rounded-lg">
                     <div className="flex items-center justify-between mb-2">
                       <p className="font-medium text-sm">Question {idx + 1}</p>
-                      <Badge variant={result.score >= 75 ? "default" : result.score >= 55 ? "secondary" : "destructive"}>
-                        {result.score}%
+                      <Badge variant={result.score >= result.maxMarks * 0.75 ? "default" : result.score >= result.maxMarks * 0.5 ? "secondary" : "destructive"}>
+                        {result.score}/{result.maxMarks} marks
                       </Badge>
                     </div>
-                    <p className="text-xs text-muted-foreground mb-2">{result.prompt}</p>
+                    <p className="text-xs text-muted-foreground mb-2">{result.question}</p>
                     <div className="flex gap-4 text-xs">
-                      <span className="text-green-600">✓ {result.keywordsFound.length} key ideas</span>
-                      <span className="text-yellow-600">⚠ {result.keywordsMissed.length} missed</span>
+                      <span className="text-green-600">✓ {result.keyIdeasCovered.length} key ideas</span>
+                      <span className="text-yellow-600">⚠ {result.keyIdeasMissed.length} missed</span>
                     </div>
                   </div>
                 ))}
@@ -491,10 +683,10 @@ const BlurPractice = () => {
                   onClick={() => {
                     setShowFinalResults(false);
                     setShowStudyContent(true);
-                    setCurrentQuestionIndex(0);
-                    setCurrentPrompt(allPracticeItems[0]);
                     setQuestionResults([]);
                     setTimeElapsed(0);
+                    setCurrentGeneratedQuestion(null);
+                    setKnowledgeGapAnalysis(null);
                   }} 
                   className="flex-1"
                 >
@@ -520,7 +712,7 @@ const BlurPractice = () => {
         <div className="mb-6">
           <div className="flex items-center justify-between mb-2">
             <h1 className="text-2xl font-bold">
-              Question {currentQuestionIndex + 1} of {allPracticeItems.length}
+              Question {questionResults.length + 1}
             </h1>
             {timerEnabled && !showQuestionFeedback && (
               <div className="flex items-center gap-2 text-sm">
@@ -535,111 +727,125 @@ const BlurPractice = () => {
           </p>
         </div>
 
-        <Card className="mb-6">
-          <CardHeader>
-            <div className="flex items-center gap-2">
-              <Badge variant={currentPrompt.type === "open" ? "default" : "secondary"}>
-                {currentPrompt.type === "open" ? "Open-Ended" : "Short Answer"}
-              </Badge>
-              <Badge variant="outline">{currentPrompt.difficulty}</Badge>
-              <Badge variant="default" className="bg-primary">{currentPrompt.marks} marks</Badge>
-            </div>
-            <CardTitle className="text-xl mt-4">{currentPrompt.prompt_template}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {!showQuestionFeedback ? (
-              <div className="space-y-4">
-                <Textarea
-                  value={userAnswer}
-                  onChange={(e) => setUserAnswer(e.target.value)}
-                  placeholder="Write everything you remember here..."
-                  className="min-h-[300px] text-base"
-                  autoFocus
-                />
-                <Button onClick={handleSubmit} className="w-full" size="lg">
-                  <Send className="mr-2 h-4 w-4" />
-                  Submit Answer
-                </Button>
+        {!currentGeneratedQuestion ? (
+          <Card className="p-8 text-center">
+            <p className="text-muted-foreground">Generating question...</p>
+          </Card>
+        ) : (
+          <Card className="mb-6">
+            <CardHeader>
+              <div className="flex items-center gap-2">
+                <Badge variant="default">AI Generated</Badge>
+                <Badge variant="default" className="bg-primary">{currentGeneratedQuestion.marks} marks</Badge>
               </div>
-            ) : (
-              <div className="space-y-6">
-                <div className="p-4 bg-muted rounded-lg">
-                  <h3 className="font-semibold mb-2">Your Answer:</h3>
-                  <p className="text-sm whitespace-pre-wrap">{userAnswer}</p>
+              <CardTitle className="text-xl mt-4">{currentGeneratedQuestion.question}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {!showQuestionFeedback ? (
+                <div className="space-y-4">
+                  <Textarea
+                    value={userAnswer}
+                    onChange={(e) => setUserAnswer(e.target.value)}
+                    placeholder="Write everything you remember here..."
+                    className="min-h-[300px] text-base"
+                    autoFocus
+                  />
+                  <Button onClick={handleSubmit} className="w-full" size="lg">
+                    <Send className="mr-2 h-4 w-4" />
+                    Submit Answer
+                  </Button>
                 </div>
-
-                {feedbackText && (
-                  <div className="p-4 bg-blue-50 dark:bg-blue-950/20 rounded-lg border-l-4 border-blue-500">
-                    <h3 className="font-semibold text-blue-700 dark:text-blue-400 mb-3 flex items-center gap-2">
-                      💡 Feedback on Your Answer
-                    </h3>
-                    <div className="space-y-3 text-sm">
-                      {feedbackText.split('\n\n').map((paragraph, idx) => (
-                        <p key={idx} dangerouslySetInnerHTML={{ __html: paragraph.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="p-4 bg-green-50 dark:bg-green-950/20 rounded-lg border-l-4 border-green-500">
-                    <h3 className="font-semibold text-green-700 dark:text-green-400 mb-2">
-                      ✅ Key Ideas Covered ({keywordsFound.length})
-                    </h3>
-                    <div className="flex flex-wrap gap-2">
-                      {keywordsFound.slice(0, 8).map((kw, idx) => (
-                        <Badge key={idx} variant="outline" className="bg-green-100 dark:bg-green-900/30 text-xs">
-                          {kw}
-                        </Badge>
-                      ))}
-                      {keywordsFound.length > 8 && (
-                        <Badge variant="outline" className="bg-green-100 dark:bg-green-900/30 text-xs">
-                          +{keywordsFound.length - 8} more
-                        </Badge>
-                      )}
-                    </div>
+              ) : (
+                <div className="space-y-6">
+                  <div className="p-4 bg-muted rounded-lg">
+                    <h3 className="font-semibold mb-2">Your Answer:</h3>
+                    <p className="text-sm whitespace-pre-wrap">{userAnswer}</p>
                   </div>
 
-                  <div className="p-4 bg-yellow-50 dark:bg-yellow-950/20 rounded-lg border-l-4 border-yellow-500">
-                    <h3 className="font-semibold text-yellow-700 dark:text-yellow-400 mb-2">
-                      ⚠️ Key Ideas Missed ({keywordsMissed.length})
-                    </h3>
-                    <div className="flex flex-wrap gap-2">
-                      {keywordsMissed.slice(0, 8).map((kw, idx) => (
-                        <Badge key={idx} variant="outline" className="bg-yellow-100 dark:bg-yellow-900/30 text-xs">
-                          {kw}
-                        </Badge>
-                      ))}
-                      {keywordsMissed.length > 8 && (
-                        <Badge variant="outline" className="bg-yellow-100 dark:bg-yellow-900/30 text-xs">
-                          +{keywordsMissed.length - 8} more
-                        </Badge>
-                      )}
+                  {feedbackText && (
+                    <div className="p-4 bg-blue-50 dark:bg-blue-950/20 rounded-lg border-l-4 border-blue-500">
+                      <h3 className="font-semibold text-blue-700 dark:text-blue-400 mb-3 flex items-center gap-2">
+                        💡 AI Feedback on Your Answer
+                      </h3>
+                      <div className="space-y-3 text-sm">
+                        {feedbackText.split('\n\n').map((paragraph, idx) => (
+                          <p key={idx} dangerouslySetInnerHTML={{ __html: paragraph.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="p-4 bg-green-50 dark:bg-green-950/20 rounded-lg border-l-4 border-green-500">
+                      <h3 className="font-semibold text-green-700 dark:text-green-400 mb-2">
+                        ✅ Key Ideas Covered ({keywordsFound.length})
+                      </h3>
+                      <div className="flex flex-wrap gap-2">
+                        {keywordsFound.slice(0, 8).map((kw, idx) => (
+                          <Badge key={idx} variant="outline" className="bg-green-100 dark:bg-green-900/30 text-xs">
+                            {kw}
+                          </Badge>
+                        ))}
+                        {keywordsFound.length > 8 && (
+                          <Badge variant="outline" className="bg-green-100 dark:bg-green-900/30 text-xs">
+                            +{keywordsFound.length - 8} more
+                          </Badge>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="p-4 bg-yellow-50 dark:bg-yellow-950/20 rounded-lg border-l-4 border-yellow-500">
+                      <h3 className="font-semibold text-yellow-700 dark:text-yellow-400 mb-2">
+                        ⚠️ Key Ideas Missed ({keywordsMissed.length})
+                      </h3>
+                      <div className="flex flex-wrap gap-2">
+                        {keywordsMissed.slice(0, 8).map((kw, idx) => (
+                          <Badge key={idx} variant="outline" className="bg-yellow-100 dark:bg-yellow-900/30 text-xs">
+                            {kw}
+                          </Badge>
+                        ))}
+                        {keywordsMissed.length > 8 && (
+                          <Badge variant="outline" className="bg-yellow-100 dark:bg-yellow-900/30 text-xs">
+                            +{keywordsMissed.length - 8} more
+                          </Badge>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <div className="p-6 bg-primary/10 rounded-lg text-center">
-                  <p className="text-sm text-muted-foreground mb-2">Question Score</p>
-                  <p className="text-6xl font-bold text-primary mb-1">
-                    {calculateScore(keywordsFound, keywordsMissed)}%
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    Based on {keywordsFound.length} key ideas covered vs {keywordsMissed.length} missed
-                  </p>
-                </div>
+                  <div className="p-6 bg-primary/10 rounded-lg text-center">
+                    <p className="text-sm text-muted-foreground mb-2">Question Score</p>
+                    <p className="text-6xl font-bold text-primary mb-1">
+                      {Math.round((questionResults[questionResults.length - 1]?.score / questionResults[questionResults.length - 1]?.maxMarks) * 100) || 0}%
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {questionResults[questionResults.length - 1]?.score || 0}/{questionResults[questionResults.length - 1]?.maxMarks || 0} marks
+                    </p>
+                  </div>
 
-                <Button onClick={handleNextQuestion} className="w-full" size="lg">
-                  {currentQuestionIndex < allPracticeItems.length - 1 
-                    ? "Next Question →" 
-                    : currentPairIndex * 2 + 2 < internalSubsections.length
-                    ? "Next Pair of Sections →"
-                    : "See Final Results →"}
-                </Button>
-              </div>
-            )}
-          </CardContent>
-        </Card>
+                  <div className="flex gap-3">
+                    <Button 
+                      onClick={handleAnswerAnother} 
+                      className="flex-1" 
+                      size="lg"
+                      disabled={isGeneratingQuestion}
+                    >
+                      {isGeneratingQuestion ? "Generating..." : "Answer Another Question"}
+                    </Button>
+                    <Button 
+                      onClick={handleMoveToNextSubsection} 
+                      variant="secondary"
+                      className="flex-1" 
+                      size="lg"
+                    >
+                      Move to Next Subsection →
+                    </Button>
+                  </div>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        )}
       </div>
     </div>
   );
