@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { BookOpen, Clock, TrendingUp, LogOut } from "lucide-react";
+import { BookOpen, Clock, TrendingUp, LogOut, Calendar, Settings as SettingsIcon, HelpCircle } from "lucide-react";
 import { toast } from "sonner";
 
 interface Profile {
@@ -100,7 +100,7 @@ const Dashboard = () => {
           </Button>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-3 mb-8 animate-slide-up">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-8 animate-slide-up">
           <Card className="hover:shadow-md transition-shadow cursor-pointer" onClick={() => navigate("/sections")}>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -129,7 +129,7 @@ const Dashboard = () => {
             </CardContent>
           </Card>
 
-          <Card className="hover:shadow-md transition-shadow">
+          <Card className="hover:shadow-md transition-shadow cursor-pointer" onClick={() => navigate("/progress")}>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <TrendingUp className="h-5 w-5 text-accent" />
@@ -138,9 +138,46 @@ const Dashboard = () => {
               <CardDescription>Track your improvement</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">
-                {recentScores.length > 0 ? `${recentScores.length} attempts` : "Start now!"}
-              </div>
+              <Button variant="outline" className="w-full">View Analytics</Button>
+            </CardContent>
+          </Card>
+
+          <Card className="hover:shadow-md transition-shadow cursor-pointer" onClick={() => navigate("/review")}>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Calendar className="h-5 w-5 text-primary" />
+                Review Schedule
+              </CardTitle>
+              <CardDescription>Spaced repetition</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button variant="outline" className="w-full">See Recommendations</Button>
+            </CardContent>
+          </Card>
+
+          <Card className="hover:shadow-md transition-shadow cursor-pointer" onClick={() => navigate("/settings")}>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <SettingsIcon className="h-5 w-5 text-muted-foreground" />
+                Settings
+              </CardTitle>
+              <CardDescription>Preferences & profile</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button variant="outline" className="w-full">Manage Account</Button>
+            </CardContent>
+          </Card>
+
+          <Card className="hover:shadow-md transition-shadow cursor-pointer" onClick={() => navigate("/help")}>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <HelpCircle className="h-5 w-5 text-muted-foreground" />
+                Help & Guide
+              </CardTitle>
+              <CardDescription>How to use ChemBlur</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button variant="outline" className="w-full">Learn More</Button>
             </CardContent>
           </Card>
         </div>
