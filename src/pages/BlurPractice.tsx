@@ -738,7 +738,23 @@ const BlurPractice = () => {
                 <Badge variant="default">AI Generated</Badge>
                 <Badge variant="default" className="bg-primary">{currentGeneratedQuestion.marks} marks</Badge>
               </div>
-              <CardTitle className="text-xl mt-4">{currentGeneratedQuestion.question}</CardTitle>
+              <div className="mt-4">
+                <h3 className="text-sm font-bold text-primary mb-3 uppercase tracking-wide">Exam Question</h3>
+                <div className="text-lg leading-relaxed space-y-2">
+                  {currentGeneratedQuestion.question.split(/(?=\([a-z]\))/).map((part, idx) => {
+                    const match = part.match(/^\(([a-z])\)\s*(.*)/);
+                    if (match) {
+                      return (
+                        <div key={idx} className="pl-4">
+                          <span className="font-semibold text-primary">{match[1]}) </span>
+                          <span>{match[2]}</span>
+                        </div>
+                      );
+                    }
+                    return <div key={idx} className="font-medium">{part}</div>;
+                  })}
+                </div>
+              </div>
             </CardHeader>
             <CardContent>
               {!showQuestionFeedback ? (

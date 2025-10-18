@@ -905,6 +905,331 @@ export const sectionsData: TopicSection[] = [
         ]
       },
       {
+        id: "1-1-5-size-mass",
+        title: "1.1.5 SIZE AND MASS OF ATOMS",
+        type: "content",
+        content_html: `
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 1 – The Size of Atoms</h3>
+  <div class="key-facts-block">
+    <h4>🧠 Key Facts</h4>
+    <ul>
+      <li>Atoms are extremely small — radius ≈ 1 × 10⁻¹⁰ m (0.1 nanometres)</li>
+      <li>The nucleus is about 1 × 10⁻¹⁴ m, roughly 10,000 times smaller than the atom itself</li>
+      <li>Almost all of an atom is empty space</li>
+    </ul>
+  </div>
+  <div class="example-block">
+    <h4>🟢 Visual Idea</h4>
+    <p>If the atom were the size of a football stadium → the nucleus would be the size of a pea at the centre.</p>
+  </div>
+  <div class="exam-tip-block">
+    <h4>🧠 Exam Tip</h4>
+    <p>Always include both atomic and nucleus radii if asked for a comparison.</p>
+  </div>
+</div>
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 2 – The Mass of an Atom</h3>
+  <div class="key-facts-block">
+    <h4>🧠 Key Points</h4>
+    <p>Most of an atom's mass is concentrated in the nucleus, which contains protons and neutrons.</p>
+    <p>Electrons have a negligible mass compared to nucleons.</p>
+  </div>
+  <div class="example-block">
+    <table class="data-table">
+      <thead><tr><th>Particle</th><th>Relative Mass</th></tr></thead>
+      <tbody>
+        <tr><td>Proton</td><td>1</td></tr>
+        <tr><td>Neutron</td><td>1</td></tr>
+        <tr><td>Electron</td><td>Very small (≈1/1836)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 3 – Isotopes</h3>
+  <div class="definition-block">
+    <h4>🔵 Definition</h4>
+    <p>Isotopes are atoms of the same element that have the same number of protons but different numbers of neutrons.</p>
+  </div>
+  <div class="example-block">
+    <h4>🟢 Example: Hydrogen Isotopes</h4>
+    <table class="data-table">
+      <thead><tr><th>Isotope</th><th>Protons</th><th>Neutrons</th><th>Electrons</th></tr></thead>
+      <tbody>
+        <tr><td>Hydrogen-1 (¹₁H)</td><td>1</td><td>0</td><td>1</td></tr>
+        <tr><td>Deuterium (²₁H)</td><td>1</td><td>1</td><td>1</td></tr>
+        <tr><td>Tritium (³₁H)</td><td>1</td><td>2</td><td>1</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+        `,
+        canonical_keywords: ["atomic radius", "nucleus", "10⁻¹⁰", "10⁻¹⁴", "isotopes", "neutrons", "mass", "empty space"],
+        practice_items: [
+          {
+            id: "size-mass-1",
+            prompt_template: "State the approximate radius of an atom and the radius of its nucleus. [2 marks]",
+            marks: 2,
+            type: "short-answer",
+            difficulty: "easy",
+            randomise: false,
+            expected_keywords: ["1 × 10⁻¹⁰", "atom", "1 × 10⁻¹⁴", "nucleus"]
+          },
+          {
+            id: "size-mass-2",
+            prompt_template: "Explain why isotopes of the same element have the same chemical properties but different physical properties. [4 marks]",
+            marks: 4,
+            type: "open",
+            difficulty: "hard",
+            randomise: false,
+            expected_keywords: ["same protons", "same electrons", "chemical", "different neutrons", "different mass", "physical"]
+          }
+        ]
+      },
+      {
+        id: "1-1-6-relative-atomic-mass",
+        title: "1.1.6 RELATIVE ATOMIC MASS (Aᵣ)",
+        type: "content",
+        content_html: `
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 1 – What is Relative Atomic Mass?</h3>
+  <div class="definition-block">
+    <h4>🔵 Definition</h4>
+    <p>The relative atomic mass (Aᵣ) of an element is the average mass of all its isotopes, weighted according to their abundance, compared with 1/12 of the mass of a carbon-12 atom.</p>
+  </div>
+  <div class="key-facts-block">
+    <h4>🧠 Key Ideas</h4>
+    <ul>
+      <li>Elements often exist as mixtures of isotopes</li>
+      <li>The relative atomic mass is not a whole number because it's an average</li>
+      <li>Carbon-12 is used as the standard reference atom</li>
+    </ul>
+  </div>
+  <div class="example-block">
+    <h4>🟢 Example</h4>
+    <p>Chlorine has two main isotopes: ³⁵Cl (abundance 75%) and ³⁷Cl (abundance 25%)</p>
+    <p>Its average atomic mass (Aᵣ) = 35.5, not 35 or 37, because it's a weighted mean.</p>
+  </div>
+</div>
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 2 – Formula for Calculating Aᵣ</h3>
+  <div class="definition-block">
+    <h4>🔴 Equation</h4>
+    <p>Aᵣ = [(mass of isotope₁ × % abundance₁) + (mass of isotope₂ × % abundance₂)] ÷ 100</p>
+  </div>
+  <div class="example-block">
+    <h4>🟢 Worked Example</h4>
+    <p><strong>Question:</strong> A sample of rubidium contains 72% of Rb-85 and 28% of Rb-87. Calculate Aᵣ.</p>
+    <p><strong>Solution:</strong></p>
+    <p>Aᵣ = [(85 × 72) + (87 × 28)] ÷ 100</p>
+    <p>Aᵣ = [6120 + 2436] ÷ 100 = 85.56</p>
+    <p><strong>Answer:</strong> Aᵣ = 85.6</p>
+  </div>
+  <div class="exam-tip-block">
+    <h4>🧠 Exam Tip</h4>
+    <p>Always multiply each mass by its % abundance, then divide by 100. Round only at the end.</p>
+  </div>
+</div>
+        `,
+        canonical_keywords: ["relative atomic mass", "Aᵣ", "isotopes", "abundance", "weighted average", "carbon-12"],
+        practice_items: [
+          {
+            id: "ar-1",
+            prompt_template: "Define relative atomic mass. [2 marks]",
+            marks: 2,
+            type: "short-answer",
+            difficulty: "easy",
+            randomise: false,
+            expected_keywords: ["average mass", "isotopes", "abundance", "carbon-12"]
+          },
+          {
+            id: "ar-2",
+            prompt_template: "A sample of copper contains 69% of ⁶³Cu and 31% of ⁶⁵Cu. Calculate the relative atomic mass. Show your working. [3 marks]",
+            marks: 3,
+            type: "open",
+            difficulty: "medium",
+            randomise: false,
+            expected_keywords: ["63", "69", "65", "31", "multiply", "divide", "100", "63.62"]
+          }
+        ]
+      },
+      {
+        id: "1-1-7-electronic-structure",
+        title: "1.1.7 ELECTRONIC STRUCTURE",
+        type: "content",
+        content_html: `
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 1 – How Electrons Fill Energy Levels</h3>
+  <div class="definition-block">
+    <h4>🔵 Key Concept</h4>
+    <p>Electrons orbit the nucleus in regions called energy levels (or shells). Each shell can hold a limited number of electrons.</p>
+  </div>
+  <div class="example-block">
+    <table class="data-table">
+      <thead><tr><th>Shell</th><th>Maximum Electrons</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>1st (closest to nucleus)</td><td>2</td><td>Lowest energy level</td></tr>
+        <tr><td>2nd</td><td>8</td><td>Next energy level</td></tr>
+        <tr><td>3rd</td><td>8</td><td>Fills up after 2nd for the first 20 elements</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="key-facts-block">
+    <h4>🧠 Key Rule</h4>
+    <p>Electrons fill the lowest available energy level first, before moving to higher ones.</p>
+    <p><strong>Example:</strong> Magnesium (atomic number 12) → 2,8,2</p>
+  </div>
+</div>
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 2 – Writing Electronic Configurations</h3>
+  <div class="definition-block">
+    <h4>🔵 What is Electronic Configuration?</h4>
+    <p>It's a shorthand way to describe how electrons are arranged in shells.</p>
+  </div>
+  <div class="example-block">
+    <h4>🟢 Examples</h4>
+    <p>Sodium (Na, Z = 11): 2,8,1</p>
+    <p>Chlorine (Cl, Z = 17): 2,8,7</p>
+    <p>Calcium (Ca, Z = 20): 2,8,8,2</p>
+  </div>
+  <div class="exam-tip-block">
+    <h4>🧠 How to Write Configurations</h4>
+    <ul>
+      <li>Find atomic number → number of electrons</li>
+      <li>Fill shells in order: 2,8,8,2 (up to element 20)</li>
+      <li>Separate numbers with commas</li>
+    </ul>
+  </div>
+</div>
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 3 – Electronic Structure and the Periodic Table</h3>
+  <div class="key-facts-block">
+    <h4>🧠 Key Points</h4>
+    <ul>
+      <li>Group number = number of outer shell electrons</li>
+      <li>Period number = number of shells used</li>
+      <li>Outer electrons control chemical reactivity</li>
+    </ul>
+  </div>
+  <div class="example-block">
+    <table class="data-table">
+      <thead><tr><th>Group</th><th>Outer Electrons</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>1</td><td>Sodium (Na): 2,8,1</td></tr>
+        <tr><td>2</td><td>2</td><td>Magnesium (Mg): 2,8,2</td></tr>
+        <tr><td>7</td><td>7</td><td>Chlorine (Cl): 2,8,7</td></tr>
+        <tr><td>0 (8)</td><td>8 (full)</td><td>Neon (Ne): 2,8</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+        `,
+        canonical_keywords: ["electronic structure", "shells", "energy levels", "configuration", "2,8,8", "outer electrons", "group"],
+        practice_items: [
+          {
+            id: "electronic-1",
+            prompt_template: "Write the electronic configuration for aluminium (atomic number 13). [1 mark]",
+            marks: 1,
+            type: "short-answer",
+            difficulty: "easy",
+            randomise: false,
+            expected_keywords: ["2,8,3"]
+          },
+          {
+            id: "electronic-2",
+            prompt_template: "Explain the relationship between the group number and the number of outer shell electrons for elements in Groups 1-7. [2 marks]",
+            marks: 2,
+            type: "open",
+            difficulty: "medium",
+            randomise: false,
+            expected_keywords: ["group number", "same as", "outer electrons", "shell"]
+          },
+          {
+            id: "electronic-3",
+            prompt_template: "An element has the electronic configuration 2,8,7. State its group number and explain why elements in this group are reactive. [3 marks]",
+            marks: 3,
+            type: "open",
+            difficulty: "hard",
+            randomise: false,
+            expected_keywords: ["Group 7", "7 outer electrons", "need 1 more", "full shell", "gain electron"]
+          }
+        ]
+      },
+      {
+        id: "1-2-1-periodic-table",
+        title: "1.2.1 THE PERIODIC TABLE",
+        type: "content",
+        content_html: `
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 1 – Structure of the Periodic Table</h3>
+  <div class="definition-block">
+    <h4>🔵 Definition</h4>
+    <p>The Periodic Table arranges all known elements in order of increasing atomic number.</p>
+  </div>
+  <div class="key-facts-block">
+    <h4>🧠 Key Terms</h4>
+    <ul>
+      <li><strong>Groups:</strong> Vertical columns (numbered 1-7 and 0)</li>
+      <li><strong>Periods:</strong> Horizontal rows</li>
+      <li>Elements in the same group have similar properties</li>
+    </ul>
+  </div>
+</div>
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 2 – Why It's Called "Periodic"</h3>
+  <div class="key-facts-block">
+    <h4>🧠 Key Idea</h4>
+    <p>The table is called periodic because patterns in properties repeat at regular intervals as you go across the table.</p>
+    <ul>
+      <li>Elements in Group 1 (Li, Na, K) are all reactive metals</li>
+      <li>Elements in Group 7 (F, Cl, Br, I) are all reactive non-metals</li>
+      <li>Elements in Group 0 (He, Ne, Ar) are unreactive gases</li>
+    </ul>
+  </div>
+</div>
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 3 – Groups and Periods</h3>
+  <div class="example-block">
+    <table class="data-table">
+      <thead><tr><th>Group</th><th>Example Elements</th><th>Outer Electrons</th><th>Type</th><th>Typical Ion</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Li, Na, K</td><td>1</td><td>Metals</td><td>+1</td></tr>
+        <tr><td>2</td><td>Be, Mg, Ca</td><td>2</td><td>Metals</td><td>+2</td></tr>
+        <tr><td>7</td><td>F, Cl, Br, I</td><td>7</td><td>Non-metals</td><td>-1</td></tr>
+        <tr><td>0</td><td>He, Ne, Ar</td><td>8 (full shell)</td><td>Noble gases</td><td>None</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="exam-tip-block">
+    <h4>🧠 Exam Tip</h4>
+    <p>Remember: All Group 1 metals form compounds with Group 7 halogens in a 1:1 ratio (e.g. NaCl, KBr).</p>
+  </div>
+</div>
+        `,
+        canonical_keywords: ["periodic table", "groups", "periods", "atomic number", "properties", "metals", "non-metals", "noble gases"],
+        practice_items: [
+          {
+            id: "periodic-1",
+            prompt_template: "State what is meant by a group in the periodic table. [1 mark]",
+            marks: 1,
+            type: "short-answer",
+            difficulty: "easy",
+            randomise: false,
+            expected_keywords: ["vertical column", "same outer electrons"]
+          },
+          {
+            id: "periodic-2",
+            prompt_template: "Explain why elements in the same group have similar chemical properties. [2 marks]",
+            marks: 2,
+            type: "open",
+            difficulty: "medium",
+            randomise: false,
+            expected_keywords: ["same number", "outer electrons", "react similarly", "chemical properties"]
+          }
+        ]
+      },
+      {
         id: "1-2-5-group-1",
         title: "1.2.5 GROUP 1: THE ALKALI METALS",
         type: "content",
