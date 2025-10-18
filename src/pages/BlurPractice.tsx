@@ -3,17 +3,27 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
-import { ArrowLeft, Timer, Send, BookOpen, CheckCircle, ChevronDown } from "lucide-react";
+import { ArrowLeft, Timer, Send, BookOpen, CheckCircle, ChevronDown, Camera } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { sectionsData, PracticeItem } from "@/data/sectionsData";
 import { useToast } from "@/hooks/use-toast";
 import { Progress } from "@/components/ui/progress";
 import SectionContent from "@/components/SectionContent";
+import { AIChatbot } from "@/components/AIChatbot";
+import { PhotoUpload } from "@/components/PhotoUpload";
+import { MemorizationTimer } from "@/components/MemorizationTimer";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 type InternalSubsection = {
   title: string;
@@ -100,6 +110,13 @@ const BlurPractice = () => {
   const [isGeneratingQuestion, setIsGeneratingQuestion] = useState(false);
   const [knowledgeGapAnalysis, setKnowledgeGapAnalysis] = useState<KnowledgeGapAnalysis | null>(null);
   const [isAnalyzingGaps, setIsAnalyzingGaps] = useState(false);
+  const [questionType, setQuestionType] = useState<"blurt" | "exam">("blurt");
+  const [showQuestionTypeSelector, setShowQuestionTypeSelector] = useState(false);
+  const [showPhotoUpload, setShowPhotoUpload] = useState(false);
+  const [photoFeedback, setPhotoFeedback] = useState<string | null>(null);
+  const [highlightedText, setHighlightedText] = useState<string>("");
+  const [showMemorizationTimer, setShowMemorizationTimer] = useState(false);
+  const [memorizationDuration, setMemorizationDuration] = useState(180); // 3 minutes default
 
   useEffect(() => {
     const topic = sectionsData.find((t) => t.id === topicId);
@@ -120,6 +137,11 @@ const BlurPractice = () => {
     setCurrentPairSubsections(firstPair);
     setExpandedSections([0]); // Auto-expand first
 
+    // Calculate memorization time based on content length
+    const contentLength = firstPair.reduce((acc, sub) => acc + sub.html.length, 0);
+    const minutes = Math.min(Math.max(Math.ceil(contentLength / 1000), 2), 5);
+    setMemorizationDuration(minutes * 60);
+
     // Get practice items for this subsection
     setAllPracticeItems(targetSubsection.practice_items);
     if (targetSubsection.practice_items.length > 0) {
@@ -138,6 +160,20 @@ const BlurPractice = () => {
       }
     };
   }, [topicId, subsectionId]);
+
+  // Text selection handler for AI chatbot
+  useEffect(() => {
+    const handleSelection = () => {
+      const selection = window.getSelection();
+      const text = selection?.toString().trim();
+      if (text && text.length > 3) {
+        setHighlightedText(text);
+      }
+    };
+
+    document.addEventListener('mouseup', handleSelection);
+    return () => document.removeEventListener('mouseup', handleSelection);
+  }, []);
 
   useEffect(() => {
     if (timerEnabled && !showQuestionFeedback && !showStudyContent && !showFinalResults) {
@@ -221,9 +257,18 @@ const BlurPractice = () => {
   };
 
   const handleStartPractice = async () => {
+    setShowQuestionTypeSelector(true);
+  };
+
+  const handleQuestionTypeSelected = async () => {
+    setShowQuestionTypeSelector(false);
+    setShowMemorizationTimer(true);
+  };
+
+  const handleMemorizationComplete = async () => {
+    setShowMemorizationTimer(false);
     setIsGeneratingQuestion(true);
     try {
-      // Generate first question
       await generateNewQuestion();
       setShowStudyContent(false);
     } catch (error) {
@@ -248,8 +293,12 @@ const BlurPractice = () => {
         })
         .join("\n\n");
 
+      const endpoint = questionType === "exam" 
+        ? "generate-varied-questions"
+        : "generate-questions";
+
       const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/generate-questions`,
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/${endpoint}`,
         {
           method: "POST",
           headers: {
@@ -258,6 +307,7 @@ const BlurPractice = () => {
           },
           body: JSON.stringify({
             studyContent,
+            questionType,
             numQuestions: 1,
           }),
         }
@@ -543,7 +593,7 @@ const BlurPractice = () => {
               <div className="p-6 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg border-l-4 border-primary">
                 <h3 className="font-semibold text-lg mb-3">✍️ Ready to Blur?</h3>
                 <p className="text-sm mb-4">
-                  AI will generate unique exam-style questions about what you just studied. 
+                  AI will generate unique questions about what you just studied. 
                   Answer as many as you like before moving on!
                 </p>
                 <Button 
@@ -555,8 +605,55 @@ const BlurPractice = () => {
                   {isGeneratingQuestion ? "Generating Question..." : "Start Blurting Practice →"}
                 </Button>
               </div>
+
+              {showQuestionTypeSelector && (
+                <Card className="border-primary shadow-lg">
+                  <CardHeader>
+                    <CardTitle>Choose Question Type</CardTitle>
+                    <p className="text-sm text-muted-foreground">
+                      Select what type of questions you'd like to practice
+                    </p>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <Select value={questionType} onValueChange={(value: "blurt" | "exam") => setQuestionType(value)}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="blurt">
+                          <div className="flex flex-col items-start">
+                            <span className="font-medium">Blurt Questions</span>
+                            <span className="text-xs text-muted-foreground">Quick recall questions to test memory</span>
+                          </div>
+                        </SelectItem>
+                        <SelectItem value="exam">
+                          <div className="flex flex-col items-start">
+                            <span className="font-medium">Exam Questions</span>
+                            <span className="text-xs text-muted-foreground">Varied AQA-style questions with mark schemes</span>
+                          </div>
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <Button onClick={handleQuestionTypeSelected} size="lg" className="w-full">
+                      Continue
+                    </Button>
+                  </CardContent>
+                </Card>
+              )}
+
+              {showMemorizationTimer && (
+                <MemorizationTimer 
+                  duration={memorizationDuration}
+                  onComplete={handleMemorizationComplete}
+                />
+              )}
             </CardContent>
           </Card>
+
+          <AIChatbot 
+            studyContent={currentPairSubsections.map(s => s.html).join('\n\n')}
+            highlightedText={highlightedText}
+          />
         </div>
       </div>
     );
@@ -766,10 +863,47 @@ const BlurPractice = () => {
                     className="min-h-[300px] text-base"
                     autoFocus
                   />
-                  <Button onClick={handleSubmit} className="w-full" size="lg">
-                    <Send className="mr-2 h-4 w-4" />
-                    Submit Answer
-                  </Button>
+                  
+                  <div className="flex items-center gap-2">
+                    <Button onClick={handleSubmit} className="flex-1" size="lg">
+                      <Send className="mr-2 h-4 w-4" />
+                      Submit Answer
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      onClick={() => setShowPhotoUpload(!showPhotoUpload)}
+                      size="lg"
+                    >
+                      <Camera className="mr-2 h-4 w-4" />
+                      Upload Photo
+                    </Button>
+                  </div>
+
+                  {showPhotoUpload && (
+                    <PhotoUpload
+                      studyContent={currentPairSubsections.map(s => s.html).join('\n\n')}
+                      questions={generatedQuestions.map(q => q.question)}
+                      onFeedbackReceived={(feedback) => {
+                        setPhotoFeedback(feedback);
+                        setShowPhotoUpload(false);
+                        toast({
+                          title: "Photo analyzed!",
+                          description: "Check the feedback below",
+                        });
+                      }}
+                    />
+                  )}
+
+                  {photoFeedback && (
+                    <Card className="border-blue-500">
+                      <CardHeader>
+                        <CardTitle className="text-lg">📸 Photo Feedback</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-sm whitespace-pre-wrap">{photoFeedback}</p>
+                      </CardContent>
+                    </Card>
+                  )}
                 </div>
               ) : (
                 <div className="space-y-6">
@@ -862,6 +996,11 @@ const BlurPractice = () => {
             </CardContent>
           </Card>
         )}
+
+        <AIChatbot 
+          studyContent={currentPairSubsections.map(s => s.html).join('\n\n')}
+          highlightedText={highlightedText}
+        />
       </div>
     </div>
   );

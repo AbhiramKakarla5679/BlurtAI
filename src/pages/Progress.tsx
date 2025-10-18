@@ -3,18 +3,23 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, TrendingUp, Target, Award } from "lucide-react";
+import { ArrowLeft, TrendingUp, Target, Award, Calendar, BarChart3 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { Progress as ProgressBar } from "@/components/ui/progress";
 
 interface Stats {
   totalAttempts: number;
   averageScore: number;
-  topicScores: { [topic: string]: { avg: number; count: number } };
+  topicScores: { [topic: string]: { avg: number; count: number; lastScore: number } };
   recentImprovement: number;
+  weeklyProgress: { week: string; avgScore: number; attempts: number }[];
+  bestStreak: number;
+  currentStreak: number;
 }
 
 interface Submission {
   score: number | null;
+  created_at: string;
   sections: {
     title: string;
     spec_tag: string;
@@ -29,6 +34,9 @@ const Progress = () => {
     averageScore: 0,
     topicScores: {},
     recentImprovement: 0,
+    weeklyProgress: [],
+    bestStreak: 0,
+    currentStreak: 0,
   });
 
   useEffect(() => {
@@ -47,6 +55,7 @@ const Progress = () => {
       .from("submissions")
       .select(`
         score,
+        created_at,
         sections (
           title,
           spec_tag
@@ -62,7 +71,7 @@ const Progress = () => {
         ? Math.round(typedSubmissions.reduce((acc, s) => acc + (s.score || 0), 0) / totalAttempts)
         : 0;
 
-      // Calculate per-topic averages
+      // Calculate per-topic scores with last attempt
       const topicScores: { [topic: string]: { scores: number[]; count: number } } = {};
       typedSubmissions.forEach((sub) => {
         if (sub.sections && sub.score !== null) {
@@ -75,13 +84,76 @@ const Progress = () => {
         }
       });
 
-      const formattedTopicScores: { [topic: string]: { avg: number; count: number } } = {};
+      const formattedTopicScores: { [topic: string]: { avg: number; count: number; lastScore: number } } = {};
       Object.entries(topicScores).forEach(([topic, data]) => {
         formattedTopicScores[topic] = {
           avg: Math.round(data.scores.reduce((a, b) => a + b, 0) / data.scores.length),
           count: data.count,
+          lastScore: data.scores[0],
         };
       });
+
+      // Calculate weekly progress (last 8 weeks)
+      const weeklyProgress: { week: string; avgScore: number; attempts: number }[] = [];
+      const now = new Date();
+      for (let i = 7; i >= 0; i--) {
+        const weekStart = new Date(now);
+        weekStart.setDate(now.getDate() - (i * 7));
+        const weekEnd = new Date(weekStart);
+        weekEnd.setDate(weekStart.getDate() + 7);
+        
+        const weekSubmissions = typedSubmissions.filter(sub => {
+          const subDate = new Date(sub.created_at);
+          return subDate >= weekStart && subDate < weekEnd;
+        });
+        
+        if (weekSubmissions.length > 0) {
+          const weekAvg = Math.round(
+            weekSubmissions.reduce((acc, s) => acc + (s.score || 0), 0) / weekSubmissions.length
+          );
+          weeklyProgress.push({
+            week: `Week ${8 - i}`,
+            avgScore: weekAvg,
+            attempts: weekSubmissions.length,
+          });
+        }
+      }
+
+      // Calculate streaks (consecutive days)
+      const dateSet = new Set(
+        typedSubmissions.map(s => new Date(s.created_at).toDateString())
+      );
+      const sortedDates = Array.from(dateSet).sort((a, b) => 
+        new Date(b).getTime() - new Date(a).getTime()
+      );
+      
+      let currentStreak = 0;
+      let bestStreak = 0;
+      let tempStreak = 0;
+      
+      for (let i = 0; i < sortedDates.length; i++) {
+        if (i === 0) {
+          tempStreak = 1;
+          const today = new Date().toDateString();
+          const yesterday = new Date(Date.now() - 86400000).toDateString();
+          if (sortedDates[0] === today || sortedDates[0] === yesterday) {
+            currentStreak = 1;
+          }
+        } else {
+          const prevDate = new Date(sortedDates[i - 1]);
+          const currDate = new Date(sortedDates[i]);
+          const diffDays = Math.floor((prevDate.getTime() - currDate.getTime()) / 86400000);
+          
+          if (diffDays === 1) {
+            tempStreak++;
+            if (i === 1) currentStreak = tempStreak;
+          } else {
+            bestStreak = Math.max(bestStreak, tempStreak);
+            tempStreak = 1;
+          }
+        }
+      }
+      bestStreak = Math.max(bestStreak, tempStreak, currentStreak);
 
       // Calculate recent improvement (last 5 vs previous 5)
       let recentImprovement = 0;
@@ -96,6 +168,9 @@ const Progress = () => {
         averageScore,
         topicScores: formattedTopicScores,
         recentImprovement,
+        weeklyProgress,
+        bestStreak,
+        currentStreak,
       });
     }
 
@@ -127,7 +202,7 @@ const Progress = () => {
           <p className="text-muted-foreground">Track your improvement and identify areas to focus on</p>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-3 mb-8">
+        <div className="grid gap-6 md:grid-cols-4 mb-8">
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -137,7 +212,7 @@ const Progress = () => {
             </CardHeader>
             <CardContent>
               <div className="text-4xl font-bold">{stats.totalAttempts}</div>
-              <p className="text-sm text-muted-foreground mt-2">Practice sessions completed</p>
+              <p className="text-sm text-muted-foreground mt-2">Practice sessions</p>
             </CardContent>
           </Card>
 
@@ -162,13 +237,56 @@ const Progress = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className={`text-4xl font-bold ${stats.recentImprovement >= 0 ? "text-green-600" : "text-red-600"}`}>
+              <div className={`text-4xl font-bold ${stats.recentImprovement >= 0 ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400"}`}>
                 {stats.recentImprovement > 0 ? "+" : ""}{stats.recentImprovement}%
               </div>
               <p className="text-sm text-muted-foreground mt-2">Last 5 vs previous 5</p>
             </CardContent>
           </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Calendar className="h-5 w-5 text-orange-600" />
+                Study Streak
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-4xl font-bold">{stats.currentStreak}</div>
+              <p className="text-sm text-muted-foreground mt-2">
+                Best: {stats.bestStreak} days
+              </p>
+            </CardContent>
+          </Card>
         </div>
+
+        {stats.weeklyProgress.length > 0 && (
+          <Card className="mb-8">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <BarChart3 className="h-5 w-5" />
+                Weekly Progress
+              </CardTitle>
+              <CardDescription>Your performance over the last 8 weeks</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {stats.weeklyProgress.map((week) => (
+                  <div key={week.week} className="space-y-2">
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="font-medium">{week.week}</span>
+                      <div className="flex items-center gap-3">
+                        <span className="text-muted-foreground">{week.attempts} attempts</span>
+                        <span className="font-bold text-primary">{week.avgScore}%</span>
+                      </div>
+                    </div>
+                    <ProgressBar value={week.avgScore} className="h-2" />
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        )}
 
         {weakestTopics.length > 0 && (
           <Card className="mb-6 border-red-200 bg-red-50/50 dark:border-red-900 dark:bg-red-950/20">
@@ -179,17 +297,20 @@ const Progress = () => {
             <CardContent>
               <div className="space-y-4">
                 {weakestTopics.map(([topic, data]) => (
-                  <div key={topic} className="flex items-center justify-between p-4 bg-background rounded-lg">
-                    <div className="flex-1">
-                      <h3 className="font-semibold">{topic}</h3>
-                      <p className="text-sm text-muted-foreground">{data.count} attempts</p>
+                  <div key={topic} className="space-y-2">
+                    <div className="flex items-center justify-between p-4 bg-background rounded-lg">
+                      <div className="flex-1">
+                        <h3 className="font-semibold">{topic}</h3>
+                        <p className="text-sm text-muted-foreground">{data.count} attempts • Last: {data.lastScore}%</p>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <div className="text-2xl font-bold text-red-600 dark:text-red-400">{data.avg}%</div>
+                        <Button size="sm" onClick={() => navigate("/sections")}>
+                          Practice
+                        </Button>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-3">
-                      <div className="text-2xl font-bold text-red-600">{data.avg}%</div>
-                      <Button size="sm" onClick={() => navigate("/sections")}>
-                        Practice
-                      </Button>
-                    </div>
+                    <ProgressBar value={data.avg} className="h-1" />
                   </div>
                 ))}
               </div>
@@ -206,14 +327,17 @@ const Progress = () => {
             <CardContent>
               <div className="space-y-4">
                 {strongestTopics.map(([topic, data]) => (
-                  <div key={topic} className="flex items-center justify-between p-4 bg-background rounded-lg">
-                    <div className="flex-1">
-                      <h3 className="font-semibold">{topic}</h3>
-                      <p className="text-sm text-muted-foreground">{data.count} attempts</p>
+                  <div key={topic} className="space-y-2">
+                    <div className="flex items-center justify-between p-4 bg-background rounded-lg">
+                      <div className="flex-1">
+                        <h3 className="font-semibold">{topic}</h3>
+                        <p className="text-sm text-muted-foreground">{data.count} attempts • Last: {data.lastScore}%</p>
+                      </div>
+                      <Badge variant="default" className="text-lg px-4 py-2 bg-green-600 dark:bg-green-700">
+                        {data.avg}%
+                      </Badge>
                     </div>
-                    <Badge variant="default" className="text-lg px-4 py-2 bg-green-600">
-                      {data.avg}%
-                    </Badge>
+                    <ProgressBar value={data.avg} className="h-1" />
                   </div>
                 ))}
               </div>
