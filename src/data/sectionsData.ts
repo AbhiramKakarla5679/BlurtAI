@@ -739,6 +739,308 @@ export const sectionsData: TopicSection[] = [
             ]
           }
         ]
+      },
+      {
+        id: "1-1-3-atomic-model",
+        title: "1.1.3 THE DEVELOPMENT OF THE ATOMIC MODEL",
+        type: "content",
+        content_html: `
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 1 – Why Scientific Models Change</h3>
+  <div class="definition-block">
+    <h4>🔵 Definition</h4>
+    <p>A scientific model is a representation or idea used to explain observations and evidence.</p>
+  </div>
+  <div class="key-facts-block">
+    <h4>🧠 Key Idea</h4>
+    <p>Models change when new experimental evidence cannot be explained by the old model.</p>
+  </div>
+</div>
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 2 – Dalton's Solid Sphere Model (1803)</h3>
+  <div class="definition-block">
+    <h4>🔵 Summary</h4>
+    <p>John Dalton proposed that all matter is made of tiny indivisible particles called atoms.</p>
+  </div>
+</div>
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 3 – Thomson's Plum Pudding Model (1897)</h3>
+  <div class="definition-block">
+    <h4>🔵 Discovery</h4>
+    <p>J. J. Thomson discovered the electron. Model: Atom = a sphere of positive charge with electrons embedded throughout.</p>
+  </div>
+</div>
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 4 – Rutherford's Nuclear Model (1909)</h3>
+  <div class="definition-block">
+    <h4>🔵 The Alpha Scattering Experiment</h4>
+    <p>Rutherford fired alpha particles at gold foil.</p>
+  </div>
+  <div class="key-facts-block">
+    <h4>🧠 Observations</h4>
+    <ul>
+      <li>Most passed straight through → Atom is mostly empty space</li>
+      <li>Some deflected → Positive charge concentrated in nucleus</li>
+      <li>A few bounced back → Nucleus is tiny but very dense</li>
+    </ul>
+  </div>
+</div>
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 5 – Bohr's Model (1913)</h3>
+  <div class="definition-block">
+    <h4>🔵 Discovery</h4>
+    <p>Electrons orbit the nucleus at fixed distances called energy levels.</p>
+  </div>
+</div>
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 6 – Chadwick's Discovery (1932)</h3>
+  <div class="definition-block">
+    <h4>🔵 Discovery</h4>
+    <p>James Chadwick discovered the neutron, completing the modern atomic model.</p>
+  </div>
+</div>
+        `,
+        canonical_keywords: ["Dalton", "Thomson", "Rutherford", "Bohr", "Chadwick", "alpha scattering", "plum pudding", "nuclear model", "electron", "neutron", "energy levels"],
+        practice_items: [
+          {
+            id: "atomic-model-1",
+            prompt_template: "Describe how the discovery of the electron led to the plum pudding model. [3 marks]",
+            marks: 3,
+            type: "open",
+            difficulty: "medium",
+            randomise: false,
+            expected_keywords: ["Thomson", "electron", "negative charge", "positive sphere", "embedded"]
+          },
+          {
+            id: "atomic-model-2",
+            prompt_template: "Explain what the alpha scattering experiment showed about the structure of the atom. Include all three key observations. [6 marks]",
+            marks: 6,
+            type: "open",
+            difficulty: "hard",
+            randomise: false,
+            expected_keywords: ["alpha particles", "gold foil", "passed through", "empty space", "deflected", "nucleus", "bounced back", "dense"]
+          },
+          {
+            id: "atomic-model-3",
+            prompt_template: "Describe Bohr's contribution to the atomic model. [3 marks]",
+            marks: 3,
+            type: "open",
+            difficulty: "medium",
+            randomise: false,
+            expected_keywords: ["Bohr", "electrons", "fixed distances", "energy levels", "shells"]
+          }
+        ]
+      },
+      {
+        id: "1-1-4-subatomic-particles",
+        title: "1.1.4 RELATIVE ELECTRICAL CHARGES",
+        type: "content",
+        content_html: `
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 1 – The Three Subatomic Particles</h3>
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr><th>Particle</th><th>Symbol</th><th>Relative Charge</th><th>Relative Mass</th><th>Location</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Proton</td><td>p⁺</td><td>+1</td><td>1</td><td>In the nucleus</td></tr>
+        <tr><td>Neutron</td><td>n⁰</td><td>0</td><td>1</td><td>In the nucleus</td></tr>
+        <tr><td>Electron</td><td>e⁻</td><td>–1</td><td>1/1836 (≈0)</td><td>In shells</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 2 – Why Atoms Are Neutral</h3>
+  <div class="definition-block">
+    <h4>🔵 Explanation</h4>
+    <p>Atoms are electrically neutral because the number of positive protons equals the number of negative electrons.</p>
+  </div>
+</div>
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 3 – Atomic Number and Mass Number</h3>
+  <div class="definition-block">
+    <h4>🔵 Definitions</h4>
+    <ul>
+      <li><strong>Atomic number (Z):</strong> Number of protons</li>
+      <li><strong>Mass number (A):</strong> Total protons + neutrons</li>
+    </ul>
+  </div>
+  <div class="example-block">
+    <h4>🟢 Example</h4>
+    <p>For chlorine-35 (³⁵₁₇Cl): Protons = 17, Neutrons = 18, Electrons = 17</p>
+  </div>
+</div>
+        `,
+        canonical_keywords: ["proton", "neutron", "electron", "charge", "mass", "nucleus", "atomic number", "mass number"],
+        practice_items: [
+          {
+            id: "subatomic-1",
+            prompt_template: "State the relative charge and relative mass of a proton, neutron, and electron. [3 marks]",
+            marks: 3,
+            type: "short-answer",
+            difficulty: "easy",
+            randomise: false,
+            expected_keywords: ["proton", "+1", "neutron", "0", "electron", "-1", "mass", "1"]
+          },
+          {
+            id: "subatomic-2",
+            prompt_template: "Explain why atoms have no overall electrical charge. [2 marks]",
+            marks: 2,
+            type: "open",
+            difficulty: "easy",
+            randomise: false,
+            expected_keywords: ["protons", "electrons", "equal", "positive", "negative", "cancel"]
+          },
+          {
+            id: "subatomic-3",
+            prompt_template: "An atom of magnesium is ²⁴₁₂Mg. Calculate the number of protons, neutrons, and electrons. [3 marks]",
+            marks: 3,
+            type: "short-answer",
+            difficulty: "medium",
+            randomise: false,
+            expected_keywords: ["protons", "12", "neutrons", "12", "electrons", "12"]
+          }
+        ]
+      },
+      {
+        id: "1-2-5-group-1",
+        title: "1.2.5 GROUP 1: THE ALKALI METALS",
+        type: "content",
+        content_html: `
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 1 – Electronic Structure</h3>
+  <div class="key-facts-block">
+    <h4>🧠 Key Facts</h4>
+    <ul>
+      <li>Each Group 1 atom has one electron in its outer shell</li>
+      <li>This outer electron is easily lost, forming a +1 ion</li>
+    </ul>
+  </div>
+</div>
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 2 – Reaction with Water</h3>
+  <div class="definition-block">
+    <h4>🔵 General Reaction</h4>
+    <p>Metal + Water → Metal Hydroxide + Hydrogen</p>
+  </div>
+  <div class="example-block">
+    <h4>🟢 Examples</h4>
+    <ul>
+      <li><strong>Lithium:</strong> Fizzes gently, moves slowly</li>
+      <li><strong>Sodium:</strong> Fizzes strongly, melts into ball, yellow flame</li>
+      <li><strong>Potassium:</strong> Violent reaction, lilac flame, explodes</li>
+    </ul>
+  </div>
+</div>
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 3 – Trend in Reactivity</h3>
+  <div class="definition-block">
+    <h4>🔵 Pattern</h4>
+    <p>Reactivity increases down the group: K > Na > Li</p>
+    <p><strong>Reason:</strong> Outer electron farther from nucleus → weaker attraction → easier to lose</p>
+  </div>
+</div>
+        `,
+        canonical_keywords: ["alkali metals", "Group 1", "lithium", "sodium", "potassium", "water", "reactivity", "outer electron", "+1 ion"],
+        practice_items: [
+          {
+            id: "group1-1",
+            prompt_template: "Describe what you would see when sodium reacts with water. Write a balanced symbol equation for this reaction. [4 marks]",
+            marks: 4,
+            type: "open",
+            difficulty: "medium",
+            randomise: false,
+            expected_keywords: ["fizzes", "yellow flame", "melts", "moves", "2Na", "2H₂O", "2NaOH", "H₂"]
+          },
+          {
+            id: "group1-2",
+            prompt_template: "Explain why potassium is more reactive than sodium. [3 marks]",
+            marks: 3,
+            type: "open",
+            difficulty: "medium",
+            randomise: false,
+            expected_keywords: ["outer electron", "further from nucleus", "weaker attraction", "easier to lose", "more shells"]
+          }
+        ]
+      },
+      {
+        id: "1-2-6-group-7",
+        title: "1.2.6 GROUP 7: THE HALOGENS",
+        type: "content",
+        content_html: `
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 1 – Introducing the Halogens</h3>
+  <div class="definition-block">
+    <h4>🔵 Key Facts</h4>
+    <ul>
+      <li>Group 7 non-metals: Fluorine, Chlorine, Bromine, Iodine</li>
+      <li>Exist as diatomic molecules (F₂, Cl₂, Br₂, I₂)</li>
+      <li>Have 7 electrons in outer shell</li>
+      <li>Very reactive with metals</li>
+    </ul>
+  </div>
+</div>
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 2 – Physical Properties</h3>
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr><th>Halogen</th><th>State</th><th>Colour</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Chlorine</td><td>Gas</td><td>Green</td></tr>
+        <tr><td>Bromine</td><td>Liquid</td><td>Red-brown</td></tr>
+        <tr><td>Iodine</td><td>Solid</td><td>Grey-black</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 3 – Displacement Reactions</h3>
+  <div class="definition-block">
+    <h4>🔵 Rule</h4>
+    <p>A more reactive halogen displaces a less reactive halogen from its compound.</p>
+    <p><strong>Reactivity:</strong> F₂ > Cl₂ > Br₂ > I₂</p>
+  </div>
+  <div class="example-block">
+    <h4>🟢 Example</h4>
+    <p>Cl₂ + 2NaBr → 2NaCl + Br₂</p>
+    <p>Observation: Orange solution (bromine formed)</p>
+  </div>
+</div>
+        `,
+        canonical_keywords: ["halogens", "Group 7", "chlorine", "bromine", "iodine", "displacement", "reactivity", "diatomic"],
+        practice_items: [
+          {
+            id: "group7-1",
+            prompt_template: "Describe the physical properties of chlorine, bromine, and iodine including their state and colour. [3 marks]",
+            marks: 3,
+            type: "short-answer",
+            difficulty: "easy",
+            randomise: false,
+            expected_keywords: ["chlorine", "gas", "green", "bromine", "liquid", "red-brown", "iodine", "solid", "grey"]
+          },
+          {
+            id: "group7-2",
+            prompt_template: "Explain what happens when chlorine is added to a solution of potassium bromide. Write a balanced equation. [4 marks]",
+            marks: 4,
+            type: "open",
+            difficulty: "hard",
+            randomise: false,
+            expected_keywords: ["displacement", "chlorine", "more reactive", "bromine", "Cl₂", "KBr", "KCl", "Br₂", "orange"]
+          },
+          {
+            id: "group7-3",
+            prompt_template: "Explain why fluorine is more reactive than iodine. [3 marks]",
+            marks: 3,
+            type: "open",
+            difficulty: "medium",
+            randomise: false,
+            expected_keywords: ["outer shell", "closer to nucleus", "stronger attraction", "easier to gain electron", "fewer shells"]
+          }
+        ]
       }
     ]
   },

@@ -1,1 +1,4 @@
 project_id = "nmoswypnhnidfrqduyfd"
+
+[functions.mark-answer]
+verify_jwt = false
