@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, CheckCircle, AlertTriangle, BookOpen, FileQuestion, PenLine } from "lucide-react";
+import { ArrowLeft, CheckCircle, AlertTriangle, BookOpen, FileQuestion, PenLine, CheckCircle as CheckIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -16,7 +16,9 @@ interface FeedbackState {
   feedbackText: string;
   topicId: string;
   subsectionId: string;
+  subsectionTitle: string;
   questionType: "blurt" | "exam";
+  photoImage?: string;
 }
 
 const Results = () => {
@@ -29,7 +31,7 @@ const Results = () => {
     return null;
   }
 
-  const { question, answer, keyIdeasCovered, keyIdeasMissed, score, maxMarks, topicId, subsectionId, questionType } = feedbackData;
+  const { question, answer, keyIdeasCovered, keyIdeasMissed, score, maxMarks, topicId, subsectionId, subsectionTitle, questionType, photoImage } = feedbackData;
   const percentage = Math.round((score / maxMarks) * 100);
 
   // Save practice session to database
@@ -42,6 +44,7 @@ const Results = () => {
         await supabase.from("practice_sessions").insert({
           user_id: user.id,
           section_id: topicId,
+          subsection_title: subsectionTitle,
           overall_score: score,
           max_marks: maxMarks,
           questions_count: 1,
@@ -54,7 +57,7 @@ const Results = () => {
     };
 
     savePracticeSession();
-  }, [topicId, score, maxMarks, keyIdeasCovered, keyIdeasMissed]);
+  }, [topicId, subsectionTitle, score, maxMarks, keyIdeasCovered, keyIdeasMissed]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-primary/5 to-secondary/5 p-6">
@@ -150,13 +153,21 @@ const Results = () => {
             <CardTitle className="text-xl font-semibold">Your Answer</CardTitle>
           </CardHeader>
           <CardContent className="pt-6">
-            <div className="bg-background/50 p-4 rounded-lg whitespace-pre-wrap text-sm">
-              {answer}
-            </div>
+            {photoImage ? (
+              <img 
+                src={photoImage} 
+                alt="Your submitted answer" 
+                className="w-full h-auto rounded-lg max-h-[600px] object-contain"
+              />
+            ) : (
+              <div className="bg-background/50 p-4 rounded-lg whitespace-pre-wrap text-sm">
+                {answer}
+              </div>
+            )}
           </CardContent>
         </Card>
 
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-4">
           <Button
             variant="outline"
             size="lg"
@@ -166,7 +177,7 @@ const Results = () => {
             })}
           >
             <BookOpen className="mr-2 h-5 w-5" />
-            Move to Next Subsection
+            Move to Next
           </Button>
           <Button
             variant="outline"
@@ -177,17 +188,26 @@ const Results = () => {
             })}
           >
             <PenLine className="mr-2 h-5 w-5" />
-            Generate Blurt Question
+            Blurt Question
           </Button>
           <Button
+            variant="outline"
             size="lg"
-            className="w-full bg-gradient-to-r from-primary to-secondary"
+            className="w-full"
             onClick={() => navigate(`/blur-practice/${topicId}/${subsectionId}`, { 
               state: { generateQuestion: "exam" } 
             })}
           >
             <FileQuestion className="mr-2 h-5 w-5" />
-            Generate Exam Question
+            Exam Question
+          </Button>
+          <Button
+            size="lg"
+            className="w-full bg-gradient-to-r from-primary to-secondary"
+            onClick={() => navigate("/progress")}
+          >
+            <CheckIcon className="mr-2 h-5 w-5" />
+            Finish Session
           </Button>
         </div>
       </div>

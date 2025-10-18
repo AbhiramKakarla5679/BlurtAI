@@ -12,11 +12,12 @@ interface PhotoUploadProps {
   currentQuestion: string;
   topicId: string;
   subsectionId: string;
+  subsectionTitle: string;
   questionType: "blurt" | "exam";
   marks: number;
 }
 
-export const PhotoUpload = ({ studyContent, questions, currentQuestion, topicId, subsectionId, questionType, marks }: PhotoUploadProps) => {
+export const PhotoUpload = ({ studyContent, questions, currentQuestion, topicId, subsectionId, subsectionTitle, questionType, marks }: PhotoUploadProps) => {
   const navigate = useNavigate();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -68,7 +69,9 @@ export const PhotoUpload = ({ studyContent, questions, currentQuestion, topicId,
           feedbackText: data.feedbackText || '',
           topicId,
           subsectionId,
-          questionType
+          subsectionTitle,
+          questionType,
+          photoImage: previewUrl
         }
       });
     } catch (error) {

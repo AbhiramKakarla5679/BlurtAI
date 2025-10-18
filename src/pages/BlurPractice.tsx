@@ -447,6 +447,7 @@ const BlurPractice = () => {
           feedbackText: feedback,
           topicId,
           subsectionId,
+          subsectionTitle: currentPairSubsections.map(s => s.title).join(', '),
           questionType
         }
       });
@@ -932,6 +933,7 @@ const BlurPractice = () => {
                       currentQuestion={currentGeneratedQuestion.question}
                       topicId={topicId || ''}
                       subsectionId={subsectionId || ''}
+                      subsectionTitle={currentPairSubsections.map(s => s.title).join(', ')}
                       questionType={questionType}
                       marks={currentGeneratedQuestion.marks}
                     />

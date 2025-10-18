@@ -51,11 +51,13 @@ const Progress = () => {
       return;
     }
 
-    const { data: submissions } = await supabase
-      .from("submissions")
+    const { data: sessions } = await supabase
+      .from("practice_sessions")
       .select(`
-        score,
+        overall_score,
+        max_marks,
         created_at,
+        subsection_title,
         sections (
           title,
           spec_tag
@@ -64,22 +66,27 @@ const Progress = () => {
       .eq("user_id", user.id)
       .order("created_at", { ascending: false });
 
-    if (submissions) {
-      const typedSubmissions = submissions as Submission[];
-      const totalAttempts = typedSubmissions.length;
+    if (sessions) {
+      const typedSessions = sessions as any[];
+      const totalAttempts = typedSessions.length;
+      
+      // Calculate average as percentage
       const averageScore = totalAttempts > 0
-        ? Math.round(typedSubmissions.reduce((acc, s) => acc + (s.score || 0), 0) / totalAttempts)
+        ? Math.round(typedSessions.reduce((acc, s) => acc + ((s.overall_score / s.max_marks) * 100), 0) / totalAttempts)
         : 0;
 
-      // Calculate per-topic scores with last attempt
+      // Calculate per-subsection scores
       const topicScores: { [topic: string]: { scores: number[]; count: number } } = {};
-      typedSubmissions.forEach((sub) => {
-        if (sub.sections && sub.score !== null) {
-          const topic = sub.sections.title;
+      typedSessions.forEach((session) => {
+        if (session.sections) {
+          // Use subsection_title if available, otherwise fall back to section title
+          const topic = session.subsection_title || session.sections.title;
+          const percentage = Math.round((session.overall_score / session.max_marks) * 100);
+          
           if (!topicScores[topic]) {
             topicScores[topic] = { scores: [], count: 0 };
           }
-          topicScores[topic].scores.push(sub.score);
+          topicScores[topic].scores.push(percentage);
           topicScores[topic].count++;
         }
       });
@@ -102,26 +109,26 @@ const Progress = () => {
         const weekEnd = new Date(weekStart);
         weekEnd.setDate(weekStart.getDate() + 7);
         
-        const weekSubmissions = typedSubmissions.filter(sub => {
-          const subDate = new Date(sub.created_at);
-          return subDate >= weekStart && subDate < weekEnd;
+        const weekSessions = typedSessions.filter(session => {
+          const sessionDate = new Date(session.created_at);
+          return sessionDate >= weekStart && sessionDate < weekEnd;
         });
         
-        if (weekSubmissions.length > 0) {
+        if (weekSessions.length > 0) {
           const weekAvg = Math.round(
-            weekSubmissions.reduce((acc, s) => acc + (s.score || 0), 0) / weekSubmissions.length
+            weekSessions.reduce((acc, s) => acc + ((s.overall_score / s.max_marks) * 100), 0) / weekSessions.length
           );
           weeklyProgress.push({
             week: `Week ${8 - i}`,
             avgScore: weekAvg,
-            attempts: weekSubmissions.length,
+            attempts: weekSessions.length,
           });
         }
       }
 
       // Calculate streaks (consecutive days)
       const dateSet = new Set(
-        typedSubmissions.map(s => new Date(s.created_at).toDateString())
+        typedSessions.map(s => new Date(s.created_at).toDateString())
       );
       const sortedDates = Array.from(dateSet).sort((a, b) => 
         new Date(b).getTime() - new Date(a).getTime()
@@ -158,8 +165,8 @@ const Progress = () => {
       // Calculate recent improvement (last 5 vs previous 5)
       let recentImprovement = 0;
       if (totalAttempts >= 10) {
-        const recent5 = typedSubmissions.slice(0, 5).reduce((acc, s) => acc + (s.score || 0), 0) / 5;
-        const previous5 = typedSubmissions.slice(5, 10).reduce((acc, s) => acc + (s.score || 0), 0) / 5;
+        const recent5 = typedSessions.slice(0, 5).reduce((acc, s) => acc + ((s.overall_score / s.max_marks) * 100), 0) / 5;
+        const previous5 = typedSessions.slice(5, 10).reduce((acc, s) => acc + ((s.overall_score / s.max_marks) * 100), 0) / 5;
         recentImprovement = Math.round(recent5 - previous5);
       }
 

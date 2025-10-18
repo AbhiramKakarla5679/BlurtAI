@@ -97,6 +97,7 @@ const Dashboard = () => {
           overall_score,
           max_marks,
           created_at,
+          subsection_title,
           sections (
             title,
             id
@@ -117,7 +118,8 @@ const Dashboard = () => {
         
         sessions.forEach((session: any) => {
           if (session.sections) {
-            const topic = session.sections.title;
+            // Use subsection_title if available, otherwise fall back to section title
+            const topic = session.subsection_title || session.sections.title;
             const percentage = Math.round((session.overall_score / session.max_marks) * 100);
             
             if (!topicScores[topic]) {
