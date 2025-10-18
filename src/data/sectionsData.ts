@@ -3416,6 +3416,2240 @@ H—N—H</pre>
             expected_keywords: ["different sized atoms", "distort", "layers", "harder to slide", "irregular"]
           }
         ]
+      },
+      {
+        id: "2-2-1-three-states-matter",
+        title: "2.2.1 THE THREE STATES OF MATTER",
+        type: "content",
+        study_group: 3,
+        content_html: `
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 1 – The Particle Model and the Three States</h3>
+  
+  <div class="definition-block">
+    <h4>🔵 Definition</h4>
+    <p>The particle model explains the properties and behaviour of solids, liquids and gases by describing how the particles are arranged and move, and how strong the forces of attraction are between them.</p>
+  </div>
+
+  <div class="key-facts-block">
+    <h4>🧠 Key Ideas</h4>
+    <ul>
+      <li>All matter is made of tiny particles (atoms or molecules).</li>
+      <li>Particles are in constant motion.</li>
+      <li>The amount of energy they have determines their movement and state.</li>
+      <li>Forces of attraction between particles vary depending on the state.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 2 – Particle Arrangement and Movement</h3>
+  
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Property</th>
+          <th>Solid</th>
+          <th>Liquid</th>
+          <th>Gas</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Arrangement</td>
+          <td>Regular, tightly packed</td>
+          <td>Irregular, close together</td>
+          <td>Random, far apart</td>
+        </tr>
+        <tr>
+          <td>Movement</td>
+          <td>Vibrate around fixed positions</td>
+          <td>Move around each other</td>
+          <td>Move freely in all directions</td>
+        </tr>
+        <tr>
+          <td>Forces Between Particles</td>
+          <td>Strong</td>
+          <td>Moderate</td>
+          <td>Very weak</td>
+        </tr>
+        <tr>
+          <td>Energy of Particles</td>
+          <td>Low</td>
+          <td>Medium</td>
+          <td>High</td>
+        </tr>
+        <tr>
+          <td>Shape</td>
+          <td>Fixed shape</td>
+          <td>No fixed shape</td>
+          <td>No fixed shape</td>
+        </tr>
+        <tr>
+          <td>Volume</td>
+          <td>Fixed</td>
+          <td>Fixed</td>
+          <td>Can be compressed</td>
+        </tr>
+        <tr>
+          <td>Density</td>
+          <td>High</td>
+          <td>Medium</td>
+          <td>Low</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>📝 In Summary</h4>
+    <ul>
+      <li><strong>Solids:</strong> Strong forces keep particles fixed.</li>
+      <li><strong>Liquids:</strong> Particles can move, flow, and take shape of container.</li>
+      <li><strong>Gases:</strong> Weak forces → high energy → fill available space.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 3 – Explaining Melting and Boiling Points</h3>
+  
+  <div class="key-facts-block">
+    <h4>⚡ Key Principle</h4>
+    <p>The melting point and boiling point of a substance depend on the <strong>strength of the forces between its particles</strong>.</p>
+  </div>
+
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Force Strength</th>
+          <th>Example</th>
+          <th>Melting/Boiling Point</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Strong (e.g. ionic or covalent)</td>
+          <td>Sodium chloride, diamond</td>
+          <td>Very high</td>
+        </tr>
+        <tr>
+          <td>Weak (e.g. simple molecules)</td>
+          <td>Oxygen, water, methane</td>
+          <td>Low</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="key-facts-block">
+    <h4>📘 Explanation</h4>
+    <ul>
+      <li>When heated, particles gain kinetic energy and move faster.</li>
+      <li>When they have enough energy to overcome forces of attraction, a change of state occurs.</li>
+      <li><strong>Stronger forces → more energy needed → higher melting and boiling points.</strong></li>
+    </ul>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 4 – Predicting States of Matter</h3>
+  
+  <div class="key-facts-block">
+    <h4>🔍 How to Predict</h4>
+    <p>If you know the melting point and boiling point, you can predict the state at a given temperature.</p>
+  </div>
+
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Temperature vs. Points</th>
+          <th>State</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Below melting point</td>
+          <td>Solid</td>
+        </tr>
+        <tr>
+          <td>Between melting and boiling point</td>
+          <td>Liquid</td>
+        </tr>
+        <tr>
+          <td>Above boiling point</td>
+          <td>Gas</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="example-block">
+    <h4>🟢 Example – Water</h4>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Temperature</th>
+          <th>State</th>
+          <th>Reason</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>-10°C</td>
+          <td>Solid</td>
+          <td>Below 0°C (melting point)</td>
+        </tr>
+        <tr>
+          <td>25°C</td>
+          <td>Liquid</td>
+          <td>Between 0°C and 100°C</td>
+        </tr>
+        <tr>
+          <td>120°C</td>
+          <td>Gas</td>
+          <td>Above 100°C (boiling point)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>🧠 Exam Tip</h4>
+    <p>AQA often gives melting and boiling data — you must state why (use phrases like "particles have enough energy to overcome forces").</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 5 – Energy Transfers in Changes of State</h3>
+  
+  <div class="key-facts-block">
+    <h4>🔋 When Heating (Endothermic)</h4>
+    <ul>
+      <li>Energy is absorbed.</li>
+      <li>Particles gain kinetic energy → move faster.</li>
+      <li>Forces weaken → particles move further apart.</li>
+      <li>Solid → liquid → gas.</li>
+    </ul>
+  </div>
+
+  <div class="key-facts-block">
+    <h4>❄️ When Cooling (Exothermic)</h4>
+    <ul>
+      <li>Energy is released.</li>
+      <li>Particles lose kinetic energy → move slower.</li>
+      <li>Forces strengthen → particles move closer together.</li>
+      <li>Gas → liquid → solid.</li>
+    </ul>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>🧠 Important Note</h4>
+    <p>Changes of state are <strong>physical, not chemical</strong> — no new substance forms.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 6 – Particle Model and Limitations</h3>
+  
+  <div class="key-facts-block">
+    <h4>✅ What the Model Shows</h4>
+    <ul>
+      <li>General particle arrangement.</li>
+      <li>Relative movement and energy.</li>
+      <li>Strength of forces in each state.</li>
+    </ul>
+  </div>
+
+  <div class="key-facts-block">
+    <h4>⚠️ What the Model Doesn't Show</h4>
+    <ul>
+      <li>Real particle sizes — atoms are not solid spheres.</li>
+      <li>The spaces between particles — scale not accurate.</li>
+      <li>The forces between particles — can't see attraction.</li>
+      <li>The dynamic nature of particles — they constantly move and vibrate.</li>
+    </ul>
+  </div>
+
+  <div class="note-block">
+    <h4>🔬 Advanced Note</h4>
+    <p>The particle model is simplified; in reality:</p>
+    <ul>
+      <li>Atoms have electron clouds, not hard edges.</li>
+      <li>Forces vary continuously, not at set distances.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 7 – Particle Model Diagrams (Visual Descriptions)</h3>
+  
+  <div class="key-facts-block">
+    <h4>📘 Solid</h4>
+    <ul>
+      <li>Regular pattern, close-packed particles.</li>
+      <li>Vibrating around fixed positions.</li>
+      <li>Strong attractions.</li>
+    </ul>
+  </div>
+
+  <div class="key-facts-block">
+    <h4>📘 Liquid</h4>
+    <ul>
+      <li>Close together but randomly arranged.</li>
+      <li>Move past each other.</li>
+      <li>Moderate attractions.</li>
+    </ul>
+  </div>
+
+  <div class="key-facts-block">
+    <h4>📘 Gas</h4>
+    <ul>
+      <li>Far apart, random motion.</li>
+      <li>Weak attractions.</li>
+      <li>Frequent collisions, easily compressed.</li>
+    </ul>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>📝 Important Keywords</h4>
+    <p>You must be able to recognise and describe these diagrams using the keywords: <strong>regular, random, spacing, movement, energy, and forces</strong>.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 8 – Energy and Changes of State</h3>
+  
+  <div class="key-facts-block">
+    <h4>⚡ Key Energy Concepts</h4>
+    <p>When particles change state, energy goes into or out of <strong>breaking or forming intermolecular forces</strong>, not into changing temperature.</p>
+    <p>During melting or boiling, <strong>temperature stays constant</strong> — even while energy is being added.</p>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>🧠 Important Words:</h4>
+    <ul>
+      <li><strong>Endothermic</strong> – absorbs energy (melting, boiling, sublimation).</li>
+      <li><strong>Exothermic</strong> – releases energy (freezing, condensation, deposition).</li>
+    </ul>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 9 – Using the Particle Model to Explain Properties</h3>
+  
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Property</th>
+          <th>Solid</th>
+          <th>Liquid</th>
+          <th>Gas</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Can flow?</td>
+          <td>❌</td>
+          <td>✅</td>
+          <td>✅</td>
+        </tr>
+        <tr>
+          <td>Fixed volume?</td>
+          <td>✅</td>
+          <td>✅</td>
+          <td>❌</td>
+        </tr>
+        <tr>
+          <td>Fixed shape?</td>
+          <td>✅</td>
+          <td>❌</td>
+          <td>❌</td>
+        </tr>
+        <tr>
+          <td>Compressible?</td>
+          <td>❌</td>
+          <td>❌</td>
+          <td>✅</td>
+        </tr>
+        <tr>
+          <td>Conduct heat easily?</td>
+          <td>Often</td>
+          <td>Moderate</td>
+          <td>Poor</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="example-block">
+    <h4>🧠 Example Applications:</h4>
+    <ul>
+      <li>Liquids are used as lubricants because particles can move.</li>
+      <li>Gases are easily compressed for transport (e.g. oxygen tanks).</li>
+    </ul>
+  </div>
+</div>
+        `,
+        canonical_keywords: ["particle model", "states of matter", "solid", "liquid", "gas", "forces", "melting point", "boiling point", "endothermic", "exothermic"],
+        practice_items: [
+          {
+            id: "states-1",
+            prompt_template: "Describe the arrangement and movement of particles in solids, liquids, and gases. [6 marks]",
+            marks: 6,
+            type: "open",
+            difficulty: "medium",
+            randomise: false,
+            expected_keywords: ["solid", "regular", "vibrate", "liquid", "move around", "gas", "random", "freely", "forces"]
+          },
+          {
+            id: "states-2",
+            prompt_template: "Explain why substances with strong forces between particles have high melting points. [3 marks]",
+            marks: 3,
+            type: "open",
+            difficulty: "easy",
+            randomise: false,
+            expected_keywords: ["strong forces", "energy", "overcome", "break", "high temperature"]
+          }
+        ]
+      },
+      {
+        id: "2-2-3-simple-covalent",
+        title: "2.2.3 COVALENT SUBSTANCES (SIMPLE MOLECULES)",
+        type: "content",
+        study_group: 3,
+        content_html: `
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 1 – Structure and Bonding in Simple Molecules</h3>
+  
+  <div class="definition-block">
+    <h4>🔵 Definition</h4>
+    <p>A simple covalent substance (or simple molecular substance) is made of small molecules containing a few atoms joined by <strong>strong covalent bonds within the molecule</strong>. However, the forces between molecules (called intermolecular forces) are <strong>weak</strong>.</p>
+  </div>
+
+  <div class="key-facts-block">
+    <h4>🧠 Key Idea</h4>
+    <ul>
+      <li>Covalent bonds hold the atoms together <strong>inside</strong> each molecule.</li>
+      <li>Intermolecular forces act <strong>between</strong> molecules, not inside them.</li>
+      <li>The weak intermolecular forces determine the physical properties (melting, boiling, state).</li>
+    </ul>
+  </div>
+
+  <div class="example-block">
+    <h4>🟢 Examples of Simple Molecular Substances</h4>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Substance</th>
+          <th>Formula</th>
+          <th>Bonds Inside Molecule</th>
+          <th>Forces Between Molecules</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Hydrogen</td>
+          <td>H₂</td>
+          <td>Covalent</td>
+          <td>Weak</td>
+        </tr>
+        <tr>
+          <td>Oxygen</td>
+          <td>O₂</td>
+          <td>Covalent</td>
+          <td>Weak</td>
+        </tr>
+        <tr>
+          <td>Water</td>
+          <td>H₂O</td>
+          <td>Covalent</td>
+          <td>Weak hydrogen bonds</td>
+        </tr>
+        <tr>
+          <td>Methane</td>
+          <td>CH₄</td>
+          <td>Covalent</td>
+          <td>Weak</td>
+        </tr>
+        <tr>
+          <td>Carbon dioxide</td>
+          <td>CO₂</td>
+          <td>Covalent</td>
+          <td>Weak</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>📝 Exam tip</h4>
+    <p>Always refer to "<strong>weak intermolecular forces</strong>," not "weak covalent bonds." Covalent bonds are strong, but the forces between molecules are weak.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 2 – Melting and Boiling Points</h3>
+  
+  <div class="key-facts-block">
+    <h4>📘 Explanation</h4>
+    <p>Simple molecular substances have <strong>low melting and boiling points</strong> because:</p>
+    <p>Only <strong>weak intermolecular forces</strong> need to be overcome to melt or boil the substance.</p>
+    <p>Covalent bonds inside molecules are strong and <strong>do not break</strong>.</p>
+  </div>
+
+  <div class="key-facts-block">
+    <h4>⚡ Key Detail</h4>
+    <p>When you heat a covalent substance:</p>
+    <ul>
+      <li>The <strong>molecules</strong> separate, not the atoms.</li>
+      <li>The <strong>intermolecular forces</strong> break, not the covalent bonds.</li>
+    </ul>
+  </div>
+
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Example</th>
+          <th>Forces Between Molecules</th>
+          <th>Melting/Boiling Point</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Oxygen (O₂)</td>
+          <td>Weak</td>
+          <td>Very low (gas at room temp)</td>
+        </tr>
+        <tr>
+          <td>Water (H₂O)</td>
+          <td>Moderate (hydrogen bonding)</td>
+          <td>0°C / 100°C</td>
+        </tr>
+        <tr>
+          <td>Carbon dioxide (CO₂)</td>
+          <td>Weak</td>
+          <td>Sublimes at –78°C</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>🧠 Remember</h4>
+    <p>The stronger the intermolecular forces, the higher the melting/boiling point.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 3 – Electrical Conductivity</h3>
+  
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Property</th>
+          <th>Explanation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Do not conduct electricity</td>
+          <td>Molecules have no free electrons or ions to carry charge.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="key-facts-block">
+    <p>Even if dissolved in water, they usually do not conduct, because molecules remain neutral (except acids or polar molecules).</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 4 – Solubility and States</h3>
+  
+  <div class="key-facts-block">
+    <h4>💧 Solubility</h4>
+    <ul>
+      <li>Many covalent substances are <strong>insoluble in water</strong>, but may dissolve in non-polar solvents (like petrol).</li>
+      <li>Some polar covalent molecules (e.g. sugar, ethanol) dissolve in water due to hydrogen bonding.</li>
+    </ul>
+  </div>
+
+  <div class="key-facts-block">
+    <h4>📘 Common Physical States at Room Temperature</h4>
+    <p>Most simple molecular substances are <strong>gases or liquids</strong> at room temperature due to weak intermolecular forces.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 5 – Forces Between Molecules</h3>
+  
+  <div class="key-facts-block">
+    <h4>🔵 Intermolecular Forces</h4>
+    <ul>
+      <li><strong>Van der Waals (induced dipole)</strong> – weakest; temporary attraction.</li>
+      <li><strong>Permanent dipole-dipole</strong> – between slightly charged polar molecules.</li>
+      <li><strong>Hydrogen bonds</strong> – strongest type; between H and F, O, or N.</li>
+    </ul>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>🧠 Order of Strength</h4>
+    <p>Hydrogen bonds > Dipole-dipole > Van der Waals.</p>
+  </div>
+
+  <div class="example-block">
+    <h4>💡 Example</h4>
+    <ul>
+      <li>Water has <strong>hydrogen bonds</strong> → relatively high boiling point.</li>
+      <li>Oxygen has <strong>Van der Waals</strong> → gas at room temp.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 6 – Examples of Simple Molecular Structures</h3>
+  
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Molecule</th>
+          <th>Description</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>H₂</td>
+          <td>Two atoms sharing one pair of electrons</td>
+          <td>Very small molecule</td>
+        </tr>
+        <tr>
+          <td>O₂</td>
+          <td>Two atoms sharing two pairs (double bond)</td>
+          <td>Gas, low boiling point</td>
+        </tr>
+        <tr>
+          <td>H₂O</td>
+          <td>Two H atoms bonded to O (bent shape)</td>
+          <td>Hydrogen bonding present</td>
+        </tr>
+        <tr>
+          <td>CH₄</td>
+          <td>Carbon with four single bonds to H</td>
+          <td>Tetrahedral shape</td>
+        </tr>
+        <tr>
+          <td>CO₂</td>
+          <td>Carbon with two double bonds to O</td>
+          <td>Linear molecule, no H-bonds</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 7 – Explaining Properties with Forces</h3>
+  
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Property</th>
+          <th>Explanation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Low melting and boiling points</td>
+          <td>Weak intermolecular forces.</td>
+        </tr>
+        <tr>
+          <td>Do not conduct electricity</td>
+          <td>No charged particles.</td>
+        </tr>
+        <tr>
+          <td>Usually gases or liquids</td>
+          <td>Weak forces between molecules.</td>
+        </tr>
+        <tr>
+          <td>Soft if solid</td>
+          <td>Weak attractions between layers of molecules.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>📝 Exam Tip</h4>
+    <p>When answering "Explain why…" questions: always say "<strong>because only weak intermolecular forces need to be overcome</strong>."</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 8 – Key Differences Between Simple and Giant Covalent Structures</h3>
+  
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Simple Covalent</th>
+          <th>Giant Covalent</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Bonds</td>
+          <td>Strong covalent bonds within molecules, weak between</td>
+          <td>Strong covalent bonds throughout</td>
+        </tr>
+        <tr>
+          <td>Melting/Boiling Point</td>
+          <td>Low</td>
+          <td>Very high</td>
+        </tr>
+        <tr>
+          <td>Conductivity</td>
+          <td>None</td>
+          <td>None (except graphite)</td>
+        </tr>
+        <tr>
+          <td>State at Room Temp</td>
+          <td>Often gas or liquid</td>
+          <td>Solid</td>
+        </tr>
+        <tr>
+          <td>Example</td>
+          <td>H₂O, CO₂, CH₄</td>
+          <td>Diamond, Graphite, SiO₂</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 9 – Explaining Trends</h3>
+  
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Trend</th>
+          <th>Explanation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>As molecules get larger</td>
+          <td>→ More electrons → stronger intermolecular forces → higher melting/boiling points</td>
+        </tr>
+        <tr>
+          <td>Small molecules</td>
+          <td>→ Weak forces → gases</td>
+        </tr>
+        <tr>
+          <td>Medium molecules</td>
+          <td>→ Stronger forces → liquids</td>
+        </tr>
+        <tr>
+          <td>Large molecules</td>
+          <td>→ Even stronger → solids</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>🧠 AQA Example</h4>
+    <p>AQA may ask why iodine is a solid but fluorine is a gas — answer: <strong>because iodine molecules are larger and have stronger intermolecular forces</strong>.</p>
+  </div>
+</div>
+        `,
+        canonical_keywords: ["simple molecular", "covalent substances", "intermolecular forces", "low melting point", "non-conductor", "Van der Waals", "hydrogen bonds"],
+        practice_items: [
+          {
+            id: "simple-covalent-1",
+            prompt_template: "Explain why simple molecular substances have low melting and boiling points. [4 marks]",
+            marks: 4,
+            type: "open",
+            difficulty: "medium",
+            randomise: false,
+            expected_keywords: ["weak", "intermolecular forces", "between molecules", "little energy", "overcome", "break"]
+          },
+          {
+            id: "simple-covalent-2",
+            prompt_template: "Explain why simple molecular substances do not conduct electricity. [2 marks]",
+            marks: 2,
+            type: "short-answer",
+            difficulty: "easy",
+            randomise: false,
+            expected_keywords: ["no free electrons", "no ions", "no charged particles", "carry charge"]
+          }
+        ]
+      },
+      {
+        id: "2-2-4-giant-covalent",
+        title: "2.2.4 GIANT COVALENT STRUCTURES (MACROMOLECULES)",
+        type: "content",
+        study_group: 4,
+        content_html: `
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 1 – What Are Giant Covalent Structures?</h3>
+  
+  <div class="definition-block">
+    <h4>🔵 Definition</h4>
+    <p>A giant covalent structure (also known as a macromolecule) is a huge 3D network of atoms bonded together by <strong>strong covalent bonds throughout the structure</strong>.</p>
+  </div>
+
+  <div class="key-facts-block">
+    <h4>🧠 Key Facts</h4>
+    <ul>
+      <li>Found in some non-metals and compounds of non-metals (like carbon and silicon dioxide).</li>
+      <li>Contain no weak intermolecular forces — all atoms are connected by covalent bonds.</li>
+      <li>Require large amounts of energy to break → very high melting and boiling points.</li>
+      <li>Usually solids at room temperature.</li>
+      <li>Generally don't conduct electricity (except graphite).</li>
+    </ul>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 2 – Diamond (Carbon)</h3>
+  
+  <div class="key-facts-block">
+    <h4>🔬 Structure</h4>
+    <ul>
+      <li>Each carbon atom forms four covalent bonds to other carbon atoms.</li>
+      <li>Atoms arranged in a tetrahedral (3D) lattice.</li>
+      <li>Bonds are identical and extremely strong.</li>
+      <li>No free electrons — all used in bonding.</li>
+    </ul>
+  </div>
+
+  <div class="example-block">
+    <h4>💎 Properties and Explanations</h4>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Property</th>
+          <th>Explanation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Very hard</td>
+          <td>Each atom strongly bonded to four others; rigid 3D network</td>
+        </tr>
+        <tr>
+          <td>Very high melting point</td>
+          <td>Many strong covalent bonds throughout structure</td>
+        </tr>
+        <tr>
+          <td>Does not conduct electricity</td>
+          <td>No free electrons or ions</td>
+        </tr>
+        <tr>
+          <td>Transparent</td>
+          <td>Regular structure allows light to pass through</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 3 – Graphite (Carbon)</h3>
+  
+  <div class="key-facts-block">
+    <h4>🔬 Structure</h4>
+    <ul>
+      <li>Each carbon atom forms three covalent bonds → forms flat hexagonal layers.</li>
+      <li>Each atom has one delocalised electron that moves freely between layers.</li>
+      <li>Layers held together by weak intermolecular forces → can slide over each other easily.</li>
+    </ul>
+  </div>
+
+  <div class="example-block">
+    <h4>💎 Properties and Explanations</h4>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Property</th>
+          <th>Explanation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Soft and slippery</td>
+          <td>Layers can slide due to weak forces between them.</td>
+        </tr>
+        <tr>
+          <td>Good conductor of electricity and heat</td>
+          <td>Delocalised electrons move freely between layers.</td>
+        </tr>
+        <tr>
+          <td>High melting point</td>
+          <td>Strong covalent bonds in layers require a lot of energy to break.</td>
+        </tr>
+        <tr>
+          <td>Less dense than diamond</td>
+          <td>Layers are far apart.</td>
+        </tr>
+        <tr>
+          <td>Opaque</td>
+          <td>Free electrons absorb light.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="example-block">
+    <h4>🧠 Uses</h4>
+    <ul>
+      <li>Electrodes (good conductor).</li>
+      <li>Lubricants (layers slide easily).</li>
+      <li>Pencils (layers flake off onto paper).</li>
+    </ul>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 4 – Graphene (Single Layer of Graphite)</h3>
+  
+  <div class="key-facts-block">
+    <h4>🔬 Structure</h4>
+    <ul>
+      <li>A single layer of graphite → one atom thick.</li>
+      <li>Atoms arranged in a hexagonal pattern.</li>
+      <li>Contains delocalised electrons that move across the layer.</li>
+    </ul>
+  </div>
+
+  <div class="example-block">
+    <h4>💎 Properties</h4>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Property</th>
+          <th>Explanation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Very strong</td>
+          <td>Each carbon bonded to three others in a sheet.</td>
+        </tr>
+        <tr>
+          <td>Conducts electricity</td>
+          <td>Delocalised electrons can move freely.</td>
+        </tr>
+        <tr>
+          <td>Lightweight and flexible</td>
+          <td>Single atomic layer, extremely thin.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="example-block">
+    <h4>🧠 Uses</h4>
+    <ul>
+      <li>Flexible electronics.</li>
+      <li>Lightweight composite materials.</li>
+      <li>Conductive coatings.</li>
+      <li>Medical sensors.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 5 – Silicon Dioxide (SiO₂)</h3>
+  
+  <div class="key-facts-block">
+    <h4>🔬 Structure</h4>
+    <ul>
+      <li>Each silicon atom covalently bonded to four oxygen atoms.</li>
+      <li>Each oxygen atom bonded to two silicon atoms.</li>
+      <li>Giant covalent lattice, similar to diamond.</li>
+    </ul>
+  </div>
+
+  <div class="example-block">
+    <h4>💎 Properties and Explanations</h4>
+    <ul>
+      <li><strong>High melting and boiling point:</strong> Strong covalent bonds throughout structure.</li>
+      <li><strong>Hard:</strong> Strong bonds between silicon and oxygen.</li>
+      <li><strong>Insoluble in water:</strong> No attraction to polar molecules.</li>
+      <li><strong>Does not conduct electricity:</strong> No free electrons or ions.</li>
+    </ul>
+  </div>
+
+  <div class="key-facts-block">
+    <h4>📘 Common Names</h4>
+    <ul>
+      <li>Also known as silica or quartz.</li>
+      <li>Main component of sand and glass.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 6 – Comparing Giant Covalent Structures</h3>
+  
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Structure</th>
+          <th>Type of Bonds</th>
+          <th>Conductivity</th>
+          <th>Hardness</th>
+          <th>Melting Point</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Diamond</td>
+          <td>C–C single bonds (4 per atom)</td>
+          <td>None</td>
+          <td>Extremely hard</td>
+          <td>Very high</td>
+          <td>Used in tools</td>
+        </tr>
+        <tr>
+          <td>Graphite</td>
+          <td>3 bonds per atom; layers with delocalised electrons</td>
+          <td>Yes</td>
+          <td>Soft/slippery</td>
+          <td>Very high</td>
+          <td>Used in electrodes, pencils</td>
+        </tr>
+        <tr>
+          <td>Graphene</td>
+          <td>3 bonds per atom; single sheet</td>
+          <td>Yes</td>
+          <td>Very strong</td>
+          <td>Very high</td>
+          <td>Used in electronics</td>
+        </tr>
+        <tr>
+          <td>Silicon Dioxide</td>
+          <td>Si–O covalent bonds</td>
+          <td>None</td>
+          <td>Hard</td>
+          <td>Very high</td>
+          <td>Component of glass, sand</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 7 – Why Giant Covalent Substances Have High Melting Points</h3>
+  
+  <div class="key-facts-block">
+    <h4>📘 Explanation</h4>
+    <ul>
+      <li>Covalent bonds are very strong → require a lot of energy to break.</li>
+      <li>Because the structure is giant, many bonds must be broken.</li>
+      <li>Therefore, melting and boiling points are very high.</li>
+    </ul>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>📝 The key AQA phrase:</h4>
+    <p>"Giant covalent structures have high melting and boiling points because of the <strong>strong covalent bonds that must be broken</strong> to change state."</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 8 – Conductivity in Giant Covalent Structures</h3>
+  
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Substance</th>
+          <th>Conductivity</th>
+          <th>Reason</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Diamond</td>
+          <td>❌</td>
+          <td>No free electrons.</td>
+        </tr>
+        <tr>
+          <td>Graphite</td>
+          <td>✅</td>
+          <td>Delocalised electrons move freely between layers.</td>
+        </tr>
+        <tr>
+          <td>Graphene</td>
+          <td>✅</td>
+          <td>Delocalised electrons move across sheet.</td>
+        </tr>
+        <tr>
+          <td>Silicon dioxide</td>
+          <td>❌</td>
+          <td>No delocalised electrons.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>🧠 Remember</h4>
+    <p>Always specify that conductivity comes from delocalised electrons, not ions.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 9 – Strength and Uses</h3>
+  
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Substance</th>
+          <th>Key Property</th>
+          <th>Common Uses</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Diamond</td>
+          <td>Extremely hard</td>
+          <td>Cutting, drilling, jewellery</td>
+        </tr>
+        <tr>
+          <td>Graphite</td>
+          <td>Conductive, slippery</td>
+          <td>Electrodes, lubricants, pencils</td>
+        </tr>
+        <tr>
+          <td>Graphene</td>
+          <td>Strong, conductive, light</td>
+          <td>Electronics, composites</td>
+        </tr>
+        <tr>
+          <td>Silicon dioxide</td>
+          <td>Hard, transparent</td>
+          <td>Glass, ceramics, sand</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+        `,
+        canonical_keywords: ["giant covalent", "macromolecule", "diamond", "graphite", "graphene", "silicon dioxide", "high melting point", "delocalised electrons"],
+        practice_items: [
+          {
+            id: "giant-covalent-1",
+            prompt_template: "Explain why diamond is very hard and has a very high melting point. [4 marks]",
+            marks: 4,
+            type: "open",
+            difficulty: "medium",
+            randomise: false,
+            expected_keywords: ["four", "covalent bonds", "carbon atom", "strong", "giant structure", "energy", "break"]
+          },
+          {
+            id: "giant-covalent-2",
+            prompt_template: "Explain why graphite conducts electricity but diamond does not. [3 marks]",
+            marks: 3,
+            type: "open",
+            difficulty: "medium",
+            randomise: false,
+            expected_keywords: ["graphite", "delocalised electrons", "free to move", "diamond", "no free electrons", "all electrons in bonds"]
+          }
+        ]
+      },
+      {
+        id: "2-3-1-diamond",
+        title: "2.3.1 DIAMOND",
+        type: "content",
+        study_group: 5,
+        content_html: `
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 1 – Structure of Diamond</h3>
+  
+  <div class="key-facts-block">
+    <h4>📘 Description</h4>
+    <ul>
+      <li>Diamond is a <strong>giant covalent structure</strong> (a type of macromolecule).</li>
+      <li>It is made entirely of carbon atoms.</li>
+      <li>Each carbon atom is covalently bonded to <strong>four other carbon atoms</strong>.</li>
+      <li>These bonds form a <strong>tetrahedral 3D lattice</strong> (a pyramid-like arrangement).</li>
+      <li>All bonds are identical and very strong, extending throughout the entire crystal.</li>
+    </ul>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>🧠 Key Point:</h4>
+    <p>There are <strong>no layers, no weak forces, and no free electrons</strong> in diamond. Every atom is linked to the structure by strong covalent bonds in all directions.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 2 – Properties of Diamond</h3>
+  
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Property</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Very hard</td>
+          <td>Hardest known natural material.</td>
+        </tr>
+        <tr>
+          <td>Very high melting point</td>
+          <td>Requires huge energy to break the bonds.</td>
+        </tr>
+        <tr>
+          <td>Does not conduct electricity</td>
+          <td>No delocalised (free) electrons or ions.</td>
+        </tr>
+        <tr>
+          <td>Transparent and shiny</td>
+          <td>Strong bonding → light passes through cleanly.</td>
+        </tr>
+        <tr>
+          <td>Insoluble in water</td>
+          <td>Bonds too strong to be broken by polar molecules.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 3 – Explaining Diamond's Properties Using Structure and Bonding</h3>
+  
+  <div class="key-facts-block">
+    <h4>💎 1. Diamond is very hard</h4>
+    <p>Each carbon atom forms <strong>four strong covalent bonds</strong> to other carbon atoms. These bonds extend throughout the entire structure, creating a rigid, 3D network. There are no weak bonds or layers to slide over each other. ✅ Therefore, diamond is extremely hard and resistant to scratching or breaking.</p>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>📝 Exam phrase:</h4>
+    <p>"Diamond is very hard because each carbon atom is covalently bonded to <strong>four others in a giant 3D lattice</strong>."</p>
+  </div>
+
+  <div class="key-facts-block">
+    <h4>💎 2. Diamond has a very high melting point</h4>
+    <p>The covalent bonds in diamond are very strong and there are <strong>millions of them throughout the lattice</strong>. To melt diamond, all of these bonds must be broken.</p>
+    <p>Breaking covalent bonds requires a lot of energy (not just separating molecules). Therefore, diamond has an extremely high melting and boiling point (around 3550°C).</p>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>📝 Exam phrase:</h4>
+    <p>"Diamond has a very high melting point because a <strong>large amount of energy is required to break the many strong covalent bonds</strong> throughout the structure."</p>
+  </div>
+
+  <div class="key-facts-block">
+    <h4>💎 3. Diamond does not conduct electricity</h4>
+    <p>Electricity requires free electrons or ions to carry charge.</p>
+    <p>In diamond, <strong>all four outer electrons of each carbon atom are used in covalent bonds</strong>.</p>
+    <p>There are no delocalised electrons and no ions that can move. Therefore, diamond is a non-conductor of electricity, both as a solid and liquid.</p>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>📝 Exam phrase:</h4>
+    <p>"Diamond does not conduct electricity because it has <strong>no delocalised electrons or ions</strong> to carry charge."</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 4 – Summary: Linking Structure to Properties</h3>
+  
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Structure Feature</th>
+          <th>Property</th>
+          <th>Explanation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Each carbon atom covalently bonded to four others</td>
+          <td>Hard</td>
+          <td>Strong network; no weak bonds</td>
+        </tr>
+        <tr>
+          <td>Many strong covalent bonds</td>
+          <td>High melting point</td>
+          <td>Large energy required to break them</td>
+        </tr>
+        <tr>
+          <td>No delocalised electrons or ions</td>
+          <td>Non-conductor</td>
+          <td>No charged particles available to carry current</td>
+        </tr>
+        <tr>
+          <td>Tetrahedral lattice</td>
+          <td>Transparent and strong</td>
+          <td>Evenly bonded, symmetrical arrangement</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 5 – Uses of Diamond</h3>
+  
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Use</th>
+          <th>Reason</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Cutting tools and drills</td>
+          <td>Extremely hard; can cut through other materials</td>
+        </tr>
+        <tr>
+          <td>Jewellery</td>
+          <td>Transparent, shiny, and durable</td>
+        </tr>
+        <tr>
+          <td>Industrial saws</td>
+          <td>Hardness makes it ideal for cutting concrete and stone</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+        `,
+        canonical_keywords: ["diamond", "giant covalent", "tetrahedral", "four bonds", "hard", "high melting point", "non-conductor"],
+        practice_items: [
+          {
+            id: "diamond-1",
+            prompt_template: "Describe the structure and bonding in diamond. [4 marks]",
+            marks: 4,
+            type: "open",
+            difficulty: "medium",
+            randomise: false,
+            expected_keywords: ["carbon", "four", "covalent bonds", "tetrahedral", "giant structure", "3D lattice"]
+          },
+          {
+            id: "diamond-2",
+            prompt_template: "Explain why diamond is very hard. [3 marks]",
+            marks: 3,
+            type: "open",
+            difficulty: "easy",
+            randomise: false,
+            expected_keywords: ["strong", "covalent bonds", "four", "rigid", "network", "all directions"]
+          }
+        ]
+      },
+      {
+        id: "2-3-2-graphite",
+        title: "2.3.2 GRAPHITE",
+        type: "content",
+        study_group: 5,
+        content_html: `
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 1 – Structure of Graphite</h3>
+  
+  <div class="key-facts-block">
+    <h4>📘 Description</h4>
+    <ul>
+      <li>Graphite is a <strong>giant covalent structure</strong> made entirely of carbon atoms.</li>
+      <li>Each carbon atom is covalently bonded to <strong>three other carbon atoms</strong> in flat hexagonal layers.</li>
+      <li>The <strong>fourth outer electron</strong> of each carbon atom is <strong>delocalised</strong> (free to move between the layers).</li>
+      <li>The layers are held together by <strong>weak intermolecular forces</strong> (Van der Waals forces).</li>
+      <li>Layers can <strong>slide easily</strong> over each other.</li>
+    </ul>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>🧠 Key Features</h4>
+    <ul>
+      <li>Strong covalent bonds <strong>within</strong> each layer.</li>
+      <li>Weak forces <strong>between</strong> layers.</li>
+      <li>One delocalised electron per carbon atom that moves freely.</li>
+      <li>Structure described as "layers of hexagons with delocalised electrons between them."</li>
+    </ul>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 2 – Properties of Graphite</h3>
+  
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Property</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Soft and slippery</td>
+          <td>Layers slide over each other easily.</td>
+        </tr>
+        <tr>
+          <td>Conducts electricity and heat</td>
+          <td>Delocalised electrons move through the layers.</td>
+        </tr>
+        <tr>
+          <td>High melting and boiling point</td>
+          <td>Strong covalent bonds in each layer require lots of energy to break.</td>
+        </tr>
+        <tr>
+          <td>Less dense than diamond</td>
+          <td>Layers are far apart with space between them.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 3 – Explaining Graphite's Properties Using Structure and Bonding</h3>
+  
+  <div class="key-facts-block">
+    <h4>✏️ 1. Soft and Slippery</h4>
+    <p>Atoms in each layer are strongly bonded, but only <strong>weak forces exist between the layers</strong>.</p>
+    <p>These weak forces (Van der Waals) can be easily overcome, allowing layers to slide over each other.</p>
+    <p>✅ Therefore, graphite is soft and slippery.</p>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>📝 Exam phrase:</h4>
+    <p>"Graphite is soft because there are only <strong>weak forces between layers</strong>, allowing them to slide over one another."</p>
+  </div>
+
+  <div class="key-facts-block">
+    <h4>⚡ 2. Conducts Electricity and Heat</h4>
+    <p>Each carbon atom forms three covalent bonds, leaving <strong>one delocalised electron</strong>.</p>
+    <p>These electrons are free to move through the structure, carrying electric charge.</p>
+    <p>Delocalised electrons also transfer energy, allowing graphite to conduct heat.</p>
+    <p>✅ Therefore, graphite conducts electricity and heat, unlike most non-metals.</p>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>📝 Exam phrase:</h4>
+    <p>"Graphite conducts electricity because it has <strong>delocalised electrons that can move freely between layers</strong>."</p>
+  </div>
+
+  <div class="key-facts-block">
+    <h4>🔥 3. Very High Melting and Boiling Point</h4>
+    <p>Each layer has <strong>strong covalent bonds</strong> between carbon atoms.</p>
+    <p>These bonds require a lot of energy to break.</p>
+    <p>Even though layers slide easily, breaking the layers themselves takes enormous energy.</p>
+    <p>✅ Therefore, graphite has a very high melting and boiling point (similar to diamond).</p>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>📝 Exam phrase:</h4>
+    <p>"Graphite has a high melting point because <strong>many strong covalent bonds must be broken</strong> to change state."</p>
+  </div>
+
+  <div class="key-facts-block">
+    <h4>📊 4. Less Dense Than Diamond</h4>
+    <p>Layers in graphite are spread further apart than the tightly bonded atoms in diamond.</p>
+    <p>The gaps between layers make graphite less dense.</p>
+    <p>✅ Therefore, graphite is lighter and less compact than diamond.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 4 – Uses of Graphite</h3>
+  
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Use</th>
+          <th>Reason</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Electrodes in electrolysis</td>
+          <td>Conducts electricity, resists heat.</td>
+        </tr>
+        <tr>
+          <td>Lubricant</td>
+          <td>Layers slide easily (soft and slippery).</td>
+        </tr>
+        <tr>
+          <td>Pencils</td>
+          <td>Layers flake off onto paper.</td>
+        </tr>
+        <tr>
+          <td>Brushes in electric motors</td>
+          <td>Conducts electricity and withstands friction.</td>
+        </tr>
+        <tr>
+          <td>Nuclear reactor moderator</td>
+          <td>Absorbs neutrons, resists high temperatures.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="key-facts-block">
+    <p>Graphite's <strong>conductivity and softness</strong> make it useful in both electrical and mechanical applications.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 5 – Comparison Between Diamond and Graphite</h3>
+  
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Diamond</th>
+          <th>Graphite</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Structure</td>
+          <td>3D tetrahedral lattice</td>
+          <td>Layers of hexagons</td>
+        </tr>
+        <tr>
+          <td>Bonds per carbon atom</td>
+          <td>4</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <td>Delocalised electrons</td>
+          <td>None</td>
+          <td>One per carbon atom</td>
+        </tr>
+        <tr>
+          <td>Conducts Electricity?</td>
+          <td>❌ No</td>
+          <td>✅ Yes</td>
+        </tr>
+        <tr>
+          <td>Hardness</td>
+          <td>Very hard</td>
+          <td>Soft/slippery</td>
+        </tr>
+        <tr>
+          <td>Melting point</td>
+          <td>Very high</td>
+          <td>Very high</td>
+        </tr>
+        <tr>
+          <td>Uses</td>
+          <td>Cutting tools, jewellery</td>
+          <td>Electrodes, pencils, lubricant</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>🧠 Key Point</h4>
+    <p>Both are giant covalent structures made of carbon, but graphite's <strong>delocalised electrons</strong> make it unique.</p>
+  </div>
+</div>
+        `,
+        canonical_keywords: ["graphite", "layers", "hexagonal", "three bonds", "delocalised electrons", "conducts electricity", "soft", "slippery"],
+        practice_items: [
+          {
+            id: "graphite-1",
+            prompt_template: "Describe the structure of graphite and explain why it conducts electricity. [5 marks]",
+            marks: 5,
+            type: "open",
+            difficulty: "medium",
+            randomise: false,
+            expected_keywords: ["layers", "hexagonal", "three bonds", "delocalised electrons", "free to move", "carry charge"]
+          },
+          {
+            id: "graphite-2",
+            prompt_template: "Explain why graphite is soft and slippery. [2 marks]",
+            marks: 2,
+            type: "short-answer",
+            difficulty: "easy",
+            randomise: false,
+            expected_keywords: ["weak forces", "between layers", "slide", "easily"]
+          }
+        ]
+      },
+      {
+        id: "2-3-3-graphene-fullerenes",
+        title: "2.3.3 GRAPHENE AND FULLERENES",
+        type: "content",
+        study_group: 5,
+        content_html: `
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 1 – Graphene: Structure</h3>
+  
+  <div class="key-facts-block">
+    <h4>📘 Description</h4>
+    <ul>
+      <li>Graphene is a <strong>single layer of graphite</strong>, just one atom thick.</li>
+      <li>It consists of carbon atoms joined by strong covalent bonds in a flat sheet of hexagons.</li>
+      <li>Each carbon atom is bonded to <strong>three others</strong>, leaving one delocalised electron per atom.</li>
+      <li>The sheet is <strong>two-dimensional (2D)</strong> — it has length and width, but no thickness.</li>
+    </ul>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>🧠 Key Fact:</h4>
+    <p>Graphene is the <strong>thinnest material ever discovered</strong>, yet also one of the strongest.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 2 – Graphene: Properties and Explanations</h3>
+  
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Property</th>
+          <th>Explanation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Very strong</td>
+          <td>Each carbon atom forms strong covalent bonds → strong hexagonal sheet.</td>
+        </tr>
+        <tr>
+          <td>Lightweight and flexible</td>
+          <td>Only one atom thick → very low density.</td>
+        </tr>
+        <tr>
+          <td>Conducts electricity</td>
+          <td>Delocalised electrons move freely across the sheet.</td>
+        </tr>
+        <tr>
+          <td>Conducts heat efficiently</td>
+          <td>Free electrons transfer energy rapidly.</td>
+        </tr>
+        <tr>
+          <td>Transparent</td>
+          <td>Extremely thin → allows light to pass through.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>🧠 Linking Properties to Structure</h4>
+    <ul>
+      <li>Covalent bonds → strength and high melting point.</li>
+      <li>Delocalised electrons → electrical and thermal conductivity.</li>
+      <li>Single atomic layer → flexibility, transparency, lightness.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 3 – Uses of Graphene</h3>
+  
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Use</th>
+          <th>Explanation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Electronics</td>
+          <td>Excellent electrical conductivity; used in transistors and circuits.</td>
+        </tr>
+        <tr>
+          <td>Composites</td>
+          <td>Added to plastics → makes them stronger but still lightweight.</td>
+        </tr>
+        <tr>
+          <td>Flexible displays</td>
+          <td>Conductive and transparent → ideal for touchscreens.</td>
+        </tr>
+        <tr>
+          <td>Medical sensors</td>
+          <td>Thin and biocompatible → detects small electrical changes.</td>
+        </tr>
+        <tr>
+          <td>Energy storage</td>
+          <td>Used in batteries and supercapacitors due to conductivity.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>📝 Exam phrase:</h4>
+    <p>"Graphene's <strong>strength, conductivity, and flexibility</strong> make it useful in electronics and composite materials."</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 4 – Fullerenes: What They Are</h3>
+  
+  <div class="definition-block">
+    <h4>🔵 Definition</h4>
+    <p>Fullerenes are molecules of carbon shaped like <strong>closed tubes or hollow spheres</strong>, made up of hexagonal and pentagonal rings of carbon atoms. They are also allotropes of carbon (like diamond, graphite, and graphene).</p>
+  </div>
+
+  <div class="key-facts-block">
+    <h4>🧠 Key Points</h4>
+    <ul>
+      <li>Atoms are joined by strong covalent bonds.</li>
+      <li>Structures are <strong>hollow</strong>, giving them unique chemical and physical properties.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 5 – Buckminsterfullerene (C₆₀)</h3>
+  
+  <div class="key-facts-block">
+    <h4>🔬 Structure</h4>
+    <ul>
+      <li>The first fullerene discovered.</li>
+      <li>Made of <strong>60 carbon atoms</strong> arranged in a spherical shape (similar to a football).</li>
+      <li>Contains 12 pentagons and 20 hexagons.</li>
+      <li>Each carbon forms three covalent bonds → delocalised electrons → weak intermolecular forces between molecules.</li>
+    </ul>
+  </div>
+
+  <div class="example-block">
+    <h4>💎 Properties and Explanations</h4>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Property</th>
+          <th>Explanation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Molecular (not giant)</td>
+          <td>Made of individual C₆₀ molecules.</td>
+        </tr>
+        <tr>
+          <td>Soft</td>
+          <td>Weak intermolecular forces between molecules.</td>
+        </tr>
+        <tr>
+          <td>Low melting point</td>
+          <td>Forces between molecules are weak.</td>
+        </tr>
+        <tr>
+          <td>Conducts electricity poorly</td>
+          <td>Some delocalised electrons but they cannot move easily between molecules.</td>
+        </tr>
+        <tr>
+          <td>Can act as a 'molecular cage'</td>
+          <td>Hollow centre can trap other atoms or molecules.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note-block">
+    <h4>📝 Key Fact:</h4>
+    <p>Named after Buckminster Fuller, who designed geodesic dome structures that look similar.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 6 – Carbon Nanotubes</h3>
+  
+  <div class="key-facts-block">
+    <h4>🔬 Structure</h4>
+    <ul>
+      <li>Cylindrical fullerenes — <strong>rolled-up sheets of graphene</strong>.</li>
+      <li>Each tube consists of carbon atoms bonded in hexagonal rings.</li>
+      <li>Have very high length-to-diameter ratios (extremely long and thin).</li>
+      <li>Can be single-walled or multi-walled (several layers rolled together).</li>
+    </ul>
+  </div>
+
+  <div class="example-block">
+    <h4>💎 Properties and Explanations</h4>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Property</th>
+          <th>Explanation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Very strong</td>
+          <td>Covalent bonds between carbon atoms make the structure very tough.</td>
+        </tr>
+        <tr>
+          <td>Lightweight</td>
+          <td>Hollow cylindrical shape with low density.</td>
+        </tr>
+        <tr>
+          <td>Excellent electrical conductor</td>
+          <td>Delocalised electrons move freely along the tube.</td>
+        </tr>
+        <tr>
+          <td>High thermal conductivity</td>
+          <td>Transfers heat efficiently.</td>
+        </tr>
+        <tr>
+          <td>High tensile strength</td>
+          <td>Can be stretched without breaking.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>📝 Key Idea:</h4>
+    <p>Carbon nanotubes combine <strong>strength, conductivity, and lightness</strong> — making them ideal for nanotechnology.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 7 – Uses of Fullerenes and Nanotubes</h3>
+  
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Use</th>
+          <th>Explanation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Buckminsterfullerene (C₆₀)</td>
+          <td>Drug delivery systems</td>
+          <td>Hollow spheres can carry molecules inside.</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>Lubricants</td>
+          <td>Roll easily between surfaces (like microscopic ball bearings).</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>Catalysts</td>
+          <td>Large surface area for reactions.</td>
+        </tr>
+        <tr>
+          <td>Carbon Nanotubes</td>
+          <td>Reinforcing materials</td>
+          <td>Added to sports equipment and composites for strength.</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>Electronics</td>
+          <td>Excellent conductors → used in circuits and transistors.</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>Nanotechnology</td>
+          <td>Deliver molecules at nanoscale or build tiny sensors.</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>Medical uses</td>
+          <td>Drug carriers, biosensors.</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>Space materials</td>
+          <td>Lightweight but extremely strong.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>📝 Exam Tip:</h4>
+    <p>Always link <strong>use → property → structure</strong>. For example:</p>
+    <p>"Carbon nanotubes are used in composite materials because they are <strong>very strong and lightweight</strong> due to their covalently bonded carbon atoms arranged in tubes."</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 8 – Recognising Graphene and Fullerenes</h3>
+  
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Structure Type</th>
+          <th>Description</th>
+          <th>Key Features</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Graphene</td>
+          <td>One atom thick sheet of hexagons</td>
+          <td>Delocalised electrons</td>
+        </tr>
+        <tr>
+          <td>Buckminsterfullerene (C₆₀)</td>
+          <td>Hollow sphere of 60 carbon atoms</td>
+          <td>12 pentagons + 20 hexagons</td>
+        </tr>
+        <tr>
+          <td>Carbon Nanotube</td>
+          <td>Rolled-up sheet of graphene</td>
+          <td>Long, thin cylinder; strong, conductive</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>🧠 Tip for diagrams:</h4>
+    <ul>
+      <li>Hexagonal pattern = graphene.</li>
+      <li>Spherical = C₆₀ fullerene.</li>
+      <li>Cylindrical = nanotube.</li>
+    </ul>
+  </div>
+</div>
+        `,
+        canonical_keywords: ["graphene", "fullerenes", "buckminsterfullerene", "carbon nanotubes", "C60", "hexagonal", "delocalised electrons", "hollow"],
+        practice_items: [
+          {
+            id: "graphene-fullerenes-1",
+            prompt_template: "Describe the structure of graphene and explain why it conducts electricity. [3 marks]",
+            marks: 3,
+            type: "open",
+            difficulty: "medium",
+            randomise: false,
+            expected_keywords: ["single layer", "hexagonal", "delocalised electrons", "free to move", "conduct"]
+          },
+          {
+            id: "graphene-fullerenes-2",
+            prompt_template: "Explain why carbon nanotubes are used in composite materials. [3 marks]",
+            marks: 3,
+            type: "open",
+            difficulty: "medium",
+            randomise: false,
+            expected_keywords: ["strong", "lightweight", "covalent bonds", "carbon atoms", "tubes"]
+          }
+        ]
+      },
+      {
+        id: "2-4-1-nanoscience",
+        title: "2.4.1 SIZES OF PARTICLES AND THEIR PROPERTIES (NANOSCIENCE)",
+        type: "content",
+        study_group: 6,
+        content_html: `
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 1 – What Is Nanoscience?</h3>
+  
+  <div class="definition-block">
+    <h4>🔵 Definition</h4>
+    <p>Nanoscience is the study of materials that have structures between <strong>1 and 100 nanometres (nm)</strong> in size.</p>
+  </div>
+
+  <div class="key-facts-block">
+    <h4>🧠 Key Idea</h4>
+    <ul>
+      <li>A <strong>nanometre (nm) = 1 × 10⁻⁹ metres</strong>.</li>
+      <li>Nanoparticles are made of only a few hundred atoms.</li>
+      <li>They are larger than atoms and simple molecules, but smaller than fine or coarse particles.</li>
+    </ul>
+  </div>
+
+  <div class="example-block">
+    <h4>📊 Particle Size Comparisons</h4>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Type of Particle</th>
+          <th>Approx. Diameter</th>
+          <th>Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Nanoparticle</td>
+          <td>1 – 100 nm (1 × 10⁻⁹ to 1 × 10⁻⁷ m)</td>
+          <td>Silver nanoparticles</td>
+        </tr>
+        <tr>
+          <td>Fine particle</td>
+          <td>100 – 2,500 nm (1 × 10⁻⁷ to 2.5 × 10⁻⁶ m)</td>
+          <td>Vehicle exhausts (PM2.5)</td>
+        </tr>
+        <tr>
+          <td>Coarse particle</td>
+          <td>2,500 – 10,000 nm (2.5 × 10⁻⁶ to 1 × 10⁻⁵ m)</td>
+          <td>Pollen, dust, dirt</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>🧠 Mnemonic</h4>
+    <p>Nano < Fine < Coarse in size.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 2 – Comparing Nano Dimensions to Atoms and Molecules</h3>
+  
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Particle</th>
+          <th>Approximate Size</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Atom (e.g. carbon)</td>
+          <td>0.1 nm</td>
+        </tr>
+        <tr>
+          <td>Small molecule (e.g. water)</td>
+          <td>~ 0.5 nm</td>
+        </tr>
+        <tr>
+          <td>Nanoparticle</td>
+          <td>1 – 100 nm</td>
+        </tr>
+        <tr>
+          <td>Human hair width</td>
+          <td>~80,000 nm</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>🧠 Key Point</h4>
+    <p>Nanoparticles sit <strong>between individual atoms and visible materials</strong>.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 3 – Surface Area to Volume Ratio (SA:V)</h3>
+  
+  <div class="definition-block">
+    <h4>🔵 Definition</h4>
+    <p>As the size of a particle decreases, its <strong>surface area to volume ratio increases</strong>.</p>
+    <p>This means:</p>
+    <ul>
+      <li>Nanoparticles have a <strong>huge surface area</strong> compared to their volume.</li>
+      <li>A large fraction of their atoms are on the surface rather than inside.</li>
+    </ul>
+  </div>
+
+  <div class="key-facts-block">
+    <h4>📏 Rule</h4>
+    <p>If the side of a cube decreases by a factor of 10,</p>
+    <p>👉 the surface area to volume ratio <strong>increases by a factor of 10</strong>.</p>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>🧠 Why It Matters</h4>
+    <ul>
+      <li>Higher SA:V → more area for reactions → <strong>more reactive</strong>.</li>
+      <li>Small amounts can have big effects (e.g. in catalysts).</li>
+    </ul>
+  </div>
+
+  <div class="example-block">
+    <h4>🟢 Example:</h4>
+    <p>A block of gold and gold nanoparticles have the same atoms, but nanoparticles are <strong>far more reactive and catalytic</strong> because of their much larger surface area.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 4 – Why Nanoparticles Have Different Properties</h3>
+  
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Property</th>
+          <th>Explanation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Higher reactivity</td>
+          <td>More atoms exposed on the surface → more collisions → faster reactions.</td>
+        </tr>
+        <tr>
+          <td>Different colour/optical behaviour</td>
+          <td>Electron interactions change with particle size (quantum effects).</td>
+        </tr>
+        <tr>
+          <td>Different strength or conductivity</td>
+          <td>Structures behave differently when only a few atoms thick.</td>
+        </tr>
+        <tr>
+          <td>Lower melting point</td>
+          <td>Smaller structures require less energy to change state.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>📝 Key Point</h4>
+    <p>Nanomaterials behave differently from bulk materials because their atoms are on the surface and interact differently with light, heat, and chemicals.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 5 – Why Smaller Quantities Are Effective</h3>
+  
+  <div class="key-facts-block">
+    <p>Nanoparticles have a <strong>large surface area per gram</strong>, so less material is needed for the same effect.</p>
+    <p>This makes them <strong>cost-effective</strong> and useful for medicine, catalysts, and coatings.</p>
+  </div>
+
+  <div class="example-block">
+    <h4>🟢 Example:</h4>
+    <p>Only a tiny amount of silver nanoparticles can kill bacteria in wound dressings, compared to much larger quantities of bulk silver.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 6 – Applications of Nanoparticles</h3>
+  
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Application</th>
+          <th>Nanoparticle Used</th>
+          <th>Why It's Useful</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Medicine (drug delivery)</td>
+          <td>Fullerenes, nanotubes</td>
+          <td>Hollow structure can carry drugs to specific cells</td>
+        </tr>
+        <tr>
+          <td>Antibacterial materials</td>
+          <td>Silver nanoparticles</td>
+          <td>High surface area → kills bacteria effectively</td>
+        </tr>
+        <tr>
+          <td>Sunscreens</td>
+          <td>Titanium dioxide (TiO₂)</td>
+          <td>Transparent but blocks UV light</td>
+        </tr>
+        <tr>
+          <td>Catalysts</td>
+          <td>Platinum, palladium nanoparticles</td>
+          <td>Huge surface area speeds up reactions</td>
+        </tr>
+        <tr>
+          <td>Electronics</td>
+          <td>Carbon nanotubes</td>
+          <td>Excellent conductors, very small</td>
+        </tr>
+        <tr>
+          <td>Composite materials</td>
+          <td>Carbon nanotubes, graphene</td>
+          <td>Added to plastics for strength without weight</td>
+        </tr>
+        <tr>
+          <td>Sensors</td>
+          <td>Quantum dots</td>
+          <td>Change colour depending on particle size</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 7 – Risks and Benefits of Nanoparticles</h3>
+  
+  <div class="key-facts-block">
+    <h4>✅ Benefits</h4>
+    <ul>
+      <li>More efficient materials (less waste).</li>
+      <li>Targeted drug delivery (fewer side effects).</li>
+      <li>Stronger, lighter materials.</li>
+      <li>Faster chemical reactions (catalysts).</li>
+    </ul>
+  </div>
+
+  <div class="key-facts-block">
+    <h4>⚠️ Risks</h4>
+    <ul>
+      <li>Nanoparticles are so small they can enter cells and tissues.</li>
+      <li>Long-term health effects are not fully understood.</li>
+      <li>May cause respiratory problems if inhaled.</li>
+      <li>Environmental impact is uncertain.</li>
+    </ul>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>🧠 Balance</h4>
+    <p>Scientists continue to research nanomaterials to maximize benefits while minimizing risks.</p>
+  </div>
+</div>
+        `,
+        canonical_keywords: ["nanoscience", "nanoparticles", "surface area to volume ratio", "1-100 nm", "quantum effects", "applications", "risks"],
+        practice_items: [
+          {
+            id: "nano-1",
+            prompt_template: "Explain why nanoparticles have different properties from bulk materials. [4 marks]",
+            marks: 4,
+            type: "open",
+            difficulty: "medium",
+            randomise: false,
+            expected_keywords: ["surface area", "volume ratio", "high", "more atoms", "surface", "react", "differently"]
+          },
+          {
+            id: "nano-2",
+            prompt_template: "Give two uses of nanoparticles and explain why they are suitable for each use. [4 marks]",
+            marks: 4,
+            type: "open",
+            difficulty: "medium",
+            randomise: false,
+            expected_keywords: ["silver", "antibacterial", "surface area", "drug delivery", "hollow", "carry molecules", "catalysts", "reactions"]
+          }
+        ]
       }
     ]
   },
