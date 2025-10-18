@@ -17,33 +17,49 @@ interface Profile {
 interface Settings {
   timer_enabled: boolean;
   notifications_enabled: boolean;
+  theme: 'light' | 'dark' | 'system';
 }
 
 const Settings = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [profile, setProfile] = useState<Profile>({ full_name: "" });
-  const [settings, setSettings] = useState<Settings>({ timer_enabled: true, notifications_enabled: true });
+  const [settings, setSettings] = useState<Settings>({ 
+    timer_enabled: true, 
+    notifications_enabled: true,
+    theme: 'system'
+  });
   const [newPassword, setNewPassword] = useState("");
   const [userId, setUserId] = useState("");
-  const [darkMode, setDarkMode] = useState(() => {
-    return localStorage.getItem('theme') === 'dark' || 
-      (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
-  });
+  const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
     fetchData();
   }, []);
 
   useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
-  }, [darkMode]);
+    const applyTheme = () => {
+      if (settings.theme === 'dark') {
+        document.documentElement.classList.add('dark');
+        setDarkMode(true);
+      } else if (settings.theme === 'light') {
+        document.documentElement.classList.remove('dark');
+        setDarkMode(false);
+      } else {
+        // system preference
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (prefersDark) {
+          document.documentElement.classList.add('dark');
+          setDarkMode(true);
+        } else {
+          document.documentElement.classList.remove('dark');
+          setDarkMode(false);
+        }
+      }
+    };
+    
+    applyTheme();
+  }, [settings.theme]);
 
   const fetchData = async () => {
     const { data: { user } } = await supabase.auth.getUser();
@@ -72,9 +88,11 @@ const Settings = () => {
       .single();
 
     if (settingsData) {
+      const theme = settingsData.theme as 'light' | 'dark' | 'system';
       setSettings({
         timer_enabled: settingsData.timer_enabled,
         notifications_enabled: settingsData.notifications_enabled,
+        theme: theme || 'system',
       });
     }
 
@@ -108,6 +126,27 @@ const Settings = () => {
     } else {
       toast.success("Settings updated!");
     }
+  };
+
+  const updateTheme = async (newTheme: 'light' | 'dark') => {
+    const themeValue = newTheme;
+    const newSettings = { ...settings, theme: themeValue };
+    setSettings(newSettings);
+
+    const { error } = await supabase
+      .from("user_settings")
+      .update({ theme: themeValue, updated_at: new Date().toISOString() })
+      .eq("user_id", userId);
+
+    if (error) {
+      toast.error("Failed to update theme");
+    } else {
+      toast.success("Theme updated!");
+    }
+  };
+
+  const handleThemeToggle = (checked: boolean) => {
+    updateTheme(checked ? 'dark' : 'light');
   };
 
   const updatePassword = async () => {
@@ -257,7 +296,7 @@ const Settings = () => {
                   <Switch
                     id="darkMode"
                     checked={darkMode}
-                    onCheckedChange={setDarkMode}
+                    onCheckedChange={handleThemeToggle}
                   />
                   <Moon className="h-4 w-4 text-muted-foreground" />
                 </div>

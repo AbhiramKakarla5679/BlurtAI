@@ -174,18 +174,21 @@ export type Database = {
       user_settings: {
         Row: {
           notifications_enabled: boolean
+          theme: string
           timer_enabled: boolean
           updated_at: string
           user_id: string
         }
         Insert: {
           notifications_enabled?: boolean
+          theme?: string
           timer_enabled?: boolean
           updated_at?: string
           user_id: string
         }
         Update: {
           notifications_enabled?: boolean
+          theme?: string
           timer_enabled?: boolean
           updated_at?: string
           user_id?: string

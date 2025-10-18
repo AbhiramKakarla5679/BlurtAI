@@ -36,6 +36,39 @@ const Dashboard = () => {
   const [topicPerformance, setTopicPerformance] = useState<TopicPerformance[]>([]);
   const [loading, setLoading] = useState(true);
 
+  // Load and apply theme on dashboard load
+  useEffect(() => {
+    const loadTheme = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+
+      const { data: settingsData } = await supabase
+        .from("user_settings")
+        .select("theme")
+        .eq("user_id", user.id)
+        .single();
+
+      if (settingsData?.theme) {
+        const theme = settingsData.theme as 'light' | 'dark' | 'system';
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else if (theme === 'light') {
+          document.documentElement.classList.remove('dark');
+        } else {
+          // system preference
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (prefersDark) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        }
+      }
+    };
+
+    loadTheme();
+  }, []);
+
   useEffect(() => {
     const checkAuth = async () => {
       const { data: { user } } = await supabase.auth.getUser();
