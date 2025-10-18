@@ -1,0 +1,143 @@
+/* Color-coded content styling for chemistry notes */
+
+.section-content-wrapper {
+  @apply space-y-6;
+}
+
+/* Subsection containers */
+.subsection {
+  @apply mb-8 p-6 bg-card rounded-lg border;
+}
+
+.subsection-heading {
+  @apply text-2xl font-bold mb-6 text-foreground;
+}
+
+/* Definition blocks - Blue */
+.definition-block {
+  @apply mb-6 p-4 rounded-lg border-l-4 border-blue-500 bg-blue-50 dark:bg-blue-950/20;
+}
+
+.definition-block h4 {
+  @apply text-lg font-semibold text-blue-700 dark:text-blue-400 mb-2;
+}
+
+.definition-block p {
+  @apply text-foreground;
+}
+
+.definition-block ul {
+  @apply list-disc list-inside space-y-1 text-foreground;
+}
+
+/* Key Facts blocks - Green */
+.key-facts-block {
+  @apply mb-6 p-4 rounded-lg border-l-4 border-green-500 bg-green-50 dark:bg-green-950/20;
+}
+
+.key-facts-block h4 {
+  @apply text-lg font-semibold text-green-700 dark:text-green-400 mb-2;
+}
+
+.key-facts-block ul {
+  @apply list-disc list-inside space-y-1 text-foreground;
+}
+
+.key-facts-block p {
+  @apply text-foreground;
+}
+
+/* Example blocks - Teal/Turquoise */
+.example-block {
+  @apply mb-6 p-4 rounded-lg border-l-4 border-teal-500 bg-teal-50 dark:bg-teal-950/20;
+}
+
+.example-block h4 {
+  @apply text-lg font-semibold text-teal-700 dark:text-teal-400 mb-2;
+}
+
+.example-block p {
+  @apply text-foreground;
+}
+
+.example-block ul {
+  @apply list-disc list-inside space-y-1 text-foreground;
+}
+
+/* Exam Tip blocks - Yellow */
+.exam-tip-block {
+  @apply mb-6 p-4 rounded-lg border-l-4 border-yellow-500 bg-yellow-50 dark:bg-yellow-950/30;
+}
+
+.exam-tip-block h4 {
+  @apply text-lg font-semibold text-yellow-700 dark:text-yellow-400 mb-2;
+}
+
+.exam-tip-block p {
+  @apply text-foreground;
+}
+
+/* Warning blocks - Red */
+.warning-block {
+  @apply mb-6 p-4 rounded-lg border-l-4 border-red-500 bg-red-50 dark:bg-red-950/20;
+}
+
+.warning-block h4 {
+  @apply text-lg font-semibold text-red-700 dark:text-red-400 mb-2;
+}
+
+.warning-block p {
+  @apply text-foreground;
+}
+
+/* Data tables - Neutral background with clear gridlines */
+.data-table {
+  @apply w-full border-collapse bg-muted/30 rounded-lg overflow-hidden my-4;
+}
+
+.data-table thead {
+  @apply bg-muted;
+}
+
+.data-table th {
+  @apply p-3 text-left font-semibold border-b-2 border-border;
+}
+
+.data-table td {
+  @apply p-3 border-b border-border;
+}
+
+.data-table tbody tr:hover {
+  @apply bg-accent/50;
+}
+
+/* Lists */
+.section-content-wrapper ul {
+  @apply space-y-1 ml-4;
+}
+
+.section-content-wrapper ol {
+  @apply space-y-1 ml-4 list-decimal;
+}
+
+/* Paragraphs */
+.section-content-wrapper p {
+  @apply mb-2 leading-relaxed;
+}
+
+/* Strong/Bold text */
+.section-content-wrapper strong {
+  @apply font-bold text-foreground;
+}
+
+/* Responsive tables */
+@media (max-width: 768px) {
+  .data-table {
+    @apply text-sm;
+  }
+  
+  .data-table th,
+  .data-table td {
+    @apply p-2;
+  }
+}
