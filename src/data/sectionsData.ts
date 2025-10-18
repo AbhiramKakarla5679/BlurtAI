@@ -1230,6 +1230,216 @@ export const sectionsData: TopicSection[] = [
         ]
       },
       {
+        id: "1-2-2-development-periodic-table",
+        title: "1.2.2 DEVELOPMENT OF THE PERIODIC TABLE",
+        type: "content",
+        content_html: `
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 1 – Early Classification of Elements</h3>
+  <div class="key-facts-block">
+    <h4>🧠 Early Attempts</h4>
+    <ul>
+      <li><strong>Dobereiner's Triads (1817):</strong> Grouped elements in threes with similar properties. Middle element's atomic mass ≈ average of other two. Problem: Didn't work for all known elements.</li>
+      <li><strong>Newlands' Law of Octaves (1864):</strong> Arranged elements by increasing atomic weight. Every 8th element had similar properties. Problems: Didn't leave gaps for new elements; mixed metals and non-metals together.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 2 – Mendeleev's Periodic Table (1869)</h3>
+  <div class="definition-block">
+    <h4>🔵 Key Ideas</h4>
+    <p>Dmitri Mendeleev arranged the 63 known elements in order of increasing atomic weight. He grouped elements with similar chemical properties in the same column.</p>
+  </div>
+  <div class="key-facts-block">
+    <h4>🧠 Mendeleev's Genius Moves</h4>
+    <ul>
+      <li><strong>Left Gaps for Missing Elements:</strong> Predicted the existence and properties of new elements like gallium, scandium, and germanium</li>
+      <li><strong>Reordered Some Elements:</strong> Swapped elements that didn't fit by weight to better match chemical properties</li>
+      <li><strong>Grouped by Properties:</strong> Elements in the same group had similar reactions</li>
+    </ul>
+  </div>
+  <div class="example-block">
+    <h4>🟢 Example: Mendeleev's Predictions</h4>
+    <p>When gallium and germanium were discovered later, their measured properties matched Mendeleev's predictions exactly — proving his model was correct.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 3 – The Modern Periodic Table</h3>
+  <div class="definition-block">
+    <h4>🔵 What Changed</h4>
+    <p>In the early 20th century, scientists discovered protons and realised that elements are best arranged by atomic number (number of protons), not atomic mass.</p>
+  </div>
+  <div class="example-block">
+    <table class="data-table">
+      <thead><tr><th>Feature</th><th>Mendeleev's Table</th><th>Modern Table</th></tr></thead>
+      <tbody>
+        <tr><td>Basis of order</td><td>Atomic weight</td><td>Atomic number</td></tr>
+        <tr><td>Gaps left</td><td>Yes (for new elements)</td><td>No (all known elements included)</td></tr>
+        <tr><td>Noble gases</td><td>Not discovered yet</td><td>Present (Group 0)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+        `,
+        canonical_keywords: ["Mendeleev", "periodic table", "development", "atomic number", "Dobereiner", "Newlands", "predictions"],
+        practice_items: [
+          {
+            id: "dev-pt-1",
+            prompt_template: "Explain how Mendeleev overcame the problems with earlier attempts to classify elements. [4 marks]",
+            marks: 4,
+            type: "open",
+            difficulty: "hard",
+            randomise: false,
+            expected_keywords: ["gaps", "predicted", "properties", "reordered", "chemical properties", "gallium", "germanium"]
+          }
+        ]
+      },
+      {
+        id: "1-2-3-metals-non-metals",
+        title: "1.2.3 METALS AND NON-METALS",
+        type: "content",
+        content_html: `
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 1 – Where They Are Found</h3>
+  <div class="definition-block">
+    <h4>🔵 Key Idea</h4>
+    <p>The Periodic Table is roughly divided by a diagonal "staircase line." Elements to the left and below this line are metals. Elements to the right and above are non-metals.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 2 – Physical Properties</h3>
+  <div class="example-block">
+    <table class="data-table">
+      <thead><tr><th>Property</th><th>Metals</th><th>Non-Metals</th></tr></thead>
+      <tbody>
+        <tr><td>State at room temp</td><td>Mostly solid (except mercury)</td><td>Many gases or brittle solids</td></tr>
+        <tr><td>Appearance</td><td>Shiny (lustrous)</td><td>Dull</td></tr>
+        <tr><td>Melting & Boiling Point</td><td>High</td><td>Low</td></tr>
+        <tr><td>Density</td><td>Usually high</td><td>Usually low</td></tr>
+        <tr><td>Conductivity</td><td>Conduct heat & electricity</td><td>Poor conductors (insulators)</td></tr>
+        <tr><td>Malleability</td><td>Malleable and ductile</td><td>Brittle if solid</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 3 – Chemical Properties</h3>
+  <div class="example-block">
+    <table class="data-table">
+      <thead><tr><th>Property</th><th>Metals</th><th>Non-Metals</th></tr></thead>
+      <tbody>
+        <tr><td>Ion formation</td><td>Lose electrons → positive ions</td><td>Gain/share electrons → negative ions or covalent bonds</td></tr>
+        <tr><td>Type of bonding</td><td>Metallic or Ionic</td><td>Covalent</td></tr>
+        <tr><td>Reaction with Oxygen</td><td>Metal oxides (basic)</td><td>Non-metal oxides (acidic)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="example-block">
+    <h4>🟢 Examples</h4>
+    <ul>
+      <li><strong>Metal + Oxygen:</strong> 2Mg + O₂ → 2MgO (basic)</li>
+      <li><strong>Non-metal + Oxygen:</strong> C + O₂ → CO₂ (acidic)</li>
+    </ul>
+  </div>
+</div>
+        `,
+        canonical_keywords: ["metals", "non-metals", "conductivity", "malleability", "oxides", "basic", "acidic"],
+        practice_items: [
+          {
+            id: "metal-nm-1",
+            prompt_template: "Compare the physical properties of metals and non-metals. [4 marks]",
+            marks: 4,
+            type: "open",
+            difficulty: "medium",
+            randomise: false,
+            expected_keywords: ["conductivity", "malleability", "melting point", "density", "shiny", "dull", "brittle"]
+          }
+        ]
+      },
+      {
+        id: "1-2-4-group-0",
+        title: "1.2.4 GROUP 0 (THE NOBLE GASES)",
+        type: "content",
+        content_html: `
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 1 – Introducing the Noble Gases</h3>
+  <div class="definition-block">
+    <h4>🔵 Definition</h4>
+    <p>The noble gases are the elements in Group 0 (sometimes called Group 8) of the periodic table: Helium (He), Neon (Ne), Argon (Ar), Krypton (Kr), Xenon (Xe), Radon (Rn).</p>
+  </div>
+  <div class="key-facts-block">
+    <h4>🧠 Key Facts</h4>
+    <ul>
+      <li>Found on the far right-hand side of the periodic table</li>
+      <li>All are non-metals and exist as single atoms (monatomic)</li>
+      <li>Colourless, odourless gases at room temperature</li>
+      <li>They all have full outer electron shells</li>
+    </ul>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 2 – Electronic Structure and Stability</h3>
+  <div class="definition-block">
+    <h4>🔵 Key Idea</h4>
+    <p>Each noble gas has a complete outer shell of electrons. This makes them very stable and chemically unreactive.</p>
+  </div>
+  <div class="example-block">
+    <table class="data-table">
+      <thead><tr><th>Element</th><th>Atomic Number</th><th>Electron Configuration</th><th>Outer Electrons</th></tr></thead>
+      <tbody>
+        <tr><td>Helium</td><td>2</td><td>2</td><td>2</td></tr>
+        <tr><td>Neon</td><td>10</td><td>2,8</td><td>8</td></tr>
+        <tr><td>Argon</td><td>18</td><td>2,8,8</td><td>8</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="exam-tip-block">
+    <h4>🧠 Exam Tip</h4>
+    <p>Always mention "full outer shell" when explaining unreactivity.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 3 – Physical Properties and Trends</h3>
+  <div class="definition-block">
+    <h4>🔵 Trend Down Group 0</h4>
+    <p>As you go down Group 0: atoms get larger, intermolecular forces get stronger, boiling points and densities increase.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 4 – Uses of the Noble Gases</h3>
+  <div class="example-block">
+    <table class="data-table">
+      <thead><tr><th>Noble Gas</th><th>Uses</th><th>Reason</th></tr></thead>
+      <tbody>
+        <tr><td>Helium (He)</td><td>Balloons, airships</td><td>Low density, non-flammable</td></tr>
+        <tr><td>Neon (Ne)</td><td>Advertising lights</td><td>Glows brightly when electricity passes through</td></tr>
+        <tr><td>Argon (Ar)</td><td>Inert atmosphere for welding & in light bulbs</td><td>Prevents metal from reacting with oxygen</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+        `,
+        canonical_keywords: ["noble gases", "Group 0", "helium", "neon", "argon", "unreactive", "full outer shell", "monatomic"],
+        practice_items: [
+          {
+            id: "group0-1",
+            prompt_template: "Explain why the noble gases are unreactive. [2 marks]",
+            marks: 2,
+            type: "short-answer",
+            difficulty: "easy",
+            randomise: false,
+            expected_keywords: ["full outer shell", "stable", "no need to react", "gain", "lose", "share"]
+          }
+        ]
+      },
+      {
         id: "1-2-5-group-1",
         title: "1.2.5 GROUP 1: THE ALKALI METALS",
         type: "content",
@@ -1364,6 +1574,142 @@ export const sectionsData: TopicSection[] = [
             difficulty: "medium",
             randomise: false,
             expected_keywords: ["outer shell", "closer to nucleus", "stronger attraction", "easier to gain electron", "fewer shells"]
+          }
+        ]
+      },
+      {
+        id: "1-3-1-transition-metals-comparison",
+        title: "1.3.1 COMPARISON OF TRANSITION METALS WITH GROUP 1 ELEMENTS",
+        type: "content",
+        content_html: `
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 1 – Where They Are Found</h3>
+  <div class="key-facts-block">
+    <ul>
+      <li>Group 1 elements: the alkali metals — found on the far left of the periodic table</li>
+      <li>Transition metals: located in the centre block (between Groups 2 and 3)</li>
+    </ul>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 2 – Physical Property Comparison</h3>
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr><th>Property</th><th>Group 1 Metals</th><th>Transition Metals</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Density</td><td>Low (Li, Na, K float on water)</td><td>High (Fe, Cu sink)</td></tr>
+        <tr><td>Hardness</td><td>Very soft (cut with knife)</td><td>Hard and strong</td></tr>
+        <tr><td>Melting/Boiling Point</td><td>Low</td><td>High</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 3 – Chemical Property Comparison</h3>
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr><th>Property</th><th>Group 1 Metals</th><th>Transition Metals</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Reactivity</td><td>Very reactive</td><td>Much less reactive</td></tr>
+        <tr><td>Reaction with Water</td><td>Vigorous → metal hydroxide + H₂</td><td>Slow or no reaction</td></tr>
+        <tr><td>Reaction with Oxygen</td><td>React quickly → white oxides</td><td>Form coloured oxides</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+        `,
+        canonical_keywords: ["transition metals", "Group 1", "alkali metals", "density", "reactivity", "hardness"],
+        practice_items: [
+          {
+            id: "trans-comp-1",
+            prompt_template: "Compare the physical properties of Group 1 metals and transition metals. [4 marks]",
+            marks: 4,
+            type: "open",
+            difficulty: "medium",
+            randomise: false,
+            expected_keywords: ["density", "hardness", "melting point", "Group 1", "soft", "low density", "transition", "hard", "high density"]
+          }
+        ]
+      },
+      {
+        id: "1-3-2-typical-transition-properties",
+        title: "1.3.2 TYPICAL PROPERTIES OF TRANSITION METALS",
+        type: "content",
+        content_html: `
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 1 – General Physical Properties</h3>
+  <div class="key-facts-block">
+    <ul>
+      <li>High melting and boiling points</li>
+      <li>High density</li>
+      <li>Good conductors of heat and electricity</li>
+      <li>Hard and strong</li>
+      <li>Malleable and ductile</li>
+    </ul>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 2 – Chemical Properties</h3>
+  <div class="definition-block">
+    <h4>🔵 Key Properties</h4>
+    <ul>
+      <li><strong>Variable oxidation states:</strong> Can form ions with different charges (e.g., Fe²⁺ and Fe³⁺)</li>
+      <li><strong>Form coloured compounds:</strong> Each ion absorbs different wavelengths of light</li>
+      <li><strong>Catalytic activity:</strong> Increase rate of reactions without being used up</li>
+    </ul>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 3 – Coloured Compounds</h3>
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr><th>Compound</th><th>Colour</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>CuSO₄ (aq)</td><td>Blue</td></tr>
+        <tr><td>FeSO₄ (aq)</td><td>Pale green</td></tr>
+        <tr><td>FeCl₃ (aq)</td><td>Yellow/brown</td></tr>
+        <tr><td>NiSO₄ (aq)</td><td>Green</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 4 – Catalytic Properties</h3>
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr><th>Catalyst</th><th>Reaction</th><th>Use</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Iron (Fe)</td><td>N₂ + 3H₂ ⇌ 2NH₃</td><td>Haber Process (ammonia)</td></tr>
+        <tr><td>Nickel (Ni)</td><td>Hydrogenation of alkenes</td><td>Making margarine</td></tr>
+        <tr><td>Platinum (Pt)</td><td>Converts CO → CO₂</td><td>Catalytic converters</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+        `,
+        canonical_keywords: ["transition metals", "catalysts", "coloured compounds", "variable oxidation states", "iron", "copper", "nickel"],
+        practice_items: [
+          {
+            id: "trans-prop-1",
+            prompt_template: "Explain why transition metals form coloured compounds. [3 marks]",
+            marks: 3,
+            type: "open",
+            difficulty: "hard",
+            randomise: false,
+            expected_keywords: ["d-orbital", "electrons", "absorb", "light", "wavelengths", "reflected", "colour"]
           }
         ]
       }
