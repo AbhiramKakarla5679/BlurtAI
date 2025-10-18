@@ -44,6 +44,7 @@ const App = () => (
           <Route path="/section/:id" element={<SectionReader />} />
           <Route path="/blur/:id" element={<BlurExercise />} />
           <Route path="/results/:id" element={<Results />} />
+          <Route path="/results" element={<Results />} />
           <Route path="/history" element={<History />} />
           <Route path="/admin/sections" element={<AdminSections />} />
           <Route path="/admin/import" element={<ImportPDF />} />
