@@ -93,38 +93,36 @@ export const AIChatbot = ({ studyContent, highlightedText }: AIChatbotProps) => 
           <X className="h-4 w-4" />
         </Button>
       </CardHeader>
-      <CardContent className="flex-1 flex flex-col p-4 pt-0">
-        <ScrollArea className="flex-1 pr-4 mb-4" ref={scrollRef}>
-          <div className="space-y-4">
-            {messages.map((message, index) => (
+      <CardContent className="flex-1 flex flex-col p-4 pt-0 overflow-hidden">
+        <div className="flex-1 overflow-y-auto pr-4 mb-4 space-y-4">
+          {messages.map((message, index) => (
+            <div
+              key={index}
+              className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+            >
               <div
-                key={index}
-                className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                className={`max-w-[80%] rounded-lg p-3 ${
+                  message.role === 'user'
+                    ? 'bg-primary text-primary-foreground'
+                    : 'bg-muted'
+                }`}
               >
-                <div
-                  className={`max-w-[80%] rounded-lg p-3 ${
-                    message.role === 'user'
-                      ? 'bg-primary text-primary-foreground'
-                      : 'bg-muted'
-                  }`}
-                >
-                  <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+                <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+              </div>
+            </div>
+          ))}
+          {isLoading && (
+            <div className="flex justify-start">
+              <div className="bg-muted rounded-lg p-3">
+                <div className="flex space-x-2">
+                  <div className="w-2 h-2 bg-foreground rounded-full animate-bounce" />
+                  <div className="w-2 h-2 bg-foreground rounded-full animate-bounce delay-100" />
+                  <div className="w-2 h-2 bg-foreground rounded-full animate-bounce delay-200" />
                 </div>
               </div>
-            ))}
-            {isLoading && (
-              <div className="flex justify-start">
-                <div className="bg-muted rounded-lg p-3">
-                  <div className="flex space-x-2">
-                    <div className="w-2 h-2 bg-foreground rounded-full animate-bounce" />
-                    <div className="w-2 h-2 bg-foreground rounded-full animate-bounce delay-100" />
-                    <div className="w-2 h-2 bg-foreground rounded-full animate-bounce delay-200" />
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        </ScrollArea>
+            </div>
+          )}
+        </div>
         <div className="flex gap-2">
           <Input
             value={input}
