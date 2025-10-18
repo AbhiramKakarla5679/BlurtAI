@@ -41,9 +41,8 @@ const Results = () => {
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) return;
 
-        await supabase.from("practice_sessions").insert({
+        const { error } = await supabase.from("practice_sessions").insert({
           user_id: user.id,
-          section_id: topicId,
           subsection_title: subsectionTitle,
           overall_score: score,
           max_marks: maxMarks,
@@ -51,6 +50,12 @@ const Results = () => {
           key_ideas_covered: keyIdeasCovered,
           key_ideas_missed: keyIdeasMissed,
         });
+
+        if (error) {
+          console.error("Error saving practice session:", error);
+        } else {
+          console.log("Practice session saved successfully");
+        }
       } catch (error) {
         console.error("Error saving practice session:", error);
       }

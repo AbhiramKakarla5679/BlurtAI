@@ -23,7 +23,7 @@ export type Database = {
           max_marks: number
           overall_score: number
           questions_count: number
-          section_id: string
+          section_id: string | null
           subsection_title: string | null
           user_id: string
         }
@@ -35,7 +35,7 @@ export type Database = {
           max_marks: number
           overall_score: number
           questions_count?: number
-          section_id: string
+          section_id?: string | null
           subsection_title?: string | null
           user_id: string
         }
@@ -47,7 +47,7 @@ export type Database = {
           max_marks?: number
           overall_score?: number
           questions_count?: number
-          section_id?: string
+          section_id?: string | null
           subsection_title?: string | null
           user_id?: string
         }
