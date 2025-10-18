@@ -199,7 +199,7 @@ const BlurPractice = () => {
     setShowStudyContent(false);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!userAnswer.trim()) {
       toast({
         title: "Empty answer",
@@ -211,41 +211,82 @@ const BlurPractice = () => {
 
     if (!currentPrompt) return;
 
-    const answerLower = userAnswer.toLowerCase();
-    const found: string[] = [];
-    const missed: string[] = [];
-
-    const keywordsToCheck = currentPrompt.expected_keywords || canonicalKeywords;
-
-    keywordsToCheck.forEach((keyword) => {
-      if (answerLower.includes(keyword.toLowerCase())) {
-        found.push(keyword);
-      } else {
-        missed.push(keyword);
-      }
+    // Show loading state
+    toast({
+      title: "AI is marking your answer...",
+      description: "Please wait",
     });
 
-    const feedback = generateFeedback(found, missed, answerLower, currentPrompt);
-    const score = calculateScore(found, missed);
+    try {
+      // Get the content from the current internal subsections for context
+      const expectedContent = currentPairSubsections
+        .map(sub => {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(sub.html, 'text/html');
+          return doc.body.textContent || '';
+        })
+        .join("\n\n");
 
-    setKeywordsFound(found);
-    setKeywordsMissed(missed);
-    setFeedbackText(feedback);
-    setShowQuestionFeedback(true);
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/mark-answer`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          },
+          body: JSON.stringify({
+            question: currentPrompt.prompt_template,
+            studentAnswer: userAnswer,
+            expectedContent,
+            marks: currentPrompt.marks || 5,
+          }),
+        }
+      );
 
-    const result: QuestionResult = {
-      questionIndex: currentQuestionIndex,
-      prompt: currentPrompt.prompt_template,
-      answer: userAnswer,
-      keywordsFound: found,
-      keywordsMissed: missed,
-      score,
-      feedbackText: feedback
-    };
-    setQuestionResults([...questionResults, result]);
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to mark answer");
+      }
 
-    if (timerInterval) {
-      clearInterval(timerInterval);
+      const result = await response.json();
+
+      toast({
+        title: "Answer marked!",
+        description: "Check your feedback below",
+      });
+
+      const found = result.keyIdeasCovered || [];
+      const missed = result.keyIdeasMissed || [];
+      const feedback = result.feedback || "";
+      const score = Math.round((result.score / (currentPrompt.marks || 5)) * 100);
+
+      setKeywordsFound(found);
+      setKeywordsMissed(missed);
+      setFeedbackText(feedback);
+      setShowQuestionFeedback(true);
+
+      const questionResult: QuestionResult = {
+        questionIndex: currentQuestionIndex,
+        prompt: currentPrompt.prompt_template,
+        answer: userAnswer,
+        keywordsFound: found,
+        keywordsMissed: missed,
+        score,
+        feedbackText: feedback
+      };
+      setQuestionResults([...questionResults, questionResult]);
+
+      if (timerInterval) {
+        clearInterval(timerInterval);
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: error instanceof Error ? error.message : "Failed to mark answer",
+        variant: "destructive"
+      });
+      console.error("Error marking answer:", error);
     }
   };
 
