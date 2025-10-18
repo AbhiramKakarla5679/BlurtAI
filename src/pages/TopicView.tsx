@@ -124,21 +124,20 @@ const TopicView = () => {
         {/* Show timeline only for atomic structure topic */}
         {id === "atomic-structure" && <PeriodicTableTimeline />}
 
-        <div className="space-y-4">
-          {topic.subsections.map((subsection: Subsection) => (
-            <Card key={subsection.id} className="overflow-hidden">
-              <Collapsible
-                open={openSections.includes(subsection.id)}
-                onOpenChange={() => toggleSection(subsection.id)}
-              >
-                <CardHeader className="cursor-pointer hover:bg-accent/50 transition-colors">
-                  <CollapsibleTrigger asChild>
-                    <div className="flex items-center justify-between">
-                      <CardTitle className="text-xl">{subsection.title}</CardTitle>
-                      <div className="flex items-center gap-2">
-                        <Badge variant="outline" className="text-xs">
-                          {subsection.practice_items.length} practice items
-                        </Badge>
+        {/* Notes Section - All content first */}
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold mb-4">📚 Study Notes</h2>
+          <div className="space-y-4">
+            {topic.subsections.map((subsection: Subsection) => (
+              <Card key={subsection.id} className="overflow-hidden">
+                <Collapsible
+                  open={openSections.includes(subsection.id)}
+                  onOpenChange={() => toggleSection(subsection.id)}
+                >
+                  <CardHeader className="cursor-pointer hover:bg-accent/50 transition-colors">
+                    <CollapsibleTrigger asChild>
+                      <div className="flex items-center justify-between">
+                        <CardTitle className="text-xl">{subsection.title}</CardTitle>
                         <svg
                           className={`h-5 w-5 transition-transform ${
                             openSections.includes(subsection.id) ? "transform rotate-180" : ""
@@ -155,29 +154,49 @@ const TopicView = () => {
                           />
                         </svg>
                       </div>
-                    </div>
-                  </CollapsibleTrigger>
+                    </CollapsibleTrigger>
+                  </CardHeader>
+
+                  <CollapsibleContent>
+                    <CardContent className="pt-0">
+                      <SectionContent html={subsection.content_html} />
+                    </CardContent>
+                  </CollapsibleContent>
+                </Collapsible>
+              </Card>
+            ))}
+          </div>
+        </div>
+
+        {/* Practice Section - After all notes */}
+        <div className="mt-12">
+          <h2 className="text-2xl font-bold mb-4">✍️ Blurting Practice</h2>
+          <div className="space-y-4">
+            {topic.subsections.map((subsection: Subsection) => (
+              <Card key={`practice-${subsection.id}`} className="overflow-hidden">
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-lg">{subsection.title}</CardTitle>
+                    <Badge variant="outline" className="text-xs">
+                      {subsection.practice_items.length} practice items
+                    </Badge>
+                  </div>
                 </CardHeader>
-
-                <CollapsibleContent>
-                  <CardContent className="pt-0">
-                    <SectionContent html={subsection.content_html} />
-
-                    <div className="mt-6 p-4 bg-primary/5 rounded-lg border-l-4 border-primary">
-                      <h4 className="font-semibold mb-2">🎯 Ready to test yourself?</h4>
-                      <p className="text-sm text-muted-foreground mb-4">
-                        Practice active recall (blurting) with randomized prompts
-                      </p>
-                      <Button onClick={() => startBlurPractice(subsection.id)} className="w-full sm:w-auto">
-                        <PlayCircle className="mr-2 h-4 w-4" />
-                        Start Blur Practice
-                      </Button>
-                    </div>
-                  </CardContent>
-                </CollapsibleContent>
-              </Collapsible>
-            </Card>
-          ))}
+                <CardContent>
+                  <div className="p-4 bg-primary/5 rounded-lg border-l-4 border-primary">
+                    <h4 className="font-semibold mb-2">🎯 Ready to test yourself?</h4>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      Practice active recall (blurting) with randomized prompts
+                    </p>
+                    <Button onClick={() => startBlurPractice(subsection.id)} className="w-full sm:w-auto">
+                      <PlayCircle className="mr-2 h-4 w-4" />
+                      Start Blur Practice
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </div>
     </div>

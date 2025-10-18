@@ -367,9 +367,212 @@ export const sectionsData: TopicSection[] = [
           }
         ]
       },
-      // Additional subsections will be added here
-      // Due to length constraints, I'm including the first one fully
-      // and you can see the pattern
+      {
+        id: "1-1-2-mixtures",
+        title: "1.1.2 MIXTURES",
+        type: "content",
+        content_html: `
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 1 – What is a Mixture?</h3>
+  <div class="definition-block">
+    <h4>🔵 Definition</h4>
+    <p>A mixture is a combination of two or more substances (elements or compounds) not chemically joined together.</p>
+  </div>
+  <div class="key-facts-block">
+    <h4>🧠 Key Points</h4>
+    <ul>
+      <li>The substances in a mixture keep their own properties.</li>
+      <li>There are no chemical bonds between the substances.</li>
+      <li>Mixtures can be easily separated by physical methods.</li>
+      <li>The composition of a mixture can vary (unlike a compound).</li>
+    </ul>
+  </div>
+  <div class="example-block">
+    <h4>🟢 Examples</h4>
+    <table class="data-table">
+      <thead><tr><th>Mixture</th><th>Components</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Air</td><td>Nitrogen, Oxygen, CO₂, Argon, etc.</td><td>Gas mixture</td></tr>
+        <tr><td>Sea Water</td><td>Water + Dissolved Salts</td><td>Can be separated by distillation</td></tr>
+        <tr><td>Crude Oil</td><td>Many Hydrocarbons</td><td>Can be separated by fractional distillation</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="exam-tip-block">
+    <h4>🧠 Exam Tip</h4>
+    <p>Never say "a mixture is chemically joined." Always write: "A mixture is a physical combination of substances."</p>
+  </div>
+</div>
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 2 – Mixtures vs Compounds</h3>
+  <div class="example-block">
+    <table class="data-table">
+      <thead><tr><th>Property</th><th>Mixture</th><th>Compound</th></tr></thead>
+      <tbody>
+        <tr><td>Joined by</td><td>Physical mixing</td><td>Chemical bonds</td></tr>
+        <tr><td>Separation</td><td>Physical methods</td><td>Chemical reactions</td></tr>
+        <tr><td>Composition</td><td>Variable</td><td>Fixed ratio</td></tr>
+        <tr><td>Properties</td><td>Same as original substances</td><td>New properties formed</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 3 – Filtration</h3>
+  <div class="definition-block">
+    <h4>🔵 Purpose</h4>
+    <p>To separate an insoluble solid from a liquid.</p>
+  </div>
+  <div class="key-facts-block">
+    <h4>🧠 Apparatus</h4>
+    <p>Beaker, Funnel, Filter paper</p>
+  </div>
+  <div class="key-facts-block">
+    <h4>🧩 Method</h4>
+    <p>Place the filter paper inside the funnel. Pour the mixture into the funnel slowly. The liquid (filtrate) passes through the paper. The solid (residue) remains on the filter paper.</p>
+  </div>
+  <div class="example-block">
+    <h4>🟢 Example</h4>
+    <p>Separating sand from a sand-water mixture.</p>
+  </div>
+  <div class="exam-tip-block">
+    <h4>🧠 Exam Tip</h4>
+    <p>Use terms "filtrate" (liquid) and "residue" (solid) correctly — they're often marks in 6-mark practical questions.</p>
+  </div>
+</div>
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 4 – Crystallisation</h3>
+  <div class="definition-block">
+    <h4>🔵 Purpose</h4>
+    <p>Used to obtain a soluble solid from a solution.</p>
+  </div>
+  <div class="key-facts-block">
+    <h4>Method</h4>
+    <p>Heat the solution gently to evaporate water until it becomes concentrated. Stop heating when crystals begin to form. Allow the solution to cool slowly. Filter and dry the crystals.</p>
+  </div>
+  <div class="example-block">
+    <h4>🟢 Example</h4>
+    <p>Separating salt from saltwater.</p>
+  </div>
+</div>
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 5 – Simple Distillation</h3>
+  <div class="definition-block">
+    <h4>🔵 Purpose</h4>
+    <p>Used to separate a solvent from a solution (e.g. water from salty water).</p>
+  </div>
+  <div class="key-facts-block">
+    <h4>Method</h4>
+    <p>Heat the solution in a flask. The liquid with the lowest boiling point evaporates first. The vapour passes into the condenser and cools. The condensed pure liquid (distillate) is collected.</p>
+  </div>
+  <div class="exam-tip-block">
+    <h4>🧠 Exam Tip</h4>
+    <p>Always write: "Cold water enters the condenser at the bottom and leaves at the top — this ensures efficient cooling."</p>
+  </div>
+</div>
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 6 – Fractional Distillation</h3>
+  <div class="definition-block">
+    <h4>🔵 Purpose</h4>
+    <p>Used to separate two or more liquids that are miscible (mix completely) and have different boiling points.</p>
+  </div>
+  <div class="key-facts-block">
+    <h4>Method</h4>
+    <p>Heat the mixture in a flask. The vapour rises through the fractionating column. As it cools, vapours condense at different heights. Each liquid (fraction) is collected separately.</p>
+  </div>
+  <div class="exam-tip-block">
+    <h4>🧠 Exam Tip</h4>
+    <p>Always mention the temperature gradient — this is a common AQA mark point.</p>
+  </div>
+</div>
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 7 – Paper Chromatography</h3>
+  <div class="definition-block">
+    <h4>🔵 Purpose</h4>
+    <p>Used to separate and identify mixtures of soluble substances, especially dyes or inks.</p>
+  </div>
+  <div class="key-facts-block">
+    <h4>Method</h4>
+    <p>Draw a pencil baseline on the paper. Place small dots of the mixture (e.g. ink) on the line. Dip the paper into solvent (below the pencil line). As solvent moves up, different substances travel different distances. Calculate the Rf value for identification.</p>
+  </div>
+  <div class="key-facts-block">
+    <h4>🟢 Key Terms</h4>
+    <ul>
+      <li>Solvent front – the highest point reached by solvent.</li>
+      <li>Rf value = distance moved by substance ÷ distance moved by solvent.</li>
+    </ul>
+  </div>
+  <div class="exam-tip-block">
+    <h4>🧠 Exam Tip</h4>
+    <p>Always use pencil, not pen, for the baseline (ink dissolves). Solvent must be below the baseline or the samples will dissolve into it.</p>
+  </div>
+</div>
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 8 – Choosing Separation Techniques</h3>
+  <div class="example-block">
+    <table class="data-table">
+      <thead><tr><th>Type of Mixture</th><th>Suitable Process</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td>Insoluble solid + liquid</td><td>Filtration</td><td>Sand + water</td></tr>
+        <tr><td>Soluble solid + liquid</td><td>Crystallisation</td><td>Salt from solution</td></tr>
+        <tr><td>Solvent from solution</td><td>Simple distillation</td><td>Water from saltwater</td></tr>
+        <tr><td>Two miscible liquids</td><td>Fractional distillation</td><td>Ethanol + water</td></tr>
+        <tr><td>Soluble coloured substances</td><td>Chromatography</td><td>Ink pigments</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 9 – Purity and Melting Point</h3>
+  <div class="definition-block">
+    <h4>🔵 Definition</h4>
+    <p>A pure substance is a single element or compound not mixed with any other substance.</p>
+  </div>
+  <div class="key-facts-block">
+    <h4>🧠 Key Points</h4>
+    <ul>
+      <li>Pure substances melt and boil at fixed temperatures.</li>
+      <li>Mixtures melt/boil over a range of temperatures.</li>
+    </ul>
+  </div>
+</div>
+        `,
+        canonical_keywords: [
+          "mixture", "physical combination", "filtration", "residue", "filtrate",
+          "crystallisation", "evaporation", "simple distillation", "fractional distillation",
+          "chromatography", "Rf value", "solvent front", "purity", "melting point"
+        ],
+        practice_items: [
+          {
+            id: "p1",
+            prompt_template: "Write everything you know about MIXTURES and separation techniques.",
+            type: "open",
+            difficulty: "medium",
+            randomise: true
+          },
+          {
+            id: "p2",
+            prompt_template: "Explain all the separation methods you can remember with examples.",
+            type: "open",
+            difficulty: "medium",
+            randomise: true
+          },
+          {
+            id: "p3",
+            prompt_template: "Describe the method for simple distillation.",
+            type: "short-answer",
+            difficulty: "medium",
+            randomise: true
+          },
+          {
+            id: "p4",
+            prompt_template: "Explain how paper chromatography works and what Rf values are.",
+            type: "short-answer",
+            difficulty: "hard",
+            randomise: true
+          }
+        ]
+      }
     ]
   },
   {
