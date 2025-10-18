@@ -60,7 +60,7 @@ const Auth = () => {
     if (error) {
       toast.error(error.message);
     } else {
-      navigate("/dashboard");
+      navigate("/subjects");
     }
   };
 
@@ -71,9 +71,9 @@ const Auth = () => {
           <div className="mx-auto bg-gradient-to-br from-primary to-secondary p-3 rounded-2xl w-fit">
             <Beaker className="h-8 w-8 text-primary-foreground" />
           </div>
-          <CardTitle className="text-3xl font-bold">ChemBlur</CardTitle>
+          <CardTitle className="text-3xl font-bold">BlurtAI</CardTitle>
           <CardDescription>
-            Master AQA GCSE Chemistry through active recall
+            Master AQA GCSE through active recall
           </CardDescription>
         </CardHeader>
         <CardContent>

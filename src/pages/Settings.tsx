@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { ArrowLeft, Trash2 } from "lucide-react";
+import { ArrowLeft, Trash2, Moon, Sun } from "lucide-react";
 import { toast } from "sonner";
 import { Separator } from "@/components/ui/separator";
 
@@ -26,10 +26,24 @@ const Settings = () => {
   const [settings, setSettings] = useState<Settings>({ timer_enabled: true, notifications_enabled: true });
   const [newPassword, setNewPassword] = useState("");
   const [userId, setUserId] = useState("");
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem('theme') === 'dark' || 
+      (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  });
 
   useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  }, [darkMode]);
 
   const fetchData = async () => {
     const { data: { user } } = await supabase.auth.getUser();
@@ -227,6 +241,26 @@ const Settings = () => {
                   checked={settings.notifications_enabled}
                   onCheckedChange={(checked) => updateSettings("notifications_enabled", checked)}
                 />
+              </div>
+
+              <Separator />
+
+              <div className="flex items-center justify-between">
+                <div className="space-y-0.5">
+                  <Label htmlFor="darkMode">Dark Mode</Label>
+                  <p className="text-sm text-muted-foreground">
+                    Toggle dark/light theme
+                  </p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Sun className="h-4 w-4 text-muted-foreground" />
+                  <Switch
+                    id="darkMode"
+                    checked={darkMode}
+                    onCheckedChange={setDarkMode}
+                  />
+                  <Moon className="h-4 w-4 text-muted-foreground" />
+                </div>
               </div>
             </CardContent>
           </Card>

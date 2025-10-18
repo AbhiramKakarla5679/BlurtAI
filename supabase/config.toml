@@ -8,3 +8,12 @@ verify_jwt = false
 
 [functions.analyze-knowledge-gaps]
 verify_jwt = false
+
+[functions.analyze-photo-answer]
+verify_jwt = false
+
+[functions.chat-tutor]
+verify_jwt = false
+
+[functions.generate-varied-questions]
+verify_jwt = false

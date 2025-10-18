@@ -15,11 +15,11 @@ const Landing = () => {
             <Beaker className="h-16 w-16 text-white" />
           </div>
           <h1 className="text-5xl md:text-6xl font-bold mb-6 animate-slide-up">
-            Master AQA GCSE Chemistry with
-            <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"> Active Recall</span>
+            Master AQA GCSE with
+            <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"> BlurtAI</span>
           </h1>
           <p className="text-xl text-muted-foreground mb-8 animate-fade-in">
-            ChemBlur uses proven "blurting" techniques to help you ace your chemistry exams through powerful active recall practice.
+            BlurtAI uses proven "blurting" techniques to help you ace your exams through powerful active recall practice.
           </p>
           <div className="flex gap-4 justify-center animate-slide-up">
             <Button
@@ -70,7 +70,7 @@ const Landing = () => {
 
         {/* How It Works */}
         <div className="max-w-4xl mx-auto mb-16">
-          <h2 className="text-3xl font-bold text-center mb-12">How ChemBlur Works</h2>
+          <h2 className="text-3xl font-bold text-center mb-12">How BlurtAI Works</h2>
           <div className="space-y-8">
             <div className="flex items-start gap-6">
               <div className="bg-primary text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-xl flex-shrink-0">
@@ -78,10 +78,10 @@ const Landing = () => {
               </div>
               <div>
                 <h3 className="text-xl font-semibold mb-2">Read the Section</h3>
-                <p className="text-muted-foreground">
-                  Browse our comprehensive library of AQA GCSE Chemistry topics. Each section covers specific learning objectives
-                  with clear explanations and key concepts.
-                </p>
+              <p className="text-muted-foreground">
+                Browse our comprehensive library of AQA GCSE topics across Chemistry, Physics, Biology, and Maths. 
+                Each section covers specific learning objectives with clear explanations and key concepts.
+              </p>
               </div>
             </div>
 
@@ -130,9 +130,8 @@ const Landing = () => {
         <div className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-3xl p-12 mb-16">
           <div className="grid gap-8 md:grid-cols-3 text-center">
             <div>
-              <BookOpen className="h-12 w-12 mx-auto mb-4 text-primary" />
               <div className="text-4xl font-bold mb-2">15+</div>
-              <p className="text-muted-foreground">Chemistry Sections</p>
+              <p className="text-muted-foreground">Topics Available</p>
             </div>
             <div>
               <Award className="h-12 w-12 mx-auto mb-4 text-secondary" />
@@ -150,9 +149,9 @@ const Landing = () => {
         {/* CTA Section */}
         <Card className="bg-gradient-to-br from-primary/10 to-secondary/10 border-primary/20 text-center p-12">
           <CardHeader>
-            <CardTitle className="text-3xl mb-4">Ready to Ace Your Chemistry Exam?</CardTitle>
+            <CardTitle className="text-3xl mb-4">Ready to Ace Your Exams?</CardTitle>
             <CardDescription className="text-lg">
-              Join students who are mastering AQA GCSE Chemistry through active recall
+              Join students who are mastering AQA GCSE through active recall with BlurtAI
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -176,7 +175,7 @@ const Landing = () => {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex items-center gap-2">
               <Beaker className="h-6 w-6 text-primary" />
-              <span className="font-bold text-lg">ChemBlur</span>
+              <span className="font-bold text-lg">BlurtAI</span>
             </div>
             <div className="flex gap-6 text-sm text-muted-foreground">
               <button onClick={() => navigate("/help")}>Help</button>

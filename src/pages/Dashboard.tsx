@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { BookOpen, Clock, TrendingUp, LogOut, Calendar, Settings as SettingsIcon, HelpCircle } from "lucide-react";
+import { BookOpen, Clock, TrendingUp, LogOut, Settings as SettingsIcon, HelpCircle, Target, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
+import { Badge } from "@/components/ui/badge";
 
 interface Profile {
   full_name: string | null;
@@ -16,13 +17,23 @@ interface RecentSubmission {
   created_at: string;
   sections: {
     title: string;
+    id: string;
   } | null;
+}
+
+interface TopicRecommendation {
+  topic: string;
+  sectionId: string;
+  avgScore: number;
+  attempts: number;
+  lastAttempt: string;
 }
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const [profile, setProfile] = useState<Profile | null>(null);
   const [recentScores, setRecentScores] = useState<RecentSubmission[]>([]);
+  const [recommendations, setRecommendations] = useState<TopicRecommendation[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -53,15 +64,50 @@ const Dashboard = () => {
           score,
           created_at,
           sections (
-            title
+            title,
+            id
           )
         `)
         .eq("user_id", user.id)
         .order("created_at", { ascending: false })
-        .limit(3);
+        .limit(5);
 
       if (submissions) {
         setRecentScores(submissions as RecentSubmission[]);
+        
+        // Calculate topic recommendations (weakest topics)
+        const topicScores: { [topic: string]: { scores: number[]; sectionId: string; lastAttempt: string } } = {};
+        
+        submissions.forEach((sub) => {
+          if (sub.sections && sub.score !== null) {
+            const topic = sub.sections.title;
+            if (!topicScores[topic]) {
+              topicScores[topic] = { 
+                scores: [], 
+                sectionId: sub.sections.id,
+                lastAttempt: sub.created_at 
+              };
+            }
+            topicScores[topic].scores.push(sub.score);
+            // Keep most recent attempt date
+            if (new Date(sub.created_at) > new Date(topicScores[topic].lastAttempt)) {
+              topicScores[topic].lastAttempt = sub.created_at;
+            }
+          }
+        });
+
+        const recs = Object.entries(topicScores)
+          .map(([topic, data]) => ({
+            topic,
+            sectionId: data.sectionId,
+            avgScore: Math.round(data.scores.reduce((a, b) => a + b, 0) / data.scores.length),
+            attempts: data.scores.length,
+            lastAttempt: data.lastAttempt
+          }))
+          .sort((a, b) => a.avgScore - b.avgScore)
+          .slice(0, 3);
+        
+        setRecommendations(recs);
       }
 
       setLoading(false);
@@ -142,19 +188,6 @@ const Dashboard = () => {
             </CardContent>
           </Card>
 
-          <Card className="hover:shadow-md transition-shadow cursor-pointer" onClick={() => navigate("/review")}>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Calendar className="h-5 w-5 text-primary" />
-                Review Schedule
-              </CardTitle>
-              <CardDescription>Spaced repetition</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Button variant="outline" className="w-full">See Recommendations</Button>
-            </CardContent>
-          </Card>
-
           <Card className="hover:shadow-md transition-shadow cursor-pointer" onClick={() => navigate("/settings")}>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -182,37 +215,73 @@ const Dashboard = () => {
           </Card>
         </div>
 
-        {recentScores.length > 0 && (
-          <Card className="animate-fade-in">
-            <CardHeader>
-              <CardTitle>Recent Scores</CardTitle>
-              <CardDescription>Your most recent blur attempts</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {recentScores.map((submission) => (
-                  <div
-                    key={submission.id}
-                    className="flex items-center justify-between p-4 bg-muted/50 rounded-lg hover:bg-muted transition-colors cursor-pointer"
-                    onClick={() => navigate(`/results/${submission.id}`)}
-                  >
-                    <div>
-                      <p className="font-medium">{submission.sections?.title || "Unknown Section"}</p>
-                      <p className="text-sm text-muted-foreground">
-                        {new Date(submission.created_at).toLocaleDateString()}
-                      </p>
-                    </div>
-                    {submission.score !== null && (
-                      <div className="text-2xl font-bold text-primary">
-                        {submission.score}%
+        <div className="grid gap-6 md:grid-cols-2">
+          {recentScores.length > 0 && (
+            <Card className="animate-fade-in">
+              <CardHeader>
+                <CardTitle>Recent Activity</CardTitle>
+                <CardDescription>Your latest practice sessions</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  {recentScores.map((submission) => (
+                    <div
+                      key={submission.id}
+                      className="flex items-center justify-between p-3 bg-muted/50 rounded-lg hover:bg-muted transition-colors cursor-pointer"
+                      onClick={() => navigate(`/results/${submission.id}`)}
+                    >
+                      <div className="flex-1">
+                        <p className="font-medium text-sm">{submission.sections?.title || "Unknown"}</p>
+                        <p className="text-xs text-muted-foreground">
+                          {new Date(submission.created_at).toLocaleDateString()}
+                        </p>
                       </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        )}
+                      {submission.score !== null && (
+                        <Badge variant={submission.score >= 70 ? "default" : "secondary"}>
+                          {submission.score}%
+                        </Badge>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          {recommendations.length > 0 && (
+            <Card className="animate-fade-in border-orange-200 bg-orange-50/50 dark:border-orange-900 dark:bg-orange-950/20">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Target className="h-5 w-5 text-orange-600" />
+                  Topics to Review
+                </CardTitle>
+                <CardDescription>Practice these topics to improve</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  {recommendations.map((rec) => (
+                    <div
+                      key={rec.sectionId}
+                      className="flex items-center justify-between p-3 bg-background rounded-lg hover:shadow-sm transition-shadow cursor-pointer"
+                      onClick={() => navigate(`/blur-practice/${rec.sectionId}/0`)}
+                    >
+                      <div className="flex-1">
+                        <p className="font-medium text-sm">{rec.topic}</p>
+                        <p className="text-xs text-muted-foreground">
+                          Average: {rec.avgScore}% • {rec.attempts} attempts
+                        </p>
+                      </div>
+                      <Button size="sm" variant="outline">
+                        Practice
+                        <ArrowRight className="ml-2 h-3 w-3" />
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          )}
+        </div>
       </div>
     </div>
   );
