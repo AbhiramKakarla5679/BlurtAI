@@ -121,9 +121,6 @@ const TopicView = () => {
 
         <ColorLegend />
 
-        {/* Show timeline only for atomic structure topic */}
-        {id === "atomic-structure" && <PeriodicTableTimeline />}
-
         {/* Practice Subsections Grid */}
         <div className="mb-8">
           <h2 className="text-2xl font-bold mb-4">📝 Choose a Subsection to Practice</h2>
@@ -197,6 +194,12 @@ const TopicView = () => {
                   <CollapsibleContent>
                     <CardContent className="pt-0">
                       <SectionContent html={subsection.content_html} />
+                      {/* Show timeline for atomic structure topic in the full notes */}
+                      {id === "atomic-structure" && subsection.id === "1-1-1-atoms-elements-compounds" && (
+                        <div className="mt-8">
+                          <PeriodicTableTimeline />
+                        </div>
+                      )}
                     </CardContent>
                   </CollapsibleContent>
                 </Collapsible>

@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { ArrowLeft, Timer, Send, BookOpen, CheckCircle, ChevronDown } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { sectionsData, PracticeItem, Subsection } from "@/data/sectionsData";
+import { sectionsData, PracticeItem } from "@/data/sectionsData";
 import { useToast } from "@/hooks/use-toast";
 import { Progress } from "@/components/ui/progress";
 import SectionContent from "@/components/SectionContent";
@@ -15,6 +15,11 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 
+type InternalSubsection = {
+  title: string;
+  html: string;
+};
+
 type QuestionResult = {
   questionIndex: number;
   prompt: string;
@@ -22,6 +27,27 @@ type QuestionResult = {
   keywordsFound: string[];
   keywordsMissed: string[];
   score: number;
+  feedbackText: string;
+};
+
+// Parse HTML to extract internal subsections
+const parseInternalSubsections = (html: string): InternalSubsection[] => {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, 'text/html');
+  const subsectionDivs = doc.querySelectorAll('div.subsection');
+  
+  const subsections: InternalSubsection[] = [];
+  subsectionDivs.forEach((div) => {
+    const heading = div.querySelector('.subsection-heading');
+    if (heading) {
+      subsections.push({
+        title: heading.textContent || '',
+        html: div.outerHTML
+      });
+    }
+  });
+  
+  return subsections;
 };
 
 const BlurPractice = () => {
@@ -29,67 +55,50 @@ const BlurPractice = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   
-  const [studySubsections, setStudySubsections] = useState<Subsection[]>([]);
-  const [allPracticeItems, setAllPracticeItems] = useState<(PracticeItem & { subsectionTitle: string })[]>([]);
+  const [internalSubsections, setInternalSubsections] = useState<InternalSubsection[]>([]);
+  const [currentPairIndex, setCurrentPairIndex] = useState(0);
+  const [currentPairSubsections, setCurrentPairSubsections] = useState<InternalSubsection[]>([]);
+  const [allPracticeItems, setAllPracticeItems] = useState<PracticeItem[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [currentPrompt, setCurrentPrompt] = useState<(PracticeItem & { subsectionTitle: string }) | null>(null);
+  const [currentPrompt, setCurrentPrompt] = useState<PracticeItem | null>(null);
   const [userAnswer, setUserAnswer] = useState("");
   const [showQuestionFeedback, setShowQuestionFeedback] = useState(false);
   const [keywordsFound, setKeywordsFound] = useState<string[]>([]);
   const [keywordsMissed, setKeywordsMissed] = useState<string[]>([]);
-  const [personalizedFeedback, setPersonalizedFeedback] = useState<string[]>([]);
+  const [feedbackText, setFeedbackText] = useState("");
   const [timerEnabled, setTimerEnabled] = useState(false);
   const [timeElapsed, setTimeElapsed] = useState(0);
   const [timerInterval, setTimerInterval] = useState<NodeJS.Timeout | null>(null);
   const [showStudyContent, setShowStudyContent] = useState(true);
   const [questionResults, setQuestionResults] = useState<QuestionResult[]>([]);
   const [showFinalResults, setShowFinalResults] = useState(false);
-  const [expandedSections, setExpandedSections] = useState<string[]>([]);
+  const [expandedSections, setExpandedSections] = useState<number[]>([]);
+  const [subsectionTitle, setSubsectionTitle] = useState("");
+  const [canonicalKeywords, setCanonicalKeywords] = useState<string[]>([]);
 
   useEffect(() => {
-    // Find the topic and subsection
     const topic = sectionsData.find((t) => t.id === topicId);
     if (!topic) return;
 
     const targetSubsection = topic.subsections.find((s) => s.id === subsectionId);
     if (!targetSubsection) return;
 
-    // Get study group - find all subsections in the same study group
-    const studyGroup = targetSubsection.study_group;
-    let subsectionsToStudy: Subsection[] = [];
+    setSubsectionTitle(targetSubsection.title);
+    setCanonicalKeywords(targetSubsection.canonical_keywords);
 
-    if (studyGroup) {
-      // Find all subsections in this study group
-      subsectionsToStudy = topic.subsections.filter((s) => s.study_group === studyGroup);
-    } else {
-      // If no study group, just use this subsection
-      subsectionsToStudy = [targetSubsection];
-    }
+    // Parse internal subsections from HTML
+    const parsed = parseInternalSubsections(targetSubsection.content_html);
+    setInternalSubsections(parsed);
 
-    setStudySubsections(subsectionsToStudy);
-    
-    // Auto-expand first section
-    if (subsectionsToStudy.length > 0) {
-      setExpandedSections([subsectionsToStudy[0].id]);
-    }
+    // Set first pair (first 2 internal subsections)
+    const firstPair = parsed.slice(0, 2);
+    setCurrentPairSubsections(firstPair);
+    setExpandedSections([0]); // Auto-expand first
 
-    // Collect all practice items from these subsections and shuffle
-    const allItems: (PracticeItem & { subsectionTitle: string })[] = [];
-    subsectionsToStudy.forEach((subsection) => {
-      subsection.practice_items.forEach((item) => {
-        allItems.push({
-          ...item,
-          subsectionTitle: subsection.title
-        });
-      });
-    });
-
-    // Shuffle the questions for variety
-    const shuffled = allItems.sort(() => Math.random() - 0.5);
-    setAllPracticeItems(shuffled);
-
-    if (shuffled.length > 0) {
-      setCurrentPrompt(shuffled[0]);
+    // Get practice items for this subsection
+    setAllPracticeItems(targetSubsection.practice_items);
+    if (targetSubsection.practice_items.length > 0) {
+      setCurrentPrompt(targetSubsection.practice_items[0]);
     }
 
     // Load timer preference
@@ -122,12 +131,68 @@ const BlurPractice = () => {
     return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
   };
 
-  const toggleSection = (sectionId: string) => {
+  const toggleSection = (index: number) => {
     setExpandedSections((prev) =>
-      prev.includes(sectionId)
-        ? prev.filter((id) => id !== sectionId)
-        : [...prev, sectionId]
+      prev.includes(index)
+        ? prev.filter((i) => i !== index)
+        : [...prev, index]
     );
+  };
+
+  const generateFeedback = (found: string[], missed: string[], answerLower: string, prompt: PracticeItem): string => {
+    const totalTopics = prompt.feedback_guidance?.topic_coverage?.length || 0;
+    let feedbackParts: string[] = [];
+
+    // Check coverage of each topic
+    if (prompt.feedback_guidance?.topic_coverage) {
+      prompt.feedback_guidance.topic_coverage.forEach((topicGuide) => {
+        const topicKeywordsFound = topicGuide.required_keywords.filter(kw => 
+          answerLower.includes(kw.toLowerCase())
+        );
+        
+        const coveragePercent = topicKeywordsFound.length / topicGuide.required_keywords.length;
+        
+        if (coveragePercent === 0) {
+          feedbackParts.push(`❌ **${topicGuide.topic}**: ${topicGuide.feedback_if_missing}`);
+        } else if (coveragePercent < 0.7) {
+          feedbackParts.push(`⚠️ **${topicGuide.topic}**: ${topicGuide.feedback_if_partial}`);
+        }
+      });
+    }
+
+    // Generate positive feedback based on what they covered
+    if (found.length > 0) {
+      const keyIdeas = found.slice(0, 4).join(", ");
+      const moreCount = found.length > 4 ? ` and ${found.length - 4} more` : "";
+      feedbackParts.unshift(`✅ **Good work!** You included key ideas about ${keyIdeas}${moreCount}.`);
+    }
+
+    // If they missed important things
+    if (missed.length > 0 && missed.length <= 3) {
+      feedbackParts.push(`⚠️ **Key ideas missed**: You didn't mention ${missed.join(", ")}. Make sure to include these concepts.`);
+    } else if (missed.length > 3) {
+      feedbackParts.push(`⚠️ **Several key ideas missed**: Review the notes to cover ${missed.slice(0, 2).join(", ")} and ${missed.length - 2} other important concepts.`);
+    }
+
+    return feedbackParts.join("\n\n");
+  };
+
+  const calculateScore = (found: string[], missed: string[]): number => {
+    // Better scoring: weight found items more heavily
+    // If they covered most topics, score should be high even if they missed some keywords
+    const totalKeywords = found.length + missed.length;
+    if (totalKeywords === 0) return 0;
+    
+    // Give 70% base score if they covered at least half
+    // Then add points for additional coverage
+    const coverageRatio = found.length / totalKeywords;
+    
+    if (coverageRatio >= 0.8) return 90 + Math.round(coverageRatio * 10);
+    if (coverageRatio >= 0.6) return 75 + Math.round(coverageRatio * 15);
+    if (coverageRatio >= 0.4) return 55 + Math.round(coverageRatio * 20);
+    if (coverageRatio >= 0.2) return 35 + Math.round(coverageRatio * 20);
+    
+    return Math.round(coverageRatio * 100);
   };
 
   const handleStartPractice = () => {
@@ -146,14 +211,11 @@ const BlurPractice = () => {
 
     if (!currentPrompt) return;
 
-    // Question-specific keyword scoring
     const answerLower = userAnswer.toLowerCase();
     const found: string[] = [];
     const missed: string[] = [];
 
-    // Collect all canonical keywords from the study subsections
-    const allKeywords = studySubsections.flatMap(s => s.canonical_keywords);
-    const keywordsToCheck = currentPrompt.expected_keywords || allKeywords;
+    const keywordsToCheck = currentPrompt.expected_keywords || canonicalKeywords;
 
     keywordsToCheck.forEach((keyword) => {
       if (answerLower.includes(keyword.toLowerCase())) {
@@ -163,36 +225,12 @@ const BlurPractice = () => {
       }
     });
 
-    // Generate personalized feedback
-    const feedback: string[] = [];
-    
-    if (currentPrompt.feedback_guidance && currentPrompt.feedback_guidance.topic_coverage) {
-      currentPrompt.feedback_guidance.topic_coverage.forEach((topicGuide) => {
-        const topicKeywordsFound = topicGuide.required_keywords.filter(kw => 
-          answerLower.includes(kw.toLowerCase())
-        );
-        
-        const coveragePercent = topicKeywordsFound.length / topicGuide.required_keywords.length;
-        
-        if (coveragePercent === 0) {
-          feedback.push(topicGuide.feedback_if_missing);
-        } else if (coveragePercent < 0.7) {
-          feedback.push(topicGuide.feedback_if_partial);
-        }
-      });
-    }
-
-    if (found.length / keywordsToCheck.length >= 0.8) {
-      feedback.unshift("✅ **Great work!** Your answer covers most of the key concepts comprehensively.");
-    }
-
-    const score = keywordsToCheck.length > 0
-      ? Math.round((found.length / keywordsToCheck.length) * 100)
-      : 0;
+    const feedback = generateFeedback(found, missed, answerLower, currentPrompt);
+    const score = calculateScore(found, missed);
 
     setKeywordsFound(found);
     setKeywordsMissed(missed);
-    setPersonalizedFeedback(feedback);
+    setFeedbackText(feedback);
     setShowQuestionFeedback(true);
 
     const result: QuestionResult = {
@@ -201,7 +239,8 @@ const BlurPractice = () => {
       answer: userAnswer,
       keywordsFound: found,
       keywordsMissed: missed,
-      score
+      score,
+      feedbackText: feedback
     };
     setQuestionResults([...questionResults, result]);
 
@@ -220,10 +259,28 @@ const BlurPractice = () => {
       setShowQuestionFeedback(false);
       setKeywordsFound([]);
       setKeywordsMissed([]);
-      setPersonalizedFeedback([]);
+      setFeedbackText("");
       setTimeElapsed(0);
     } else {
-      setShowFinalResults(true);
+      // Check if there are more pairs
+      const nextPairIndex = currentPairIndex + 1;
+      const nextPairStart = nextPairIndex * 2;
+      
+      if (nextPairStart < internalSubsections.length) {
+        // Move to next pair
+        const nextPair = internalSubsections.slice(nextPairStart, nextPairStart + 2);
+        setCurrentPairIndex(nextPairIndex);
+        setCurrentPairSubsections(nextPair);
+        setShowStudyContent(true);
+        setCurrentQuestionIndex(0);
+        setCurrentPrompt(allPracticeItems[0]);
+        setQuestionResults([]);
+        setUserAnswer("");
+        setShowQuestionFeedback(false);
+        setExpandedSections([0]);
+      } else {
+        setShowFinalResults(true);
+      }
     }
   };
 
@@ -237,7 +294,7 @@ const BlurPractice = () => {
     navigate(`/topic/${topicId}`);
   };
 
-  if (studySubsections.length === 0 || !currentPrompt) {
+  if (!currentPrompt || internalSubsections.length === 0) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <Card className="p-8">
@@ -253,13 +310,8 @@ const BlurPractice = () => {
     );
   }
 
-  const allKeywords = studySubsections.flatMap(s => s.canonical_keywords);
-  const totalKeywords = currentPrompt?.expected_keywords?.length || allKeywords.length;
-  const coveragePercent = totalKeywords > 0
-    ? Math.round((keywordsFound.length / totalKeywords) * 100)
-    : 0;
-
   const progress = ((currentQuestionIndex + (showQuestionFeedback ? 1 : 0)) / allPracticeItems.length) * 100;
+  const totalPairs = Math.ceil(internalSubsections.length / 2);
 
   // Study content screen
   if (showStudyContent) {
@@ -275,19 +327,24 @@ const BlurPractice = () => {
             <CardHeader>
               <div className="flex items-center gap-2 mb-2">
                 <BookOpen className="h-5 w-5 text-primary" />
-                <Badge variant="secondary">Study {studySubsections.length} Sections</Badge>
+                <Badge variant="secondary">
+                  Pair {currentPairIndex + 1} of {totalPairs}
+                </Badge>
               </div>
               <CardTitle className="text-2xl">Review Before Blurting</CardTitle>
               <p className="text-sm text-muted-foreground">
-                Read through these {studySubsections.length} related sections, then test your recall
+                {subsectionTitle}
+              </p>
+              <p className="text-xs text-muted-foreground mt-1">
+                Read these {currentPairSubsections.length} sections, then test your recall
               </p>
             </CardHeader>
             <CardContent className="space-y-4">
-              {studySubsections.map((subsection) => (
-                <Card key={subsection.id} className="overflow-hidden">
+              {currentPairSubsections.map((subsection, index) => (
+                <Card key={index} className="overflow-hidden">
                   <Collapsible
-                    open={expandedSections.includes(subsection.id)}
-                    onOpenChange={() => toggleSection(subsection.id)}
+                    open={expandedSections.includes(index)}
+                    onOpenChange={() => toggleSection(index)}
                   >
                     <CardHeader className="cursor-pointer hover:bg-accent/50 transition-colors py-3">
                       <CollapsibleTrigger asChild>
@@ -295,7 +352,7 @@ const BlurPractice = () => {
                           <CardTitle className="text-lg">{subsection.title}</CardTitle>
                           <ChevronDown
                             className={`h-5 w-5 transition-transform ${
-                              expandedSections.includes(subsection.id) ? "transform rotate-180" : ""
+                              expandedSections.includes(index) ? "transform rotate-180" : ""
                             }`}
                           />
                         </div>
@@ -304,7 +361,7 @@ const BlurPractice = () => {
 
                     <CollapsibleContent>
                       <CardContent className="pt-0">
-                        <SectionContent html={subsection.content_html} />
+                        <SectionContent html={subsection.html} />
                       </CardContent>
                     </CollapsibleContent>
                   </Collapsible>
@@ -314,8 +371,8 @@ const BlurPractice = () => {
               <div className="p-6 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg border-l-4 border-primary">
                 <h3 className="font-semibold text-lg mb-3">✍️ Ready to Blur?</h3>
                 <p className="text-sm mb-4">
-                  You'll answer <strong>{allPracticeItems.length} questions</strong> about these {studySubsections.length} sections. 
-                  Each question will test different aspects of what you just studied.
+                  You'll answer <strong>{allPracticeItems.length} questions</strong> about what you just studied. 
+                  Each question will test different aspects of these sections.
                 </p>
                 <Button onClick={handleStartPractice} size="lg" className="w-full">
                   Start Blurting Practice →
@@ -342,7 +399,7 @@ const BlurPractice = () => {
               </div>
               <CardTitle className="text-3xl mb-2">Practice Complete! 🎉</CardTitle>
               <p className="text-muted-foreground">
-                {studySubsections.map(s => s.title).join(" & ")}
+                {subsectionTitle}
               </p>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -360,7 +417,7 @@ const BlurPractice = () => {
                   <div key={idx} className="p-4 bg-muted rounded-lg">
                     <div className="flex items-center justify-between mb-2">
                       <p className="font-medium text-sm">Question {idx + 1}</p>
-                      <Badge variant={result.score >= 70 ? "default" : result.score >= 50 ? "secondary" : "destructive"}>
+                      <Badge variant={result.score >= 75 ? "default" : result.score >= 55 ? "secondary" : "destructive"}>
                         {result.score}%
                       </Badge>
                     </div>
@@ -394,16 +451,13 @@ const BlurPractice = () => {
                     setShowFinalResults(false);
                     setShowStudyContent(true);
                     setCurrentQuestionIndex(0);
-                    // Re-shuffle questions
-                    const shuffled = allPracticeItems.sort(() => Math.random() - 0.5);
-                    setAllPracticeItems(shuffled);
-                    setCurrentPrompt(shuffled[0]);
+                    setCurrentPrompt(allPracticeItems[0]);
                     setQuestionResults([]);
                     setTimeElapsed(0);
                   }} 
                   className="flex-1"
                 >
-                  Retry (New Questions)
+                  Retry This Section
                 </Button>
               </div>
             </CardContent>
@@ -435,7 +489,9 @@ const BlurPractice = () => {
             )}
           </div>
           <Progress value={progress} className="h-2" />
-          <p className="text-xs text-muted-foreground mt-2">{currentPrompt.subsectionTitle}</p>
+          <p className="text-xs text-muted-foreground mt-2">
+            {subsectionTitle} • Pair {currentPairIndex + 1} of {totalPairs}
+          </p>
         </div>
 
         <Card className="mb-6">
@@ -470,16 +526,14 @@ const BlurPractice = () => {
                   <p className="text-sm whitespace-pre-wrap">{userAnswer}</p>
                 </div>
 
-                {personalizedFeedback.length > 0 && (
+                {feedbackText && (
                   <div className="p-4 bg-blue-50 dark:bg-blue-950/20 rounded-lg border-l-4 border-blue-500">
                     <h3 className="font-semibold text-blue-700 dark:text-blue-400 mb-3 flex items-center gap-2">
-                      💡 What to Add to Your Answer
+                      💡 Feedback on Your Answer
                     </h3>
-                    <div className="space-y-3">
-                      {personalizedFeedback.map((feedback, idx) => (
-                        <div key={idx} className="text-sm">
-                          <p dangerouslySetInnerHTML={{ __html: feedback.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
-                        </div>
+                    <div className="space-y-3 text-sm">
+                      {feedbackText.split('\n\n').map((paragraph, idx) => (
+                        <p key={idx} dangerouslySetInnerHTML={{ __html: paragraph.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
                       ))}
                     </div>
                   </div>
@@ -491,11 +545,16 @@ const BlurPractice = () => {
                       ✅ Key Ideas Covered ({keywordsFound.length})
                     </h3>
                     <div className="flex flex-wrap gap-2">
-                      {keywordsFound.map((kw, idx) => (
-                        <Badge key={idx} variant="outline" className="bg-green-100 dark:bg-green-900/30">
+                      {keywordsFound.slice(0, 8).map((kw, idx) => (
+                        <Badge key={idx} variant="outline" className="bg-green-100 dark:bg-green-900/30 text-xs">
                           {kw}
                         </Badge>
                       ))}
+                      {keywordsFound.length > 8 && (
+                        <Badge variant="outline" className="bg-green-100 dark:bg-green-900/30 text-xs">
+                          +{keywordsFound.length - 8} more
+                        </Badge>
+                      )}
                     </div>
                   </div>
 
@@ -504,26 +563,35 @@ const BlurPractice = () => {
                       ⚠️ Key Ideas Missed ({keywordsMissed.length})
                     </h3>
                     <div className="flex flex-wrap gap-2">
-                      {keywordsMissed.map((kw, idx) => (
-                        <Badge key={idx} variant="outline" className="bg-yellow-100 dark:bg-yellow-900/30">
+                      {keywordsMissed.slice(0, 8).map((kw, idx) => (
+                        <Badge key={idx} variant="outline" className="bg-yellow-100 dark:bg-yellow-900/30 text-xs">
                           {kw}
                         </Badge>
                       ))}
+                      {keywordsMissed.length > 8 && (
+                        <Badge variant="outline" className="bg-yellow-100 dark:bg-yellow-900/30 text-xs">
+                          +{keywordsMissed.length - 8} more
+                        </Badge>
+                      )}
                     </div>
                   </div>
                 </div>
 
                 <div className="p-6 bg-primary/10 rounded-lg text-center">
                   <p className="text-sm text-muted-foreground mb-2">Question Score</p>
-                  <p className="text-6xl font-bold text-primary mb-1">{coveragePercent}%</p>
+                  <p className="text-6xl font-bold text-primary mb-1">
+                    {calculateScore(keywordsFound, keywordsMissed)}%
+                  </p>
                   <p className="text-xs text-muted-foreground">
-                    {keywordsFound.length} out of {totalKeywords} key ideas covered
+                    Based on {keywordsFound.length} key ideas covered vs {keywordsMissed.length} missed
                   </p>
                 </div>
 
                 <Button onClick={handleNextQuestion} className="w-full" size="lg">
                   {currentQuestionIndex < allPracticeItems.length - 1 
                     ? "Next Question →" 
+                    : currentPairIndex * 2 + 2 < internalSubsections.length
+                    ? "Next Pair of Sections →"
                     : "See Final Results →"}
                 </Button>
               </div>
