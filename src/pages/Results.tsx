@@ -100,6 +100,15 @@ const Results = () => {
           </CardHeader>
         </Card>
 
+        <Card className="mb-6 shadow-lg">
+          <CardHeader className="bg-muted/50">
+            <CardTitle className="text-xl font-semibold">AI Examiner Feedback</CardTitle>
+          </CardHeader>
+          <CardContent className="pt-6">
+            <p className="text-sm leading-relaxed whitespace-pre-wrap">{feedbackData.feedbackText}</p>
+          </CardContent>
+        </Card>
+
         <div className="grid gap-6 md:grid-cols-2 mb-6">
           <Card className="shadow-lg border-l-4 border-l-green-500">
             <CardHeader className="bg-green-50 dark:bg-green-950/20">
