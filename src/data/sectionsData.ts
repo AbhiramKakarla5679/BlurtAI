@@ -1938,8 +1938,1486 @@ export const sectionsData: TopicSection[] = [
   {
     id: "bonding-structure",
     title: "Bonding, structure & the properties of matter",
-    status: "coming_soon",
-    subsections: []
+    status: "ready",
+    subsections: [
+      {
+        id: "2-1-1-chemical-bonds",
+        title: "2.1.1 CHEMICAL BONDS",
+        type: "content",
+        study_group: 1,
+        content_html: `
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 1 – What Are Chemical Bonds?</h3>
+  
+  <div class="definition-block">
+    <h4>🔵 Definition</h4>
+    <p>A chemical bond is a strong attraction that holds atoms or ions together in compounds or elements. Bonds form because atoms want to achieve a full outer shell of electrons — the same stable arrangement as noble gases.</p>
+  </div>
+
+  <div class="key-facts-block">
+    <h4>🧠 Key Idea</h4>
+    <p>When atoms bond, they either:</p>
+    <ul>
+      <li><strong>Transfer electrons</strong> (ionic bonding),</li>
+      <li><strong>Share electrons</strong> (covalent bonding), or</li>
+      <li><strong>Pool electrons</strong> (metallic bonding).</li>
+    </ul>
+    <p>The result is a more stable structure with lower energy.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 2 – The Three Types of Strong Chemical Bonds</h3>
+  
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Type of Bond</th>
+          <th>Occurs Between</th>
+          <th>How It Works</th>
+          <th>Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Ionic</strong></td>
+          <td>Metal + Non-metal</td>
+          <td>Electrons are transferred from the metal to the non-metal, forming positive and negative ions held by electrostatic forces.</td>
+          <td>Sodium chloride (NaCl)</td>
+        </tr>
+        <tr>
+          <td><strong>Covalent</strong></td>
+          <td>Non-metal + Non-metal</td>
+          <td>Electrons are shared between atoms to achieve full outer shells.</td>
+          <td>Water (H₂O), Oxygen (O₂)</td>
+        </tr>
+        <tr>
+          <td><strong>Metallic</strong></td>
+          <td>Metal + Metal</td>
+          <td>Positive metal ions are held together by a sea of delocalised electrons that move freely throughout the structure.</td>
+          <td>Copper (Cu), Iron (Fe)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>📝 Quick Summary</h4>
+    <ul>
+      <li><strong>Ionic → Transfer</strong></li>
+      <li><strong>Covalent → Share</strong></li>
+      <li><strong>Metallic → Delocalise</strong></li>
+    </ul>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 3 – Particles Involved in Each Bond Type</h3>
+  
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Bond Type</th>
+          <th>Particles Involved</th>
+          <th>Attraction Between</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Ionic</td>
+          <td>Positive metal ions and negative non-metal ions</td>
+          <td>Oppositely charged ions</td>
+        </tr>
+        <tr>
+          <td>Covalent</td>
+          <td>Non-metal atoms</td>
+          <td>Shared pair(s) of electrons</td>
+        </tr>
+        <tr>
+          <td>Metallic</td>
+          <td>Metal atoms and delocalised electrons</td>
+          <td>Positive ions ↔ delocalised electrons</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="key-facts-block">
+    <h4>📘 Diagram Reminder (Visual Summary)</h4>
+    <ul>
+      <li><strong>Ionic</strong> → alternating + and – ions in a lattice</li>
+      <li><strong>Covalent</strong> → overlapping electron shells (shared pairs)</li>
+      <li><strong>Metallic</strong> → positive ion lattice + moving electrons</li>
+    </ul>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 4 – Why Bonds Form (Energy Explanation)</h3>
+  
+  <div class="definition-block">
+    <h4>⚡ The Stability Rule</h4>
+    <p>Atoms bond to reach full outer shells (usually 8 electrons). When they do, they become more stable (lower potential energy).</p>
+  </div>
+
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Type of Bond</th>
+          <th>Electron Movement</th>
+          <th>Result</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Ionic</td>
+          <td>Transfer</td>
+          <td>Both atoms gain stable electronic structures</td>
+        </tr>
+        <tr>
+          <td>Covalent</td>
+          <td>Share</td>
+          <td>Each atom has a complete shell</td>
+        </tr>
+        <tr>
+          <td>Metallic</td>
+          <td>Delocalise</td>
+          <td>Metal ions surrounded by electrons for stability</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>🔋 Energy Change</h4>
+    <p><strong>Bond formation = exothermic</strong> (energy released). <strong>Breaking bonds = endothermic</strong> (energy absorbed).</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 5 – Strength of Bonds</h3>
+  
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Strength</th>
+          <th>Explanation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Ionic</td>
+          <td>Strong</td>
+          <td>Electrostatic attraction acts in all directions in a lattice.</td>
+        </tr>
+        <tr>
+          <td>Covalent</td>
+          <td>Strong</td>
+          <td>Shared electrons tightly hold atoms together.</td>
+        </tr>
+        <tr>
+          <td>Metallic</td>
+          <td>Strong</td>
+          <td>Delocalised electrons form strong attraction to positive ions.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>🧠 Important Note</h4>
+    <p>Even though these are all "strong" bonds, remember: The forces between molecules (intermolecular forces) in simple covalent substances are weak — that's why many covalent substances are gases or liquids.</p>
+  </div>
+</div>
+        `,
+        canonical_keywords: ["chemical bonds", "ionic bonding", "covalent bonding", "metallic bonding", "electrons", "transfer", "share", "delocalised", "electrostatic forces"],
+        practice_items: [
+          {
+            id: "bonds-1",
+            prompt_template: "Describe the three types of strong chemical bonds and explain when each type forms. [6 marks]",
+            marks: 6,
+            type: "open",
+            difficulty: "medium",
+            randomise: false,
+            expected_keywords: ["ionic", "covalent", "metallic", "transfer", "share", "delocalised", "metal", "non-metal"]
+          },
+          {
+            id: "bonds-2",
+            prompt_template: "Explain why atoms form chemical bonds. Use the concept of stability in your answer. [3 marks]",
+            marks: 3,
+            type: "open",
+            difficulty: "easy",
+            randomise: false,
+            expected_keywords: ["stable", "full outer shell", "noble gas", "lower energy"]
+          }
+        ]
+      },
+      {
+        id: "2-1-2-ionic-bonding",
+        title: "2.1.2 IONIC BONDING",
+        type: "content",
+        study_group: 1,
+        content_html: `
+<div class="note-block">
+  <p><strong>📝 This section is one of the most examined in Paper 1.</strong> You must be able to describe how ions form, draw dot-and-cross diagrams, and explain ionic charges and forces in terms of electrostatic attraction.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 1 – What Is Ionic Bonding?</h3>
+  
+  <div class="definition-block">
+    <h4>🔵 Definition</h4>
+    <p>Ionic bonding is the electrostatic attraction between oppositely charged ions (positive and negative).</p>
+    <p>It happens when:</p>
+    <ul>
+      <li>A metal atom <strong>loses electrons</strong> to form a <strong>positive ion (cation)</strong>.</li>
+      <li>A non-metal atom <strong>gains those electrons</strong> to form a <strong>negative ion (anion)</strong>.</li>
+    </ul>
+    <p>Both atoms end up with full outer electron shells, achieving a stable noble gas configuration.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 2 – Formation of Ionic Bonds (Step-by-Step)</h3>
+  
+  <div class="example-block">
+    <h4>🧪 Example 1 – Sodium and Chlorine</h4>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Atom</th>
+          <th>Electronic Structure</th>
+          <th>What Happens</th>
+          <th>Ion Formed</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Sodium (Na)</td>
+          <td>2,8,1</td>
+          <td>Loses 1 electron</td>
+          <td>Na⁺</td>
+        </tr>
+        <tr>
+          <td>Chlorine (Cl)</td>
+          <td>2,8,7</td>
+          <td>Gains 1 electron</td>
+          <td>Cl⁻</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <p><strong>Result:</strong></p>
+    <p>Na → Na⁺ + e⁻</p>
+    <p>Cl + e⁻ → Cl⁻</p>
+    
+    <p><strong>Word Equation:</strong><br>
+    Sodium + Chlorine → Sodium chloride</p>
+    
+    <p><strong>Dot-and-Cross Diagram (described):</strong></p>
+    <ul>
+      <li>Sodium atom transfers one outer electron (shown by a cross) to chlorine's outer shell (shown by a dot).</li>
+      <li>Sodium now has a full 2,8 shell (Na⁺) and chlorine has a full 2,8,8 shell (Cl⁻).</li>
+      <li>Brackets are drawn around each ion with charges written outside.</li>
+    </ul>
+  </div>
+
+  <div class="example-block">
+    <h4>🧪 Example 2 – Magnesium and Oxygen</h4>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Atom</th>
+          <th>Electronic Structure</th>
+          <th>Change</th>
+          <th>Ion Formed</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Magnesium (Mg)</td>
+          <td>2,8,2</td>
+          <td>Loses 2 electrons</td>
+          <td>Mg²⁺</td>
+        </tr>
+        <tr>
+          <td>Oxygen (O)</td>
+          <td>2,6</td>
+          <td>Gains 2 electrons</td>
+          <td>O²⁻</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <p><strong>Result:</strong></p>
+    <p>Mg → Mg²⁺ + 2e⁻</p>
+    <p>O + 2e⁻ → O²⁻</p>
+    
+    <p><strong>Dot-and-Cross Diagram (described):</strong></p>
+    <ul>
+      <li>Two crosses (electrons from Mg) are transferred to oxygen's outer shell.</li>
+      <li>Brackets around Mg²⁺ and O²⁻ with charges labelled.</li>
+    </ul>
+  </div>
+
+  <div class="example-block">
+    <h4>🧪 Example 3 – Calcium and Chlorine</h4>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Element</th>
+          <th>Electronic Structure</th>
+          <th>Change</th>
+          <th>Ion Formed</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Calcium (Ca)</td>
+          <td>2,8,8,2</td>
+          <td>Loses 2 electrons</td>
+          <td>Ca²⁺</td>
+        </tr>
+        <tr>
+          <td>Chlorine (Cl)</td>
+          <td>2,8,7</td>
+          <td>Gains 1 electron</td>
+          <td>Cl⁻ (×2)</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <p><strong>Equation:</strong><br>
+    Ca + Cl₂ → CaCl₂</p>
+    
+    <p><strong>Explanation:</strong><br>
+    Each chlorine atom gains one electron → two Cl⁻ ions for every Ca²⁺ ion.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 3 – Charges on Ions in Groups 1, 2, 6, and 7</h3>
+  
+  <div class="exam-tip-block">
+    <h4>🧠 Rule</h4>
+    <p>The charge equals the number of electrons lost or gained.</p>
+  </div>
+
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Group</th>
+          <th>Example Element</th>
+          <th>Ion Formed</th>
+          <th>Charge Pattern</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Sodium (Na)</td>
+          <td>Na⁺</td>
+          <td>+1 (Lose 1 electron)</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Magnesium (Mg)</td>
+          <td>Mg²⁺</td>
+          <td>+2 (Lose 2 electrons)</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>Oxygen (O)</td>
+          <td>O²⁻</td>
+          <td>-2 (Gain 2 electrons)</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>Chlorine (Cl)</td>
+          <td>Cl⁻</td>
+          <td>-1 (Gain 1 electron)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>🧠 Shortcut</h4>
+    <p>Group number = electrons in outer shell → number of electrons lost or gained to reach 8.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 4 – Dot-and-Cross Diagram Skills</h3>
+  
+  <div class="key-facts-block">
+    <h4>🧠 How to Draw Step-by-Step:</h4>
+    <ol>
+      <li>Write electron configurations for both atoms.</li>
+      <li>Show transfer of electrons with arrows.</li>
+      <li>Use dots for one atom's electrons and crosses for the other's.</li>
+      <li>Put brackets around each ion.</li>
+      <li>Write charges outside brackets (+1, +2, -1, -2).</li>
+    </ol>
+  </div>
+
+  <div class="example-block">
+    <h4>📝 Common Examples You Must Know:</h4>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Compound</th>
+          <th>Metal</th>
+          <th>Non-Metal</th>
+          <th>Diagram Summary</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>NaCl</td>
+          <td>Na →</td>
+          <td>1 electron transferred</td>
+          <td>[Na⁺] [Cl⁻]</td>
+        </tr>
+        <tr>
+          <td>MgO</td>
+          <td>Mg →</td>
+          <td>2 electrons transferred</td>
+          <td>[Mg²⁺] [O²⁻]</td>
+        </tr>
+        <tr>
+          <td>CaF₂</td>
+          <td>Ca →</td>
+          <td>2 electrons transferred (to 2 F atoms)</td>
+          <td>[Ca²⁺] [F⁻]₂</td>
+        </tr>
+        <tr>
+          <td>Li₂O</td>
+          <td>2 Li →</td>
+          <td>2 electrons total transferred</td>
+          <td>[Li⁺]₂ [O²⁻]</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 5 – Why Ionic Bonds Are Strong</h3>
+  
+  <div class="key-facts-block">
+    <h4>📘 Explanation</h4>
+    <p>Ions in an ionic compound are held together by <strong>strong electrostatic forces</strong> between oppositely charged ions. These forces:</p>
+    <ul>
+      <li>Act in all directions throughout the lattice,</li>
+      <li>Require lots of energy to overcome.</li>
+    </ul>
+    <p>This is why ionic compounds have <strong>high melting and boiling points</strong>.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 6 – Representing Ionic Compounds</h3>
+  
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Representation</th>
+          <th>Description</th>
+          <th>Limitation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Dot-and-cross diagram</td>
+          <td>Shows electron transfer clearly</td>
+          <td>Doesn't show 3D structure or bonding strength</td>
+        </tr>
+        <tr>
+          <td>Ball-and-stick model</td>
+          <td>Shows 3D arrangement and bonds</td>
+          <td>Doesn't show relative ion size or electron transfer</td>
+        </tr>
+        <tr>
+          <td>2D diagram</td>
+          <td>Easy to draw</td>
+          <td>No depth or perspective</td>
+        </tr>
+        <tr>
+          <td>3D space-filling model</td>
+          <td>Realistic spacing between ions</td>
+          <td>Can't see internal ions; looks crowded</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>🧠 Key Exam Tip</h4>
+    <p>When asked "Describe the structure of an ionic compound," you must include: <strong>giant lattice</strong>, <strong>electrostatic forces</strong>, and <strong>ions arranged in regular pattern</strong>.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 7 – Empirical Formula of Ionic Compounds</h3>
+  
+  <div class="definition-block">
+    <h4>🔵 Definition</h4>
+    <p>The empirical formula shows the simplest whole number ratio of ions in a compound.</p>
+  </div>
+
+  <div class="key-facts-block">
+    <h4>🧠 How to Work It Out</h4>
+    <ol>
+      <li>Identify each ion and its charge.</li>
+      <li>Combine so total positive = total negative charge.</li>
+      <li>Write the ratio as the formula.</li>
+    </ol>
+  </div>
+
+  <div class="example-block">
+    <h4>🟢 Examples</h4>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Ions</th>
+          <th>Balancing Charge</th>
+          <th>Formula</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Na⁺ and Cl⁻</td>
+          <td>+1 and -1</td>
+          <td>NaCl</td>
+        </tr>
+        <tr>
+          <td>Mg²⁺ and O²⁻</td>
+          <td>+2 and -2</td>
+          <td>MgO</td>
+        </tr>
+        <tr>
+          <td>Ca²⁺ and F⁻</td>
+          <td>+2 and 2×(-1)</td>
+          <td>CaF₂</td>
+        </tr>
+        <tr>
+          <td>Al³⁺ and O²⁻</td>
+          <td>2×(+3) = +6, 3×(-2) = -6</td>
+          <td>Al₂O₃</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+        `,
+        canonical_keywords: ["ionic bonding", "ions", "cation", "anion", "electrostatic forces", "electron transfer", "dot-and-cross diagram", "lattice", "empirical formula"],
+        practice_items: [
+          {
+            id: "ionic-bonding-1",
+            prompt_template: "Describe how ionic bonds form between sodium and chlorine atoms. Include electron configurations in your answer. [4 marks]",
+            marks: 4,
+            type: "open",
+            difficulty: "medium",
+            randomise: false,
+            expected_keywords: ["sodium", "loses", "electron", "chlorine", "gains", "electron", "Na+", "Cl-", "electrostatic", "attraction"]
+          },
+          {
+            id: "ionic-bonding-2",
+            prompt_template: "Explain why ionic bonds are strong. [3 marks]",
+            marks: 3,
+            type: "open",
+            difficulty: "easy",
+            randomise: false,
+            expected_keywords: ["electrostatic forces", "oppositely charged", "ions", "all directions", "lattice", "energy"]
+          },
+          {
+            id: "ionic-bonding-3",
+            prompt_template: "Work out the empirical formula for the compound formed between aluminium (Al³⁺) and oxygen (O²⁻). Show your working. [2 marks]",
+            marks: 2,
+            type: "short-answer",
+            difficulty: "medium",
+            randomise: false,
+            expected_keywords: ["Al2O3", "2×(+3)", "3×(-2)", "balanced"]
+          }
+        ]
+      },
+      {
+        id: "2-1-3-ionic-compounds",
+        title: "2.1.3 IONIC COMPOUNDS",
+        type: "content",
+        study_group: 1,
+        content_html: `
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 1 – Structure of Ionic Compounds</h3>
+  
+  <div class="definition-block">
+    <h4>🔵 Definition</h4>
+    <p>Ionic compounds have a <strong>giant ionic lattice structure</strong> — a three-dimensional repeating pattern of positive and negative ions held together by strong electrostatic forces acting in all directions.</p>
+  </div>
+
+  <div class="key-facts-block">
+    <h4>🧠 Key Description</h4>
+    <ul>
+      <li>Ions are closely packed in a regular pattern.</li>
+      <li>Each positive ion is surrounded by negative ions, and each negative ion is surrounded by positive ions.</li>
+      <li>The structure extends throughout the solid (that's why it's "giant").</li>
+    </ul>
+  </div>
+
+  <div class="example-block">
+    <h4>🟢 Example – Sodium Chloride (NaCl)</h4>
+    <ul>
+      <li>Each Na⁺ ion is surrounded by 6 Cl⁻ ions.</li>
+      <li>Each Cl⁻ ion is surrounded by 6 Na⁺ ions.</li>
+      <li><strong>Arrangement:</strong> cubic lattice.</li>
+      <li><strong>Bond type:</strong> Strong electrostatic attraction between Na⁺ and Cl⁻.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 2 – Forces in Ionic Compounds</h3>
+  
+  <div class="key-facts-block">
+    <h4>🔵 Key Idea</h4>
+    <p>The strength of ionic bonds depends on:</p>
+    <ul>
+      <li><strong>Charge of the ions</strong> – higher charges = stronger attraction. (e.g. MgO has stronger bonds than NaCl because 2+ and 2- ions attract more strongly.)</li>
+      <li><strong>Size of ions</strong> – smaller ions = stronger attraction because charges are closer together.</li>
+    </ul>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>🧠 Therefore:</h4>
+    <p>Compounds with highly charged, small ions have very high melting and boiling points.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 3 – Properties of Ionic Compounds</h3>
+  
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Property</th>
+          <th>Explanation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>High melting and boiling points</td>
+          <td>Strong electrostatic forces require a lot of energy to break.</td>
+        </tr>
+        <tr>
+          <td>Don't conduct electricity when solid</td>
+          <td>Ions fixed in lattice — cannot move.</td>
+        </tr>
+        <tr>
+          <td>Conduct electricity when molten or dissolved (aqueous)</td>
+          <td>Ions free to move → carry charge.</td>
+        </tr>
+        <tr>
+          <td>Brittle</td>
+          <td>When layers shift, like charges align → repel → lattice shatters.</td>
+        </tr>
+        <tr>
+          <td>Usually soluble in water</td>
+          <td>Polar water molecules pull ions apart due to attraction.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 4 – Explaining Conductivity</h3>
+  
+  <div class="key-facts-block">
+    <h4>📘 In Solids</h4>
+    <p>Ions are locked in fixed positions → cannot carry charge → <strong>non-conductor</strong>.</p>
+    
+    <h4>📘 In Molten or Solution</h4>
+    <ul>
+      <li>Lattice breaks apart → ions move freely.</li>
+      <li>Positive ions move to negative electrode (cathode).</li>
+      <li>Negative ions move to positive electrode (anode).</li>
+    </ul>
+    <p>This is why ionic compounds are used in electrolysis experiments.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 5 – Models of Ionic Structures</h3>
+  
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Model Type</th>
+          <th>Description</th>
+          <th>Advantages</th>
+          <th>Limitations</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2D lattice diagram</td>
+          <td>Flat grid showing alternating ions</td>
+          <td>Simple to draw</td>
+          <td>Doesn't show 3D arrangement</td>
+        </tr>
+        <tr>
+          <td>Ball-and-stick model</td>
+          <td>3D lattice showing ions and bonds</td>
+          <td>Shows regular pattern and bonding</td>
+          <td>Not to scale – sticks not real</td>
+        </tr>
+        <tr>
+          <td>Space-filling model</td>
+          <td>Shows how ions pack together</td>
+          <td>Realistic proportions</td>
+          <td>Can't see internal structure</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>💡 Exam tip</h4>
+    <p>When asked to "describe the structure of sodium chloride," always include:</p>
+    <p>"A giant 3D lattice of positive and negative ions held together by strong electrostatic forces acting in all directions."</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 6 – Comparing Different Ionic Compounds</h3>
+  
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Compound</th>
+          <th>Ion Charges</th>
+          <th>Relative Strength</th>
+          <th>Melting Point (°C)</th>
+          <th>Explanation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>NaCl</td>
+          <td>+1 / -1</td>
+          <td>Moderate</td>
+          <td>801</td>
+          <td>Moderate electrostatic attraction</td>
+        </tr>
+        <tr>
+          <td>MgO</td>
+          <td>+2 / -2</td>
+          <td>Very strong</td>
+          <td>2852</td>
+          <td>High attraction due to double charges</td>
+        </tr>
+        <tr>
+          <td>CaF₂</td>
+          <td>+2 / -1</td>
+          <td>Strong</td>
+          <td>1418</td>
+          <td>Two F⁻ per Ca²⁺ – balanced strong lattice</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>🧠 Trend</h4>
+    <p>Greater charge → stronger ionic bond → higher melting point.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 7 – Solubility in Water</h3>
+  
+  <div class="key-facts-block">
+    <h4>📘 Explanation</h4>
+    <p>Water is a polar molecule (O end = negative, H ends = positive). When an ionic solid is placed in water:</p>
+    <ul>
+      <li>The positive hydrogen attracts the negative ion (anion).</li>
+      <li>The negative oxygen attracts the positive ion (cation).</li>
+    </ul>
+    <p>The lattice breaks apart, and ions dissolve in solution.</p>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>🧠 Key Term</h4>
+    <p>This is called <strong>dissociation</strong> — important in chemistry of acids, bases, and electrolysis.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 8 – Limitations of Ionic Models</h3>
+  
+  <div class="key-facts-block">
+    <h4>🔍 What They Miss</h4>
+    <ul>
+      <li>Movement of ions isn't shown.</li>
+      <li>Relative ion sizes can be inaccurate.</li>
+      <li>Electrostatic forces are not visible (they act in 3D, not as rods).</li>
+      <li>Dynamic nature (melting, dissolving) not represented.</li>
+    </ul>
+  </div>
+</div>
+        `,
+        canonical_keywords: ["ionic compounds", "giant ionic lattice", "electrostatic forces", "conductivity", "melting point", "solubility", "brittle"],
+        practice_items: [
+          {
+            id: "ionic-compounds-1",
+            prompt_template: "Explain why ionic compounds have high melting and boiling points. [3 marks]",
+            marks: 3,
+            type: "open",
+            difficulty: "medium",
+            randomise: false,
+            expected_keywords: ["strong", "electrostatic forces", "ions", "energy", "break", "lattice"]
+          },
+          {
+            id: "ionic-compounds-2",
+            prompt_template: "Explain why ionic compounds conduct electricity when molten but not when solid. [4 marks]",
+            marks: 4,
+            type: "open",
+            difficulty: "medium",
+            randomise: false,
+            expected_keywords: ["solid", "ions", "fixed", "cannot move", "molten", "free to move", "carry charge"]
+          }
+        ]
+      },
+      {
+        id: "2-1-4-covalent-bonding",
+        title: "2.1.4 COVALENT BONDING",
+        type: "content",
+        study_group: 2,
+        content_html: `
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 1 – What Is Covalent Bonding?</h3>
+  
+  <div class="definition-block">
+    <h4>🔵 Definition</h4>
+    <p>A covalent bond is a <strong>shared pair of electrons</strong> between two non-metal atoms. Each atom contributes one or more electrons to the shared pair so that both achieve a full outer shell (stable electronic configuration).</p>
+  </div>
+
+  <div class="key-facts-block">
+    <h4>🧠 Key Idea</h4>
+    <ul>
+      <li>Occurs between <strong>non-metals only</strong>.</li>
+      <li>The shared electrons are attracted to the nuclei of both atoms, holding them together.</li>
+      <li>The atoms are <strong>neutral</strong> — no ions are formed.</li>
+      <li>Covalent bonds are very strong because the attraction between nuclei and shared electrons is powerful.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 2 – How Covalent Bonds Form</h3>
+  
+  <div class="key-facts-block">
+    <h4>🔵 Step-by-Step Explanation</h4>
+    <ol>
+      <li>Each atom has unfilled outer electron shells.</li>
+      <li>Atoms share electrons to fill these shells.</li>
+      <li>Each atom ends up with a stable configuration (usually 8 outer electrons — 2 for hydrogen).</li>
+      <li>The shared electrons form a strong electrostatic attraction between the two nuclei.</li>
+    </ol>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>🧠 Remember</h4>
+    <p>"Covalent bonding is <strong>sharing</strong>, not transfer."</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 3 – Dot-and-Cross Diagrams</h3>
+  
+  <div class="key-facts-block">
+    <p>Dot-and-cross diagrams show which electrons are shared between atoms. Use dots for one atom's electrons and crosses for the other's.</p>
+  </div>
+
+  <div class="example-block">
+    <h4>🔵 Example 1 – Hydrogen (H₂)</h4>
+    <ul>
+      <li>Each H atom has 1 electron.</li>
+      <li>They share a pair → both have 2 (first shell full).</li>
+      <li><strong>Displayed formula:</strong> H–H</li>
+      <li><strong>Dot-and-cross:</strong> Two overlapping circles with one dot and one cross shared.</li>
+    </ul>
+  </div>
+
+  <div class="example-block">
+    <h4>🔵 Example 2 – Chlorine (Cl₂)</h4>
+    <ul>
+      <li>Each Cl atom has 7 outer electrons.</li>
+      <li>They share one pair → both have 8.</li>
+      <li><strong>Displayed formula:</strong> Cl–Cl</li>
+      <li><strong>Dot-and-cross:</strong> Two overlapping circles; one dot and one cross shared.</li>
+    </ul>
+  </div>
+
+  <div class="example-block">
+    <h4>🔵 Example 3 – Water (H₂O)</h4>
+    <ul>
+      <li>Oxygen: 6 outer electrons</li>
+      <li>Each hydrogen: 1 electron → Two shared pairs of electrons.</li>
+      <li><strong>Displayed formula:</strong> H–O–H</li>
+      <li><strong>Dot-and-cross:</strong> Oxygen overlaps twice — one with each hydrogen.</li>
+    </ul>
+  </div>
+
+  <div class="example-block">
+    <h4>🔵 Example 4 – Carbon Dioxide (CO₂)</h4>
+    <ul>
+      <li>Carbon: 4 outer electrons</li>
+      <li>Oxygen: 6 outer electrons (×2) → Two double bonds form (each O shares 2 pairs).</li>
+      <li><strong>Displayed formula:</strong> O=C=O</li>
+    </ul>
+  </div>
+
+  <div class="example-block">
+    <h4>🔵 Example 5 – Ammonia (NH₃)</h4>
+    <ul>
+      <li>Nitrogen: 5 outer electrons</li>
+      <li>Hydrogen: 1 outer electron (×3) → Three shared pairs of electrons.</li>
+      <li><strong>Displayed formula:</strong> 
+        <pre>    H
+    |
+H—N—H</pre>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 4 – Types of Covalent Structures</h3>
+  
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Structure Type</th>
+          <th>Description</th>
+          <th>Example</th>
+          <th>Bonds Between Molecules</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Simple molecular</strong></td>
+          <td>Small groups of atoms joined by covalent bonds</td>
+          <td>H₂, O₂, H₂O, CH₄</td>
+          <td>Weak forces (low melting point)</td>
+        </tr>
+        <tr>
+          <td><strong>Giant covalent</strong></td>
+          <td>Network of covalently bonded atoms</td>
+          <td>Diamond, Graphite, SiO₂</td>
+          <td>Strong bonds throughout (high melting point)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>🧠 Key Point</h4>
+    <p>In both types, covalent bonds are strong — the difference lies in the <strong>forces between molecules</strong>.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 5 – Properties of Simple Covalent Substances</h3>
+  
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Property</th>
+          <th>Explanation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Low melting/boiling points</td>
+          <td>Weak intermolecular forces (forces between molecules) are easy to overcome.</td>
+        </tr>
+        <tr>
+          <td>Do not conduct electricity</td>
+          <td>No free electrons or ions to carry charge.</td>
+        </tr>
+        <tr>
+          <td>Usually gases or liquids at room temp</td>
+          <td>Molecules move freely; weak attractions.</td>
+        </tr>
+        <tr>
+          <td>Insoluble in water (mostly)</td>
+          <td>Non-polar molecules; water is polar.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>🧠 Key Terms</h4>
+    <ul>
+      <li><strong>Covalent bond:</strong> strong attraction within molecule.</li>
+      <li><strong>Intermolecular forces:</strong> weak attractions between molecules.</li>
+    </ul>
+    <p><strong>For exams:</strong> Always say "weak intermolecular forces" — not "weak covalent bonds."</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 6 – Multiple Bonds</h3>
+  
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Bond Type</th>
+          <th>Number of Shared Electron Pairs</th>
+          <th>Example</th>
+          <th>Bond Representation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Single bond</td>
+          <td>1</td>
+          <td>H–Cl</td>
+          <td>H–Cl</td>
+        </tr>
+        <tr>
+          <td>Double bond</td>
+          <td>2</td>
+          <td>CO₂</td>
+          <td>O=C=O</td>
+        </tr>
+        <tr>
+          <td>Triple bond</td>
+          <td>3</td>
+          <td>N₂</td>
+          <td>N≡N</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>🧠 Remember</h4>
+    <p>More shared pairs = <strong>stronger, shorter bond</strong>.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 7 – Giant Covalent (Macromolecular) Structures</h3>
+  
+  <div class="key-facts-block">
+    <p>Some covalently bonded substances form giant 3D networks, not small molecules.</p>
+  </div>
+
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Substance</th>
+          <th>Structure</th>
+          <th>Key Properties</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Diamond</td>
+          <td>Each carbon bonded to 4 others → tetrahedral lattice</td>
+          <td>Very hard, very high melting point, no conductivity</td>
+        </tr>
+        <tr>
+          <td>Graphite</td>
+          <td>Each carbon bonded to 3 others → layers</td>
+          <td>Conducts electricity (delocalised electrons), soft/slippery</td>
+        </tr>
+        <tr>
+          <td>Silicon dioxide (SiO₂)</td>
+          <td>Each Si bonded to 4 O atoms</td>
+          <td>Hard, high melting point, insulator</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>🧠 Important</h4>
+    <p>These have no weak intermolecular forces — every atom is bonded covalently, making them solid and strong.</p>
+  </div>
+</div>
+        `,
+        canonical_keywords: ["covalent bonding", "shared electrons", "non-metals", "dot-and-cross diagram", "simple molecular", "giant covalent", "intermolecular forces", "multiple bonds"],
+        practice_items: [
+          {
+            id: "covalent-1",
+            prompt_template: "Explain what a covalent bond is and describe how it forms. [3 marks]",
+            marks: 3,
+            type: "open",
+            difficulty: "easy",
+            randomise: false,
+            expected_keywords: ["shared pair", "electrons", "non-metals", "full outer shell", "nuclei", "attraction"]
+          },
+          {
+            id: "covalent-2",
+            prompt_template: "Explain why simple covalent substances have low melting and boiling points. [3 marks]",
+            marks: 3,
+            type: "open",
+            difficulty: "medium",
+            randomise: false,
+            expected_keywords: ["weak", "intermolecular forces", "between molecules", "easy to overcome", "little energy"]
+          }
+        ]
+      },
+      {
+        id: "2-1-5-metallic-bonding",
+        title: "2.1.5 METALLIC BONDING",
+        type: "content",
+        study_group: 2,
+        content_html: `
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 1 – What Is Metallic Bonding?</h3>
+  
+  <div class="definition-block">
+    <h4>🔵 Definition</h4>
+    <p>Metallic bonding occurs between metal atoms. It involves a <strong>giant lattice of positive metal ions</strong> surrounded by a <strong>sea of delocalised electrons</strong> that move freely throughout the structure.</p>
+  </div>
+
+  <div class="key-facts-block">
+    <h4>🧠 Key Idea</h4>
+    <p>Metal atoms lose their outer electrons, forming positive ions. These electrons become <strong>delocalised</strong> (free to move). Strong electrostatic forces of attraction between the positive ions and the negative electrons hold the metal together.</p>
+  </div>
+
+  <div class="example-block">
+    <h4>📘 Representation</h4>
+    <p><strong>Metal ions:</strong> ⁺⁺⁺⁺⁺</p>
+    <p><strong>Delocalised electrons:</strong> e⁻ e⁻ e⁻ e⁻</p>
+    <p>🧠 These electrons act like glue, holding the lattice together.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 2 – Structure of Metals</h3>
+  
+  <div class="key-facts-block">
+    <h4>🔵 Giant Metallic Lattice</h4>
+    <ul>
+      <li>Atoms are arranged in regular layers.</li>
+      <li>The structure extends in all directions (giant lattice).</li>
+      <li>The delocalised electrons move freely between positive ions.</li>
+    </ul>
+  </div>
+
+  <div class="example-block">
+    <h4>🟢 Example – Sodium Metal (Na)</h4>
+    <ul>
+      <li>Each Na atom loses 1 outer electron → Na⁺ ion.</li>
+      <li>Lost electrons become delocalised.</li>
+      <li>The attraction between Na⁺ ions and delocalised electrons forms metallic bonds.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 3 – Key Properties of Metals</h3>
+  
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Property</th>
+          <th>Explanation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>High melting and boiling points</td>
+          <td>Strong electrostatic attraction between positive ions and delocalised electrons requires lots of energy to overcome.</td>
+        </tr>
+        <tr>
+          <td>Good electrical conductivity</td>
+          <td>Delocalised electrons move freely, carrying charge through the structure.</td>
+        </tr>
+        <tr>
+          <td>Good thermal conductivity</td>
+          <td>Free electrons transfer kinetic energy efficiently.</td>
+        </tr>
+        <tr>
+          <td>Malleable (can be hammered into shape)</td>
+          <td>Layers of ions can slide over each other while metallic bonds stay intact.</td>
+        </tr>
+        <tr>
+          <td>Ductile (can be drawn into wires)</td>
+          <td>Same reason — layers can move without breaking bonds.</td>
+        </tr>
+        <tr>
+          <td>Shiny (lustrous)</td>
+          <td>Delocalised electrons reflect light from surface.</td>
+        </tr>
+        <tr>
+          <td>High density</td>
+          <td>Atoms packed tightly in lattice.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 4 – Explanation of Metallic Bond Strength</h3>
+  
+  <div class="key-facts-block">
+    <p>The strength of metallic bonds depends on:</p>
+    <ul>
+      <li><strong>Number of delocalised electrons</strong> → more electrons = stronger bonding (e.g. Mg stronger than Na).</li>
+      <li><strong>Size of the ions</strong> → smaller ions = stronger attraction (closer positive charge).</li>
+      <li><strong>Charge on metal ion</strong> → higher charge = stronger bond (Al³⁺ > Mg²⁺ > Na⁺).</li>
+    </ul>
+  </div>
+
+  <div class="example-block">
+    <h4>🔬 Trend Example</h4>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Metal</th>
+          <th>Outer Electrons</th>
+          <th>Ion Charge</th>
+          <th>Strength</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Sodium (Na)</td>
+          <td>1</td>
+          <td>+1</td>
+          <td>Weakest</td>
+        </tr>
+        <tr>
+          <td>Magnesium (Mg)</td>
+          <td>2</td>
+          <td>+2</td>
+          <td>Stronger</td>
+        </tr>
+        <tr>
+          <td>Aluminium (Al)</td>
+          <td>3</td>
+          <td>+3</td>
+          <td>Very strong</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 5 – Metals vs Non-Metals</h3>
+  
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Property</th>
+          <th>Metals</th>
+          <th>Non-Metals</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Bond Type</td>
+          <td>Metallic</td>
+          <td>Covalent / Ionic</td>
+        </tr>
+        <tr>
+          <td>Conductivity</td>
+          <td>Conduct electricity and heat</td>
+          <td>Poor conductors (except graphite)</td>
+        </tr>
+        <tr>
+          <td>Melting/Boiling Point</td>
+          <td>High</td>
+          <td>Often low (if molecular)</td>
+        </tr>
+        <tr>
+          <td>Strength</td>
+          <td>Strong, dense</td>
+          <td>Brittle, weak (if solid)</td>
+        </tr>
+        <tr>
+          <td>Malleability</td>
+          <td>Malleable & ductile</td>
+          <td>Brittle</td>
+        </tr>
+        <tr>
+          <td>Appearance</td>
+          <td>Shiny</td>
+          <td>Dull</td>
+        </tr>
+        <tr>
+          <td>Typical Elements</td>
+          <td>Fe, Cu, Al</td>
+          <td>S, O, Cl</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>🧠 Key Point</h4>
+    <p>The difference arises from the presence (metals) or absence (non-metals) of delocalised electrons.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 6 – Why Metals Conduct Electricity</h3>
+  
+  <div class="key-facts-block">
+    <h4>🔋 In Detail</h4>
+    <p>Metals contain delocalised electrons that can move freely.</p>
+    <p>When voltage is applied:</p>
+    <ul>
+      <li>Electrons flow towards the positive terminal, carrying charge.</li>
+      <li>This allows a current to pass through the entire metal.</li>
+    </ul>
+  </div>
+
+  <div class="example-block">
+    <h4>💧 Even in Liquid (Molten) State</h4>
+    <p>Metals conduct in both solid and liquid states, because delocalised electrons remain free to move.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 7 – Alloys</h3>
+  
+  <div class="definition-block">
+    <h4>🔵 Definition</h4>
+    <p>An alloy is a mixture of metals (or a metal and another element) that improves a metal's properties.</p>
+  </div>
+
+  <div class="key-facts-block">
+    <h4>📘 Structure Explanation</h4>
+    <ul>
+      <li>Pure metals have regular layers of atoms → easy to slide → soft.</li>
+      <li>Alloys contain different-sized atoms, which distort the layers, making it harder for them to slide → stronger and harder.</li>
+    </ul>
+  </div>
+
+  <div class="example-block">
+    <h4>🔬 Common Examples</h4>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Alloy</th>
+          <th>Composition</th>
+          <th>Properties</th>
+          <th>Uses</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Steel</td>
+          <td>Iron + carbon</td>
+          <td>Strong, hard</td>
+          <td>Construction, tools</td>
+        </tr>
+        <tr>
+          <td>Brass</td>
+          <td>Copper + zinc</td>
+          <td>Hard, corrosion-resistant</td>
+          <td>Musical instruments, fittings</td>
+        </tr>
+        <tr>
+          <td>Bronze</td>
+          <td>Copper + tin</td>
+          <td>Tough, corrosion-resistant</td>
+          <td>Medals, statues</td>
+        </tr>
+        <tr>
+          <td>Duralumin</td>
+          <td>Aluminium + copper + magnesium</td>
+          <td>Strong, light</td>
+          <td>Aircraft</td>
+        </tr>
+        <tr>
+          <td>Solder</td>
+          <td>Lead + tin</td>
+          <td>Low melting point</td>
+          <td>Joining metal parts</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="exam-tip-block">
+    <h4>📝 Summary Sentence</h4>
+    <p>"Alloys are harder than pure metals because the different-sized atoms distort the regular layers, preventing them from sliding."</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">Subsection 8 – Metals and Energy</h3>
+  
+  <div class="key-facts-block">
+    <h4>🔋 Bonding Energy</h4>
+    <p>Breaking metallic bonds requires large amounts of energy because of:</p>
+    <ul>
+      <li>Strong electrostatic attraction, and</li>
+      <li>The extensive network of bonding throughout the structure.</li>
+    </ul>
+  </div>
+</div>
+        `,
+        canonical_keywords: ["metallic bonding", "delocalised electrons", "giant metallic lattice", "conductivity", "malleable", "ductile", "alloys"],
+        practice_items: [
+          {
+            id: "metallic-1",
+            prompt_template: "Describe the structure and bonding in metals. [4 marks]",
+            marks: 4,
+            type: "open",
+            difficulty: "medium",
+            randomise: false,
+            expected_keywords: ["giant lattice", "positive ions", "delocalised electrons", "electrostatic forces", "sea of electrons"]
+          },
+          {
+            id: "metallic-2",
+            prompt_template: "Explain why metals conduct electricity. [2 marks]",
+            marks: 2,
+            type: "short-answer",
+            difficulty: "easy",
+            randomise: false,
+            expected_keywords: ["delocalised electrons", "free to move", "carry charge"]
+          },
+          {
+            id: "metallic-3",
+            prompt_template: "Explain why alloys are harder than pure metals. [3 marks]",
+            marks: 3,
+            type: "open",
+            difficulty: "medium",
+            randomise: false,
+            expected_keywords: ["different sized atoms", "distort", "layers", "harder to slide", "irregular"]
+          }
+        ]
+      }
+    ]
   },
   {
     id: "quantitative-chemistry",
