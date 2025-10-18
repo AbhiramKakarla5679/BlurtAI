@@ -92,12 +92,15 @@ const BlurPractice = () => {
 
     if (!subsection) return;
 
-    // Simple keyword scoring
+    // Question-specific keyword scoring
     const answerLower = userAnswer.toLowerCase();
     const found: string[] = [];
     const missed: string[] = [];
 
-    subsection.canonical_keywords.forEach((keyword) => {
+    // Use question-specific keywords if available, otherwise fall back to subsection keywords
+    const keywordsToCheck = currentPrompt?.expected_keywords || subsection.canonical_keywords;
+
+    keywordsToCheck.forEach((keyword) => {
       if (answerLower.includes(keyword.toLowerCase())) {
         found.push(keyword);
       } else {
@@ -151,8 +154,10 @@ const BlurPractice = () => {
     );
   }
 
-  const coveragePercent = subsection.canonical_keywords.length > 0
-    ? Math.round((keywordsFound.length / subsection.canonical_keywords.length) * 100)
+  // Use question-specific keywords for scoring
+  const totalKeywords = currentPrompt?.expected_keywords?.length || subsection.canonical_keywords.length;
+  const coveragePercent = totalKeywords > 0
+    ? Math.round((keywordsFound.length / totalKeywords) * 100)
     : 0;
 
   return (
@@ -237,7 +242,7 @@ const BlurPractice = () => {
                   <p className="text-sm text-muted-foreground mb-2">Coverage Score</p>
                   <p className="text-4xl font-bold text-primary mb-1">{coveragePercent}%</p>
                   <p className="text-xs text-muted-foreground">
-                    {keywordsFound.length} out of {subsection.canonical_keywords.length} key concepts
+                    {keywordsFound.length} out of {totalKeywords} key concepts for this question
                   </p>
                 </div>
 

@@ -8,6 +8,7 @@ export interface PracticeItem {
   type: "open" | "short-answer" | "mcq";
   difficulty: "easy" | "medium" | "hard";
   randomise: boolean;
+  expected_keywords: string[]; // Keywords specific to this question
 }
 
 export interface Subsection {
@@ -321,49 +322,74 @@ export const sectionsData: TopicSection[] = [
             prompt_template: "Write everything you know about ATOMS, ELEMENTS AND COMPOUNDS.",
             type: "open",
             difficulty: "easy",
-            randomise: true
+            randomise: true,
+            expected_keywords: [
+              "atom", "smallest particle", "nucleus", "proton", "neutron", "electron", "shells",
+              "element", "one type", "chemical symbol", "periodic table",
+              "compound", "chemically bonded", "fixed proportions", "formula"
+            ]
           },
           {
             id: "p2",
             prompt_template: "Explain the key ideas and examples from atoms, elements and compounds.",
             type: "open",
             difficulty: "easy",
-            randomise: true
+            randomise: true,
+            expected_keywords: [
+              "atom", "nucleus", "electron", "element", "compound", "chemical bond",
+              "hydrogen", "oxygen", "sodium", "water", "sodium chloride", "ionic", "covalent"
+            ]
           },
           {
             id: "p3",
             prompt_template: "List the definitions, facts and examples you can recall about atoms, elements and compounds.",
             type: "open",
             difficulty: "easy",
-            randomise: true
+            randomise: true,
+            expected_keywords: [
+              "atom", "smallest", "element", "pure substance", "compound", "two or more",
+              "chemically joined", "neutral", "mass", "radius", "nanometre"
+            ]
           },
           {
             id: "p4",
             prompt_template: "Define an element and give one example with its symbol.",
             type: "short-answer",
             difficulty: "easy",
-            randomise: true
+            randomise: true,
+            expected_keywords: [
+              "element", "pure substance", "one type of atom", "symbol"
+            ]
           },
           {
             id: "p5",
             prompt_template: "State the difference between an element and a compound.",
             type: "short-answer",
             difficulty: "medium",
-            randomise: true
+            randomise: true,
+            expected_keywords: [
+              "element", "one type", "compound", "two or more", "chemically bonded", "fixed proportions"
+            ]
           },
           {
             id: "p6",
             prompt_template: "Explain how to write a formula for an ionic compound (example NaCl).",
             type: "short-answer",
             difficulty: "medium",
-            randomise: true
+            randomise: true,
+            expected_keywords: [
+              "ions", "charge", "balance", "metal", "non-metal", "positive", "negative", "formula"
+            ]
           },
           {
             id: "p7",
             prompt_template: "Give the naming rule for compounds containing oxygen.",
             type: "short-answer",
             difficulty: "easy",
-            randomise: true
+            randomise: true,
+            expected_keywords: [
+              "oxygen", "-ate", "ending", "sulfate", "carbonate", "nitrate"
+            ]
           }
         ]
       },
@@ -548,28 +574,44 @@ export const sectionsData: TopicSection[] = [
             prompt_template: "Write everything you know about MIXTURES and separation techniques.",
             type: "open",
             difficulty: "medium",
-            randomise: true
+            randomise: true,
+            expected_keywords: [
+              "mixture", "not chemically joined", "physical", "filtration", "crystallisation",
+              "distillation", "fractional distillation", "chromatography", "residue", "filtrate",
+              "solvent", "purity", "melting point"
+            ]
           },
           {
             id: "p2",
             prompt_template: "Explain all the separation methods you can remember with examples.",
             type: "open",
             difficulty: "medium",
-            randomise: true
+            randomise: true,
+            expected_keywords: [
+              "filtration", "sand", "water", "crystallisation", "salt", "distillation",
+              "fractional", "ethanol", "chromatography", "ink", "Rf value"
+            ]
           },
           {
             id: "p3",
             prompt_template: "Describe the method for simple distillation.",
             type: "short-answer",
             difficulty: "medium",
-            randomise: true
+            randomise: true,
+            expected_keywords: [
+              "heat", "evaporate", "boiling point", "condenser", "cool", "distillate", "collect"
+            ]
           },
           {
             id: "p4",
             prompt_template: "Explain how paper chromatography works and what Rf values are.",
             type: "short-answer",
             difficulty: "hard",
-            randomise: true
+            randomise: true,
+            expected_keywords: [
+              "baseline", "pencil", "solvent", "move up", "different distances",
+              "Rf value", "distance moved", "substance", "solvent front"
+            ]
           }
         ]
       }
