@@ -35,8 +35,8 @@ serve(async (req) => {
             content: `You are a supportive GCSE teacher analyzing a student's handwritten answers to blurting questions. 
             
 Your task:
-1. Carefully read the student's handwritten answers
-2. Compare them against the study content and questions provided
+1. First, transcribe EXACTLY what the student wrote (word for word, including any mistakes or unclear writing)
+2. Compare their answer against the study content and questions provided
 3. Identify key ideas they covered and key ideas they missed
 4. Provide specific, constructive feedback
 
@@ -67,6 +67,10 @@ Be encouraging but honest. Point out specific concepts they understood well and 
               parameters: {
                 type: "object",
                 properties: {
+                  extractedText: {
+                    type: "string",
+                    description: "The exact text transcribed from the student's handwritten answer"
+                  },
                   keyIdeasCovered: {
                     type: "array",
                     items: { type: "string" },
@@ -82,7 +86,7 @@ Be encouraging but honest. Point out specific concepts they understood well and 
                     description: "Detailed feedback on the student's answer"
                   }
                 },
-                required: ["keyIdeasCovered", "keyIdeasMissed", "feedbackText"],
+                required: ["extractedText", "keyIdeasCovered", "keyIdeasMissed", "feedbackText"],
                 additionalProperties: false
               }
             }

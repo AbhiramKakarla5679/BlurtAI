@@ -60,7 +60,7 @@ export const PhotoUpload = ({ studyContent, questions, currentQuestion, topicId,
       navigate("/results", {
         state: {
           question: currentQuestion,
-          answer: "Photo answer submitted",
+          answer: data.extractedText || "Photo answer submitted",
           keyIdeasCovered: data.keyIdeasCovered || [],
           keyIdeasMissed: data.keyIdeasMissed || [],
           score: data.score || 0,
