@@ -856,13 +856,16 @@ const BlurPractice = () => {
             <CardContent>
               {!showQuestionFeedback ? (
                 <div className="space-y-4">
-                  <Textarea
-                    value={userAnswer}
-                    onChange={(e) => setUserAnswer(e.target.value)}
-                    placeholder="Write everything you remember here..."
-                    className="min-h-[300px] text-base"
-                    autoFocus
-                  />
+                  <div className="bg-muted/50 p-4 rounded-lg border">
+                    <p className="text-sm font-semibold mb-2">Your Answer:</p>
+                    <Textarea
+                      value={userAnswer}
+                      onChange={(e) => setUserAnswer(e.target.value)}
+                      placeholder="Write everything you remember here..."
+                      className="min-h-[200px] text-base bg-background"
+                      autoFocus
+                    />
+                  </div>
                   
                   <div className="flex items-center gap-2">
                     <Button onClick={handleSubmit} className="flex-1" size="lg">
@@ -895,9 +898,12 @@ const BlurPractice = () => {
                   )}
 
                   {photoFeedback && (
-                    <Card className="border-blue-500">
+                    <Card className="border-l-4 border-blue-500 bg-muted/30">
                       <CardHeader>
-                        <CardTitle className="text-lg">📸 Photo Feedback</CardTitle>
+                        <CardTitle className="text-lg flex items-center gap-2">
+                          <span className="text-xl">📷</span>
+                          Photo Feedback
+                        </CardTitle>
                       </CardHeader>
                       <CardContent>
                         <p className="text-sm whitespace-pre-wrap">{photoFeedback}</p>
@@ -907,88 +913,94 @@ const BlurPractice = () => {
                 </div>
               ) : (
                 <div className="space-y-6">
-                  <div className="p-4 bg-muted rounded-lg">
-                    <h3 className="font-semibold mb-2">Your Answer:</h3>
-                    <p className="text-sm whitespace-pre-wrap">{userAnswer}</p>
+                  {/* User's Answer Display */}
+                  <div className="bg-muted/50 p-4 rounded-lg">
+                    <p className="text-sm font-semibold mb-2">Your Answer:</p>
+                    <p className="text-sm">{userAnswer}</p>
                   </div>
 
-                  {feedbackText && (
-                    <div className="p-4 bg-blue-50 dark:bg-blue-950/20 rounded-lg border-l-4 border-blue-500">
-                      <h3 className="font-semibold text-blue-700 dark:text-blue-400 mb-3 flex items-center gap-2">
-                        💡 AI Feedback on Your Answer
-                      </h3>
-                      <div className="space-y-3 text-sm">
-                        {feedbackText.split('\n\n').map((paragraph, idx) => (
-                          <p key={idx} dangerouslySetInnerHTML={{ __html: paragraph.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
-                        ))}
-                      </div>
+                  {/* AI Feedback */}
+                  <div className="p-6 bg-blue-50 dark:bg-blue-950/20 rounded-lg border-l-4 border-blue-500">
+                    <h3 className="font-semibold text-lg mb-3 flex items-center gap-2 text-blue-700 dark:text-blue-400">
+                      <span className="text-xl">💡</span>
+                      AI Feedback on Your Answer
+                    </h3>
+                    <div className="prose prose-sm max-w-none text-foreground">
+                      <p className="text-sm whitespace-pre-line">{feedbackText}</p>
                     </div>
-                  )}
+                  </div>
 
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div className="p-4 bg-green-50 dark:bg-green-950/20 rounded-lg border-l-4 border-green-500">
-                      <h3 className="font-semibold text-green-700 dark:text-green-400 mb-2">
-                        ✅ Key Ideas Covered ({keywordsFound.length})
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {/* Key Ideas Covered */}
+                    <div className="p-6 bg-green-50 dark:bg-green-950/20 rounded-lg border-l-4 border-green-500">
+                      <h3 className="font-semibold text-base mb-4 flex items-center gap-2 text-green-700 dark:text-green-400">
+                        <CheckCircle className="h-5 w-5" />
+                        Key Ideas Covered ({keywordsFound.length})
                       </h3>
-                      <div className="flex flex-wrap gap-2">
-                        {keywordsFound.slice(0, 8).map((kw, idx) => (
-                          <Badge key={idx} variant="outline" className="bg-green-100 dark:bg-green-900/30 text-xs">
-                            {kw}
-                          </Badge>
-                        ))}
-                        {keywordsFound.length > 8 && (
-                          <Badge variant="outline" className="bg-green-100 dark:bg-green-900/30 text-xs">
-                            +{keywordsFound.length - 8} more
-                          </Badge>
+                      <div className="space-y-2">
+                        {keywordsFound.length > 0 ? (
+                          keywordsFound.map((keyword, idx) => (
+                            <div key={idx} className="p-3 bg-green-100 dark:bg-green-900/30 rounded-md text-sm text-green-900 dark:text-green-100">
+                              {keyword}
+                            </div>
+                          ))
+                        ) : (
+                          <p className="text-sm text-muted-foreground">No key ideas covered</p>
                         )}
                       </div>
                     </div>
 
-                    <div className="p-4 bg-yellow-50 dark:bg-yellow-950/20 rounded-lg border-l-4 border-yellow-500">
-                      <h3 className="font-semibold text-yellow-700 dark:text-yellow-400 mb-2">
-                        ⚠️ Key Ideas Missed ({keywordsMissed.length})
+                    {/* Key Ideas Missed */}
+                    <div className="p-6 bg-yellow-50 dark:bg-yellow-950/20 rounded-lg border-l-4 border-yellow-500">
+                      <h3 className="font-semibold text-base mb-4 flex items-center gap-2 text-yellow-700 dark:text-yellow-400">
+                        <span className="text-xl">⚠</span>
+                        Key Ideas Missed ({keywordsMissed.length})
                       </h3>
-                      <div className="flex flex-wrap gap-2">
-                        {keywordsMissed.slice(0, 8).map((kw, idx) => (
-                          <Badge key={idx} variant="outline" className="bg-yellow-100 dark:bg-yellow-900/30 text-xs">
-                            {kw}
-                          </Badge>
-                        ))}
-                        {keywordsMissed.length > 8 && (
-                          <Badge variant="outline" className="bg-yellow-100 dark:bg-yellow-900/30 text-xs">
-                            +{keywordsMissed.length - 8} more
-                          </Badge>
+                      <div className="space-y-2">
+                        {keywordsMissed.length > 0 ? (
+                          keywordsMissed.map((keyword, idx) => (
+                            <div key={idx} className="p-3 bg-yellow-100 dark:bg-yellow-900/30 rounded-md text-sm text-yellow-900 dark:text-yellow-100">
+                              {keyword}
+                            </div>
+                          ))
+                        ) : (
+                          <p className="text-sm text-muted-foreground">All key ideas covered!</p>
                         )}
                       </div>
                     </div>
                   </div>
 
-                  <div className="p-6 bg-primary/10 rounded-lg text-center">
-                    <p className="text-sm text-muted-foreground mb-2">Question Score</p>
-                    <p className="text-6xl font-bold text-primary mb-1">
-                      {Math.round((questionResults[questionResults.length - 1]?.score / questionResults[questionResults.length - 1]?.maxMarks) * 100) || 0}%
-                    </p>
-                    <p className="text-xs text-muted-foreground">
+                  {/* Question Score */}
+                  <div className="p-8 bg-muted/50 rounded-lg text-center">
+                    <p className="text-sm text-muted-foreground mb-3">Question Score</p>
+                    <div className="flex items-center justify-center gap-2 mb-2">
+                      <span className="text-6xl font-bold text-primary">
+                        {Math.round((questionResults[questionResults.length - 1]?.score / questionResults[questionResults.length - 1]?.maxMarks) * 100) || 0}%
+                      </span>
+                    </div>
+                    <p className="text-sm text-muted-foreground">
                       {questionResults[questionResults.length - 1]?.score || 0}/{questionResults[questionResults.length - 1]?.maxMarks || 0} marks
                     </p>
                   </div>
 
-                  <div className="flex gap-3">
-                    <Button 
-                      onClick={handleAnswerAnother} 
-                      className="flex-1" 
-                      size="lg"
-                      disabled={isGeneratingQuestion}
-                    >
+                  {/* Action Buttons */}
+                  <div className="flex flex-col gap-3">
+                    <Button onClick={handleAnswerAnother} size="lg" variant="default" disabled={isGeneratingQuestion}>
                       {isGeneratingQuestion ? "Generating..." : "Answer Another Question"}
                     </Button>
                     <Button 
                       onClick={handleMoveToNextSubsection} 
-                      variant="secondary"
-                      className="flex-1" 
-                      size="lg"
+                      size="lg" 
+                      variant="outline"
                     >
-                      Move to Next Subsection →
+                      Move to Next Section
+                    </Button>
+                    <Button 
+                      onClick={() => navigate(`/sections/${topicId}`)} 
+                      size="lg" 
+                      variant="secondary"
+                    >
+                      Go to Notes
                     </Button>
                   </div>
                 </div>
