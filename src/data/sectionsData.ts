@@ -521,167 +521,288 @@ export const sectionsData: TopicSection[] = [
         study_group: 1, // Study with 1.1.1
         content_html: `
 <div class="subsection">
-  <h3 class="subsection-heading">Subsection 1 – What is a Mixture?</h3>
+  <h3 class="subsection-heading">🧩 Subsection 1 – What Is a Mixture?</h3>
   <div class="definition-block">
     <h4>🔵 Definition</h4>
-    <p>A mixture is a combination of two or more substances (elements or compounds) not chemically joined together.</p>
+    <p>A mixture is a combination of two or more substances (elements or compounds) that are not chemically bonded together.</p>
   </div>
   <div class="key-facts-block">
     <h4>🧠 Key Points</h4>
     <ul>
-      <li>The substances in a mixture keep their own properties.</li>
-      <li>There are no chemical bonds between the substances.</li>
-      <li>Mixtures can be easily separated by physical methods.</li>
-      <li>The composition of a mixture can vary (unlike a compound).</li>
+      <li>Substances in a mixture keep their original properties.</li>
+      <li>Mixtures can be easily separated by physical methods, not chemical reactions.</li>
+      <li>The composition of a mixture is not fixed — it can vary.</li>
     </ul>
   </div>
   <div class="example-block">
     <h4>🟢 Examples</h4>
     <table class="data-table">
-      <thead><tr><th>Mixture</th><th>Components</th><th>Notes</th></tr></thead>
+      <thead>
+        <tr><th>Mixture</th><th>Components</th><th>How They're Separated</th></tr>
+      </thead>
       <tbody>
-        <tr><td>Air</td><td>Nitrogen, Oxygen, CO₂, Argon, etc.</td><td>Gas mixture</td></tr>
-        <tr><td>Sea Water</td><td>Water + Dissolved Salts</td><td>Can be separated by distillation</td></tr>
-        <tr><td>Crude Oil</td><td>Many Hydrocarbons</td><td>Can be separated by fractional distillation</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="exam-tip-block">
-    <h4>🧠 Exam Tip</h4>
-    <p>Never say "a mixture is chemically joined." Always write: "A mixture is a physical combination of substances."</p>
-  </div>
-</div>
-<div class="subsection">
-  <h3 class="subsection-heading">Subsection 2 – Mixtures vs Compounds</h3>
-  <div class="example-block">
-    <table class="data-table">
-      <thead><tr><th>Property</th><th>Mixture</th><th>Compound</th></tr></thead>
-      <tbody>
-        <tr><td>Joined by</td><td>Physical mixing</td><td>Chemical bonds</td></tr>
-        <tr><td>Separation</td><td>Physical methods</td><td>Chemical reactions</td></tr>
-        <tr><td>Composition</td><td>Variable</td><td>Fixed ratio</td></tr>
-        <tr><td>Properties</td><td>Same as original substances</td><td>New properties formed</td></tr>
+        <tr><td>Air</td><td>Nitrogen, oxygen, carbon dioxide</td><td>Fractional distillation of liquid air</td></tr>
+        <tr><td>Sea water</td><td>Water, dissolved salts</td><td>Distillation or crystallisation</td></tr>
+        <tr><td>Sand and salt</td><td>Sand, sodium chloride</td><td>Filtration + crystallisation</td></tr>
       </tbody>
     </table>
   </div>
 </div>
+
 <div class="subsection">
-  <h3 class="subsection-heading">Subsection 3 – Filtration</h3>
+  <h3 class="subsection-heading">💎 Subsection 2 – Filtration (Insoluble Solid from Liquid)</h3>
   <div class="definition-block">
-    <h4>🔵 Purpose</h4>
-    <p>To separate an insoluble solid from a liquid.</p>
+    <h4>🧪 Purpose</h4>
+    <p>To separate an insoluble solid (that doesn't dissolve) from a liquid.</p>
   </div>
   <div class="key-facts-block">
-    <h4>🧠 Apparatus</h4>
-    <p>Beaker, Funnel, Filter paper</p>
-  </div>
-  <div class="key-facts-block">
-    <h4>🧩 Method</h4>
-    <p>Place the filter paper inside the funnel. Pour the mixture into the funnel slowly. The liquid (filtrate) passes through the paper. The solid (residue) remains on the filter paper.</p>
-  </div>
-  <div class="example-block">
-    <h4>🟢 Example</h4>
-    <p>Separating sand from a sand-water mixture.</p>
-  </div>
-  <div class="exam-tip-block">
-    <h4>🧠 Exam Tip</h4>
-    <p>Use terms "filtrate" (liquid) and "residue" (solid) correctly — they're often marks in 6-mark practical questions.</p>
-  </div>
-</div>
-<div class="subsection">
-  <h3 class="subsection-heading">Subsection 4 – Crystallisation</h3>
-  <div class="definition-block">
-    <h4>🔵 Purpose</h4>
-    <p>Used to obtain a soluble solid from a solution.</p>
-  </div>
-  <div class="key-facts-block">
-    <h4>Method</h4>
-    <p>Heat the solution gently to evaporate water until it becomes concentrated. Stop heating when crystals begin to form. Allow the solution to cool slowly. Filter and dry the crystals.</p>
-  </div>
-  <div class="example-block">
-    <h4>🟢 Example</h4>
-    <p>Separating salt from saltwater.</p>
-  </div>
-</div>
-<div class="subsection">
-  <h3 class="subsection-heading">Subsection 5 – Simple Distillation</h3>
-  <div class="definition-block">
-    <h4>🔵 Purpose</h4>
-    <p>Used to separate a solvent from a solution (e.g. water from salty water).</p>
-  </div>
-  <div class="key-facts-block">
-    <h4>Method</h4>
-    <p>Heat the solution in a flask. The liquid with the lowest boiling point evaporates first. The vapour passes into the condenser and cools. The condensed pure liquid (distillate) is collected.</p>
-  </div>
-  <div class="exam-tip-block">
-    <h4>🧠 Exam Tip</h4>
-    <p>Always write: "Cold water enters the condenser at the bottom and leaves at the top — this ensures efficient cooling."</p>
-  </div>
-</div>
-<div class="subsection">
-  <h3 class="subsection-heading">Subsection 6 – Fractional Distillation</h3>
-  <div class="definition-block">
-    <h4>🔵 Purpose</h4>
-    <p>Used to separate two or more liquids that are miscible (mix completely) and have different boiling points.</p>
-  </div>
-  <div class="key-facts-block">
-    <h4>Method</h4>
-    <p>Heat the mixture in a flask. The vapour rises through the fractionating column. As it cools, vapours condense at different heights. Each liquid (fraction) is collected separately.</p>
-  </div>
-  <div class="exam-tip-block">
-    <h4>🧠 Exam Tip</h4>
-    <p>Always mention the temperature gradient — this is a common AQA mark point.</p>
-  </div>
-</div>
-<div class="subsection">
-  <h3 class="subsection-heading">Subsection 7 – Paper Chromatography</h3>
-  <div class="definition-block">
-    <h4>🔵 Purpose</h4>
-    <p>Used to separate and identify mixtures of soluble substances, especially dyes or inks.</p>
-  </div>
-  <div class="key-facts-block">
-    <h4>Method</h4>
-    <p>Draw a pencil baseline on the paper. Place small dots of the mixture (e.g. ink) on the line. Dip the paper into solvent (below the pencil line). As solvent moves up, different substances travel different distances. Calculate the Rf value for identification.</p>
-  </div>
-  <div class="key-facts-block">
-    <h4>🟢 Key Terms</h4>
+    <h4>⚙️ Apparatus</h4>
     <ul>
-      <li>Solvent front – the highest point reached by solvent.</li>
-      <li>Rf value = distance moved by substance ÷ distance moved by solvent.</li>
+      <li>Beaker</li>
+      <li>Funnel</li>
+      <li>Filter paper</li>
+      <li>Stirring rod</li>
+    </ul>
+  </div>
+  <div class="key-facts-block">
+    <h4>🧩 Step-by-Step Method</h4>
+    <ol>
+      <li>1️⃣ Fold the filter paper into a cone and place it inside the funnel.</li>
+      <li>2️⃣ Place the funnel into a clean beaker.</li>
+      <li>3️⃣ Pour the mixture slowly through the filter paper.</li>
+      <li>4️⃣ The liquid (filtrate) passes through the paper.</li>
+      <li>5️⃣ The solid (residue) remains trapped on the paper.</li>
+    </ol>
+  </div>
+  <div class="key-facts-block">
+    <h4>🔍 Scientific Explanation</h4>
+    <ul>
+      <li>Filter paper has tiny pores that allow liquid and dissolved substances through but trap large particles.</li>
+      <li>No new substances are formed → physical process only.</li>
+    </ul>
+  </div>
+  <div class="exam-tip-block">
+    <h4>🧠 Common Exam Tip</h4>
+    <p>Always name both the filtrate and the residue in your answer — they're both mark points.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">❄️ Subsection 3 – Crystallisation (Soluble Solid from Solution)</h3>
+  <div class="definition-block">
+    <h4>🧪 Purpose</h4>
+    <p>Used to obtain pure crystals of a soluble solid (solute) from a solution.</p>
+  </div>
+  <div class="key-facts-block">
+    <h4>⚙️ Apparatus</h4>
+    <ul>
+      <li>Evaporating basin</li>
+      <li>Tripod and gauze</li>
+      <li>Bunsen burner</li>
+      <li>Beaker (for hot water bath if needed)</li>
+    </ul>
+  </div>
+  <div class="key-facts-block">
+    <h4>🧩 Step-by-Step Method</h4>
+    <ol>
+      <li>1️⃣ Pour the solution (e.g. salt water) into an evaporating basin.</li>
+      <li>2️⃣ Heat gently with a Bunsen burner (or water bath) to evaporate some of the solvent.</li>
+      <li>3️⃣ Stop heating when crystals start to form at the edge of the basin (this shows the solution is concentrated).</li>
+      <li>4️⃣ Leave the solution to cool slowly at room temperature — as temperature falls, solubility decreases, and crystals form.</li>
+      <li>5️⃣ Filter out the crystals and dry them using filter paper or a warm oven.</li>
+    </ol>
+  </div>
+  <div class="key-facts-block">
+    <h4>🔍 Scientific Explanation</h4>
+    <ul>
+      <li>Heating removes solvent (usually water) → increases concentration.</li>
+      <li>Cooling allows solid particles to form a regular crystal lattice as solubility decreases.</li>
+    </ul>
+  </div>
+  <div class="warning-block">
+    <h4>⚠️ Safety Note</h4>
+    <p>Avoid boiling all the water away — this can decompose the salt or make crystals impure.</p>
+  </div>
+  <div class="exam-tip-block">
+    <h4>🧠 Common Exam Tip</h4>
+    <p>Always mention "heat gently" and "allow to cool slowly" — both are AQA keywords for full marks.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">💨 Subsection 4 – Simple Distillation (Solvent from Solution)</h3>
+  <div class="definition-block">
+    <h4>🧪 Purpose</h4>
+    <p>To separate a liquid (solvent) from a solution, e.g. getting pure water from saltwater.</p>
+  </div>
+  <div class="key-facts-block">
+    <h4>⚙️ Apparatus</h4>
+    <ul>
+      <li>Round-bottomed flask</li>
+      <li>Thermometer</li>
+      <li>Condenser (Liebig condenser)</li>
+      <li>Heat source (Bunsen burner)</li>
+      <li>Beaker (to collect distillate)</li>
+    </ul>
+  </div>
+  <div class="key-facts-block">
+    <h4>🧩 Step-by-Step Method</h4>
+    <ol>
+      <li>1️⃣ Place the solution (e.g. saltwater) in the distillation flask.</li>
+      <li>2️⃣ Heat gently — the liquid with the lowest boiling point (water) evaporates first.</li>
+      <li>3️⃣ Vapour travels through the condenser, which is cooled by water circulating around it.</li>
+      <li>4️⃣ Vapour condenses back to liquid and is collected in the beaker (called the distillate).</li>
+      <li>5️⃣ The solute (e.g. salt) remains in the flask.</li>
+    </ol>
+  </div>
+  <div class="key-facts-block">
+    <h4>🔍 Scientific Explanation</h4>
+    <ul>
+      <li>Separation is based on different boiling points.</li>
+      <li>Condensation happens because cold water enters at the bottom of the condenser and leaves at the top, ensuring efficient cooling.</li>
+    </ul>
+  </div>
+  <div class="exam-tip-block">
+    <h4>🧠 Common Exam Tip</h4>
+    <p>Label "distillate" (collected liquid) and "residue" (left in flask) correctly in diagrams — AQA often awards marks for this.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">🌡 Subsection 5 – Fractional Distillation (Mixture of Liquids)</h3>
+  <div class="definition-block">
+    <h4>🧪 Purpose</h4>
+    <p>Used to separate two or more miscible liquids (liquids that mix completely), such as ethanol and water or liquid air.</p>
+  </div>
+  <div class="key-facts-block">
+    <h4>⚙️ Apparatus</h4>
+    <ul>
+      <li>Round-bottomed flask</li>
+      <li>Fractionating column (glass beads inside to increase surface area)</li>
+      <li>Thermometer</li>
+      <li>Condenser</li>
+      <li>Beaker(s)</li>
+    </ul>
+  </div>
+  <div class="key-facts-block">
+    <h4>🧩 Step-by-Step Method</h4>
+    <ol>
+      <li>1️⃣ Add the mixture to the flask and fit the fractionating column on top.</li>
+      <li>2️⃣ Heat the mixture gently — the liquid with the lowest boiling point evaporates first.</li>
+      <li>3️⃣ Vapour rises up the column.</li>
+      <li>4️⃣ Cooler beads near the top cause higher-boiling vapours to condense and fall back, while lower-boiling vapours pass through.</li>
+      <li>5️⃣ The vapour passes into the condenser, cools, and is collected separately.</li>
+      <li>6️⃣ As temperature rises, other fractions can be collected in turn.</li>
+    </ol>
+  </div>
+  <div class="key-facts-block">
+    <h4>🔍 Scientific Explanation</h4>
+    <ul>
+      <li>The temperature gradient in the column ensures better separation.</li>
+      <li>Each fraction condenses at its own boiling point, forming pure samples.</li>
+    </ul>
+  </div>
+  <div class="example-block">
+    <h4>🧠 Real-Life Applications</h4>
+    <ul>
+      <li>Crude oil → separated into petrol, diesel, kerosene, etc.</li>
+      <li>Air → separated into nitrogen, oxygen, argon.</li>
     </ul>
   </div>
   <div class="exam-tip-block">
     <h4>🧠 Exam Tip</h4>
-    <p>Always use pencil, not pen, for the baseline (ink dissolves). Solvent must be below the baseline or the samples will dissolve into it.</p>
+    <p>Always mention the temperature gradient — "cooler at the top, hotter at the bottom."</p>
   </div>
 </div>
+
 <div class="subsection">
-  <h3 class="subsection-heading">Subsection 8 – Choosing Separation Techniques</h3>
+  <h3 class="subsection-heading">🎨 Subsection 6 – Paper Chromatography (Soluble Substances)</h3>
+  <div class="definition-block">
+    <h4>🧪 Purpose</h4>
+    <p>Used to separate and identify substances in a mixture of soluble chemicals, especially coloured dyes or inks.</p>
+  </div>
+  <div class="key-facts-block">
+    <h4>⚙️ Apparatus</h4>
+    <ul>
+      <li>Beaker with solvent (e.g. water or ethanol)</li>
+      <li>Chromatography paper</li>
+      <li>Pencil and ruler</li>
+      <li>Capillary tube</li>
+    </ul>
+  </div>
+  <div class="key-facts-block">
+    <h4>🧩 Step-by-Step Method</h4>
+    <ol>
+      <li>1️⃣ Use a pencil to draw a baseline near the bottom of the chromatography paper.</li>
+      <li>2️⃣ Place small dots of each sample on the baseline using a capillary tube.</li>
+      <li>3️⃣ Hang the paper in a beaker with solvent below the baseline (so samples don't dissolve immediately).</li>
+      <li>4️⃣ As solvent moves up by capillary action, it carries each dye with it.</li>
+      <li>5️⃣ Different substances move at different speeds, depending on solubility and attraction to the paper.</li>
+      <li>6️⃣ When the solvent front is near the top, remove the paper, mark the solvent line, and let it dry.</li>
+    </ol>
+  </div>
+  <div class="key-facts-block">
+    <h4>📊 Calculating Rf Values</h4>
+    <p><strong>Rf = Distance moved by substance ÷ Distance moved by solvent front</strong></p>
+    <p>Rf value = always between 0 and 1.</p>
+  </div>
+  <div class="key-facts-block">
+    <h4>🔍 Scientific Explanation</h4>
+    <ul>
+      <li>The more soluble a substance, the further it travels.</li>
+      <li>If a substance is strongly attracted to the paper, it moves less.</li>
+    </ul>
+  </div>
+  <div class="warning-block">
+    <h4>⚠️ Safety and Accuracy Notes</h4>
+    <ul>
+      <li>Always use pencil for the baseline (ink would dissolve).</li>
+      <li>Make sure solvent doesn't cover the samples at the start.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">⚖️ Subsection 7 – Choosing the Correct Technique</h3>
   <div class="example-block">
     <table class="data-table">
-      <thead><tr><th>Type of Mixture</th><th>Suitable Process</th><th>Example</th></tr></thead>
+      <thead>
+        <tr><th>Type of Mixture</th><th>Correct Method</th><th>Example</th></tr>
+      </thead>
       <tbody>
-        <tr><td>Insoluble solid + liquid</td><td>Filtration</td><td>Sand + water</td></tr>
-        <tr><td>Soluble solid + liquid</td><td>Crystallisation</td><td>Salt from solution</td></tr>
-        <tr><td>Solvent from solution</td><td>Simple distillation</td><td>Water from saltwater</td></tr>
-        <tr><td>Two miscible liquids</td><td>Fractional distillation</td><td>Ethanol + water</td></tr>
-        <tr><td>Soluble coloured substances</td><td>Chromatography</td><td>Ink pigments</td></tr>
+        <tr><td>Insoluble solid + liquid</td><td>Filtration</td><td>Sand and water</td></tr>
+        <tr><td>Soluble solid + liquid</td><td>Crystallisation</td><td>Salt solution</td></tr>
+        <tr><td>Solvent from solution</td><td>Simple distillation</td><td>Water from seawater</td></tr>
+        <tr><td>Two liquids</td><td>Fractional distillation</td><td>Ethanol and water</td></tr>
+        <tr><td>Coloured compounds</td><td>Chromatography</td><td>Ink pigments</td></tr>
       </tbody>
     </table>
   </div>
 </div>
+
 <div class="subsection">
-  <h3 class="subsection-heading">Subsection 9 – Purity and Melting Point</h3>
-  <div class="definition-block">
-    <h4>🔵 Definition</h4>
-    <p>A pure substance is a single element or compound not mixed with any other substance.</p>
+  <h3 class="subsection-heading">🧠 Subsection 8 – Purity and Melting Point</h3>
+  <div class="example-block">
+    <table class="data-table">
+      <thead>
+        <tr><th>Term</th><th>Definition</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Pure substance</td><td>A single element or compound with a fixed melting and boiling point.</td></tr>
+        <tr><td>Impure substance</td><td>A mixture — melts or boils over a range of temperatures.</td></tr>
+      </tbody>
+    </table>
   </div>
-  <div class="key-facts-block">
-    <h4>🧠 Key Points</h4>
+  <div class="example-block">
+    <h4>🟢 Example</h4>
     <ul>
-      <li>Pure substances melt and boil at fixed temperatures.</li>
-      <li>Mixtures melt/boil over a range of temperatures.</li>
+      <li>Pure ice → melts at 0°C exactly.</li>
+      <li>Ice with salt → melts between –5°C and 0°C.</li>
     </ul>
+  </div>
+  <div class="exam-tip-block">
+    <h4>🧠 This is how purity is tested in labs</h4>
+    <p>By measuring melting/boiling point.</p>
   </div>
 </div>
         `,
@@ -742,61 +863,160 @@ export const sectionsData: TopicSection[] = [
       },
       {
         id: "1-1-3-atomic-model",
-        title: "1.1.3 THE DEVELOPMENT OF THE ATOMIC MODEL",
+        title: "1.1.3 DEVELOPMENT OF THE ATOMIC MODEL",
         type: "content",
         content_html: `
 <div class="subsection">
-  <h3 class="subsection-heading">Subsection 1 – Why Scientific Models Change</h3>
+  <h3 class="subsection-heading">🧩 Subsection 1 – Why Scientific Models Change</h3>
   <div class="definition-block">
     <h4>🔵 Definition</h4>
-    <p>A scientific model is a representation or idea used to explain observations and evidence.</p>
+    <p>A scientific model is an idea, picture, or representation that helps to explain experimental observations. These models are updated when new evidence is discovered through experiments or improved technology.</p>
   </div>
   <div class="key-facts-block">
-    <h4>🧠 Key Idea</h4>
-    <p>Models change when new experimental evidence cannot be explained by the old model.</p>
-  </div>
-</div>
-<div class="subsection">
-  <h3 class="subsection-heading">Subsection 2 – Dalton's Solid Sphere Model (1803)</h3>
-  <div class="definition-block">
-    <h4>🔵 Summary</h4>
-    <p>John Dalton proposed that all matter is made of tiny indivisible particles called atoms.</p>
-  </div>
-</div>
-<div class="subsection">
-  <h3 class="subsection-heading">Subsection 3 – Thomson's Plum Pudding Model (1897)</h3>
-  <div class="definition-block">
-    <h4>🔵 Discovery</h4>
-    <p>J. J. Thomson discovered the electron. Model: Atom = a sphere of positive charge with electrons embedded throughout.</p>
-  </div>
-</div>
-<div class="subsection">
-  <h3 class="subsection-heading">Subsection 4 – Rutherford's Nuclear Model (1909)</h3>
-  <div class="definition-block">
-    <h4>🔵 The Alpha Scattering Experiment</h4>
-    <p>Rutherford fired alpha particles at gold foil.</p>
-  </div>
-  <div class="key-facts-block">
-    <h4>🧠 Observations</h4>
+    <h4>🧠 More Detail</h4>
     <ul>
-      <li>Most passed straight through → Atom is mostly empty space</li>
-      <li>Some deflected → Positive charge concentrated in nucleus</li>
-      <li>A few bounced back → Nucleus is tiny but very dense</li>
+      <li>In the 19th and 20th centuries, new experimental techniques like cathode ray tubes and alpha particle scattering allowed scientists to "see" evidence for smaller particles.</li>
+      <li>This caused older models to be rejected, adapted, or refined to fit the new data.</li>
+      <li>The modern atomic model is still a theoretical model, and even now, new discoveries (like quarks) refine our understanding of atomic structure.</li>
     </ul>
   </div>
-</div>
-<div class="subsection">
-  <h3 class="subsection-heading">Subsection 5 – Bohr's Model (1913)</h3>
-  <div class="definition-block">
-    <h4>🔵 Discovery</h4>
-    <p>Electrons orbit the nucleus at fixed distances called energy levels.</p>
+  <div class="example-block">
+    <h4>🟢 Key Principle</h4>
+    <p>"Scientific models evolve as new evidence is gathered."</p>
   </div>
 </div>
+
 <div class="subsection">
-  <h3 class="subsection-heading">Subsection 6 – Chadwick's Discovery (1932)</h3>
+  <h3 class="subsection-heading">⚫ Subsection 2 – Dalton's Solid Sphere Model (1803)</h3>
+  <div class="definition-block">
+    <h4>🔵 Summary</h4>
+    <p>John Dalton proposed that:</p>
+    <ul>
+      <li>All matter is made of tiny, indivisible spheres called atoms.</li>
+      <li>Each element contains atoms of a single, unique type.</li>
+      <li>Atoms of different elements vary in mass and properties.</li>
+      <li>Atoms cannot be divided, created, or destroyed (in chemical reactions they just rearrange).</li>
+    </ul>
+  </div>
+  <div class="key-facts-block">
+    <h4>🧠 Added Detail</h4>
+    <ul>
+      <li>Dalton used experimental data on gas reactions to support his ideas.</li>
+      <li>His model explained the Law of Conservation of Mass (total mass before and after a reaction is the same).</li>
+      <li>However, Dalton's model could not explain electricity or subatomic particles — because they hadn't been discovered yet.</li>
+    </ul>
+  </div>
+  <div class="example-block">
+    <h4>📘 Diagram Description</h4>
+    <p>Atoms shown as solid, featureless spheres — like tiny billiard balls.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">⚪ Subsection 3 – Thomson's Plum Pudding Model (1897)</h3>
   <div class="definition-block">
     <h4>🔵 Discovery</h4>
-    <p>James Chadwick discovered the neutron, completing the modern atomic model.</p>
+    <p>J. J. Thomson discovered the electron through his cathode ray tube experiment. He found that cathode rays were negatively charged particles, smaller than atoms.</p>
+  </div>
+  <div class="key-facts-block">
+    <h4>⚙️ Model Description</h4>
+    <p>The atom was imagined as a positive sphere with negative electrons embedded throughout it, like plums in a pudding. The positive "dough" balanced the negative electrons, making the atom neutral overall.</p>
+  </div>
+  <div class="key-facts-block">
+    <h4>🧠 Added Detail</h4>
+    <ul>
+      <li>This was the first model to include subatomic particles.</li>
+      <li>It explained that atoms could conduct electricity because they contained charged particles.</li>
+      <li>However, it didn't explain how electrons were arranged or why atoms emitted light at specific wavelengths.</li>
+    </ul>
+  </div>
+  <div class="example-block">
+    <h4>📘 Diagram Description</h4>
+    <p>Positive background with small negative dots spread evenly through it.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">🧪 Subsection 4 – Rutherford's Nuclear Model (1909)</h3>
+  <div class="definition-block">
+    <h4>⚙️ Experiment: Gold Foil (Alpha Scattering)</h4>
+    <p>Ernest Rutherford, with Geiger and Marsden, fired alpha particles (positive helium nuclei) at thin gold foil.</p>
+  </div>
+  <div class="key-facts-block">
+    <h4>🔬 Observations</h4>
+    <ul>
+      <li>Most alpha particles passed straight through → Atom mostly empty space.</li>
+      <li>Some deflected slightly → Positive charge concentrated in a small area.</li>
+      <li>Few bounced straight back → The positive centre (nucleus) must be tiny and dense.</li>
+    </ul>
+  </div>
+  <div class="key-facts-block">
+    <h4>🧠 More Scientific Detail</h4>
+    <ul>
+      <li>The positive nucleus contained most of the atom's mass.</li>
+      <li>Electrons were thought to orbit the nucleus, similar to planets around the Sun.</li>
+      <li>The model explained atomic scattering patterns, but couldn't explain atomic stability or emission spectra.</li>
+    </ul>
+  </div>
+  <div class="example-block">
+    <h4>🧩 Impact</h4>
+    <p>This was a major breakthrough — it completely replaced the Plum Pudding model.</p>
+  </div>
+  <div class="example-block">
+    <h4>📘 Rutherford's Nuclear Model</h4>
+    <p>Small, dense nucleus in the centre; electrons orbiting in space around it.</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">⚡ Subsection 5 – Bohr's Planetary Model (1913)</h3>
+  <div class="definition-block">
+    <h4>🔵 Discovery</h4>
+    <p>Niels Bohr refined Rutherford's model using results from atomic emission spectra (coloured light emitted when atoms are excited).</p>
+  </div>
+  <div class="key-facts-block">
+    <h4>🧠 More Detail</h4>
+    <ul>
+      <li>Bohr realised electrons could only occupy certain fixed energy levels (shells).</li>
+      <li>When electrons move between these levels, they absorb or emit specific amounts of energy (quanta).</li>
+      <li>This explained why each element produces its own unique line spectrum.</li>
+      <li>The idea of quantised energy levels was revolutionary and matched experimental data perfectly.</li>
+    </ul>
+  </div>
+  <div class="example-block">
+    <h4>📘 Bohr's Model Description</h4>
+    <p>Electrons orbit the nucleus in set paths (energy levels), not randomly. Each shell can hold a fixed number of electrons.</p>
+  </div>
+  <div class="key-facts-block">
+    <h4>⚙️ Key Equations (Higher Tier)</h4>
+    <p>Energy absorbed/emitted ∝ 1/n₁² – 1/n₂²<br>(This relationship explained hydrogen's emission lines — evidence for quantised orbits.)</p>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-heading">⚛️ Subsection 6 – Chadwick's Discovery of the Neutron (1932)</h3>
+  <div class="definition-block">
+    <h4>🔵 Background</h4>
+    <p>After Bohr's model, scientists still couldn't explain why the atomic mass didn't match the number of protons alone.</p>
+  </div>
+  <div class="key-facts-block">
+    <h4>🧠 Discovery</h4>
+    <ul>
+      <li>James Chadwick performed experiments involving beryllium and alpha particles, discovering a new, neutral particle — the neutron.</li>
+      <li>Neutrons had no charge, but similar mass to protons.</li>
+      <li>They explained why isotopes (atoms of the same element with different masses) existed.</li>
+    </ul>
+  </div>
+  <div class="example-block">
+    <h4>🟢 Significance</h4>
+    <ul>
+      <li>Completed the modern nuclear model.</li>
+      <li>Established that the nucleus contains both protons and neutrons, surrounded by electrons in fixed shells.</li>
+    </ul>
+  </div>
+  <div class="example-block">
+    <h4>📘 Modern Atomic Model</h4>
+    <p>Dense nucleus (protons + neutrons) surrounded by electrons in fixed energy levels. Atom mostly empty space.</p>
   </div>
 </div>
         `,
