@@ -5,6 +5,7 @@
 export interface PracticeItem {
   id: string;
   prompt_template: string;
+  marks: number; // How many marks this question is worth
   type: "open" | "short-answer" | "mcq";
   difficulty: "easy" | "medium" | "hard";
   randomise: boolean;
@@ -330,100 +331,75 @@ export const sectionsData: TopicSection[] = [
         practice_items: [
           {
             id: "p1",
-            prompt_template: "Write everything you know about ATOMS, ELEMENTS AND COMPOUNDS.",
-            type: "open",
+            prompt_template: "Define what an atom is and describe its basic structure.",
+            marks: 4,
+            type: "short-answer",
             difficulty: "easy",
             randomise: true,
             expected_keywords: [
-              "atom", "smallest particle", "nucleus", "proton", "neutron", "electron", "shells",
-              "element", "one type", "chemical symbol", "periodic table",
-              "compound", "chemically bonded", "fixed proportions", "formula"
+              "smallest particle", "element", "exist", "nucleus", "proton", "neutron", "electron", "shells"
             ],
             feedback_guidance: {
               topic_coverage: [
                 {
-                  topic: "Atoms",
-                  required_keywords: ["atom", "nucleus", "proton", "neutron", "electron"],
-                  feedback_if_missing: "Your answer is missing key information about **atoms**. Remember to explain that an atom is the smallest particle of an element that can exist, and describe its structure: a nucleus containing protons and neutrons, with electrons arranged in shells around it.",
-                  feedback_if_partial: "You mentioned atoms but need to add more detail about the **atomic structure**. Make sure to explain the nucleus (protons + neutrons) and electrons in shells. Also mention that atoms are neutral (equal protons and electrons)."
+                  topic: "Atom definition",
+                  required_keywords: ["smallest", "particle", "element", "exist"],
+                  feedback_if_missing: "You need to define what an atom is: the **smallest particle of an element that can exist**.",
+                  feedback_if_partial: "Your definition is incomplete. Make sure to state it's the smallest particle of an element that can exist."
                 },
                 {
-                  topic: "Elements",
-                  required_keywords: ["element", "one type", "chemical symbol"],
-                  feedback_if_missing: "You didn't cover **elements** in your answer. Add that an element is a pure substance containing only one type of atom, and that each element has its own chemical symbol (like H for hydrogen, Na for sodium).",
-                  feedback_if_partial: "Your section on **elements** needs more detail. Explain that elements contain only one type of atom and are represented by chemical symbols. Mention they're organized in the periodic table by atomic number."
-                },
-                {
-                  topic: "Compounds",
-                  required_keywords: ["compound", "chemically bonded", "fixed proportions"],
-                  feedback_if_missing: "Your answer is missing information about **compounds**. Explain that compounds are formed when two or more elements are chemically bonded together in fixed proportions, and that their properties differ from the original elements.",
-                  feedback_if_partial: "Expand your **compounds** section. Make sure to emphasize that compounds involve chemical bonds (not just mixing), have fixed proportions, and can only be separated by chemical reactions. Include examples like H₂O or NaCl."
+                  topic: "Atomic structure",
+                  required_keywords: ["nucleus", "proton", "neutron", "electron", "shells"],
+                  feedback_if_missing: "Describe the atomic structure: a **nucleus** containing protons and neutrons, with **electrons** arranged in shells around it.",
+                  feedback_if_partial: "Add more detail about the structure - mention the nucleus contains protons and neutrons, and electrons are in shells."
                 }
               ]
             }
           },
           {
             id: "p2",
-            prompt_template: "Explain the key ideas and examples from atoms, elements and compounds.",
-            type: "open",
+            prompt_template: "State the definition of an element. Give two examples of elements with their chemical symbols and state whether each is a metal or non-metal.",
+            marks: 5,
+            type: "short-answer",
             difficulty: "easy",
             randomise: true,
             expected_keywords: [
-              "atom", "nucleus", "electron", "element", "compound", "chemical bond",
-              "hydrogen", "oxygen", "sodium", "water", "sodium chloride", "ionic", "covalent"
+              "pure substance", "one type", "atom", "symbol", "metal", "non-metal", "sodium", "hydrogen", "chlorine", "iron", "oxygen"
             ],
             feedback_guidance: {
               topic_coverage: [
                 {
-                  topic: "Atomic structure examples",
-                  required_keywords: ["hydrogen", "proton", "electron", "neutron"],
-                  feedback_if_missing: "Include **specific atomic examples** like hydrogen (1 proton, 0 neutrons, 1 electron) to illustrate atomic structure clearly.",
-                  feedback_if_partial: "Your atomic examples need more detail - state the exact number of protons, neutrons, and electrons for at least one example."
+                  topic: "Element definition",
+                  required_keywords: ["pure", "substance", "one type", "atom"],
+                  feedback_if_missing: "Start with the definition: an element is a **pure substance that contains only one type of atom**.",
+                  feedback_if_partial: "Your definition needs both parts: 'pure substance' AND 'contains only one type of atom'."
                 },
                 {
-                  topic: "Element examples",
-                  required_keywords: ["sodium", "chlorine", "symbol", "metal", "non-metal"],
-                  feedback_if_missing: "Add **specific element examples** with their symbols (e.g., Na for sodium, Cl for chlorine) and classify them as metals or non-metals.",
-                  feedback_if_partial: "Strengthen your element examples by including chemical symbols and classifying each as metal or non-metal."
-                },
-                {
-                  topic: "Compound examples",
-                  required_keywords: ["water", "sodium chloride", "ionic", "covalent"],
-                  feedback_if_missing: "Include **compound examples** like H₂O (water) and NaCl (sodium chloride), and explain the type of bonding in each (covalent vs ionic).",
-                  feedback_if_partial: "Your compound examples should specify the bonding type (ionic or covalent) and what elements combine to form them."
+                  topic: "Element examples with classification",
+                  required_keywords: ["symbol", "metal", "non-metal"],
+                  feedback_if_missing: "Provide **two specific examples** with their symbols (e.g., Sodium, Na, metal; Oxygen, O, non-metal).",
+                  feedback_if_partial: "Each example needs: the element name, its symbol, AND whether it's a metal or non-metal."
                 }
               ]
             }
           },
           {
             id: "p3",
-            prompt_template: "List the definitions, facts and examples you can recall about atoms, elements and compounds.",
-            type: "open",
+            prompt_template: "A hydrogen atom has 1 proton, 0 neutrons and 1 electron. Explain why atoms are described as neutral.",
+            marks: 2,
+            type: "short-answer",
             difficulty: "easy",
             randomise: true,
             expected_keywords: [
-              "atom", "smallest", "element", "pure substance", "compound", "two or more",
-              "chemically joined", "neutral", "mass", "radius", "nanometre"
+              "neutral", "protons", "electrons", "same number", "equal", "charge"
             ],
             feedback_guidance: {
               topic_coverage: [
                 {
-                  topic: "Atom definition and facts",
-                  required_keywords: ["smallest", "element", "nucleus", "neutral"],
-                  feedback_if_missing: "Start with the **atom definition**: the smallest particle of an element that can exist. Add key facts like atoms being neutral (equal protons and electrons) and the nucleus containing almost all the mass.",
-                  feedback_if_partial: "Your atom definition is incomplete. Add that atoms are neutral overall, and mention their incredibly small size (radius ≈ 0.1 nanometres)."
-                },
-                {
-                  topic: "Element definition",
-                  required_keywords: ["pure substance", "one type"],
-                  feedback_if_missing: "Define **element** clearly: a pure substance that contains only one type of atom.",
-                  feedback_if_partial: "Clarify that elements are pure substances containing only one type of atom."
-                },
-                {
-                  topic: "Compound definition",
-                  required_keywords: ["two or more", "chemically", "fixed"],
-                  feedback_if_missing: "Define **compound**: a substance formed when two or more elements are chemically bonded together in fixed proportions.",
-                  feedback_if_partial: "Emphasize that compounds have fixed proportions and involve chemical bonding (not just physical mixing)."
+                  topic: "Neutral atoms",
+                  required_keywords: ["protons", "electrons", "same", "equal"],
+                  feedback_if_missing: "Explain that atoms are neutral because they have the **same number of protons and electrons**.",
+                  feedback_if_partial: "Make sure to state that the number of protons equals the number of electrons, which makes the overall charge zero/neutral."
                 }
               ]
             }
@@ -431,6 +407,7 @@ export const sectionsData: TopicSection[] = [
           {
             id: "p4",
             prompt_template: "Define an element and give one example with its symbol.",
+            marks: 3,
             type: "short-answer",
             difficulty: "easy",
             randomise: true,
@@ -457,6 +434,7 @@ export const sectionsData: TopicSection[] = [
           {
             id: "p5",
             prompt_template: "State the difference between an element and a compound.",
+            marks: 4,
             type: "short-answer",
             difficulty: "medium",
             randomise: true,
@@ -483,6 +461,7 @@ export const sectionsData: TopicSection[] = [
           {
             id: "p6",
             prompt_template: "Explain how to write a formula for an ionic compound (example NaCl).",
+            marks: 5,
             type: "short-answer",
             difficulty: "medium",
             randomise: true,
@@ -509,6 +488,7 @@ export const sectionsData: TopicSection[] = [
           {
             id: "p7",
             prompt_template: "Give the naming rule for compounds containing oxygen.",
+            marks: 2,
             type: "short-answer",
             difficulty: "easy",
             randomise: true,
@@ -713,46 +693,49 @@ export const sectionsData: TopicSection[] = [
         practice_items: [
           {
             id: "p1",
-            prompt_template: "Write everything you know about MIXTURES and separation techniques.",
-            type: "open",
-            difficulty: "medium",
-            randomise: true,
-            expected_keywords: [
-              "mixture", "not chemically joined", "physical", "filtration", "crystallisation",
-              "distillation", "fractional distillation", "chromatography", "residue", "filtrate",
-              "solvent", "purity", "melting point"
-            ]
-          },
-          {
-            id: "p2",
-            prompt_template: "Explain all the separation methods you can remember with examples.",
-            type: "open",
-            difficulty: "medium",
-            randomise: true,
-            expected_keywords: [
-              "filtration", "sand", "water", "crystallisation", "salt", "distillation",
-              "fractional", "ethanol", "chromatography", "ink", "Rf value"
-            ]
-          },
-          {
-            id: "p3",
-            prompt_template: "Describe the method for simple distillation.",
+            prompt_template: "Define what a mixture is. Explain how mixtures are different from compounds.",
+            marks: 4,
             type: "short-answer",
             difficulty: "medium",
             randomise: true,
             expected_keywords: [
-              "heat", "evaporate", "boiling point", "condenser", "cool", "distillate", "collect"
+              "mixture", "not chemically joined", "physical", "separated", "properties unchanged", 
+              "compound", "chemically bonded", "chemical reaction"
+            ]
+          },
+          {
+            id: "p2",
+            prompt_template: "Describe how to separate a mixture of sand and salt water to obtain pure salt crystals. Include the names of all techniques used.",
+            marks: 6,
+            type: "short-answer",
+            difficulty: "medium",
+            randomise: true,
+            expected_keywords: [
+              "filtration", "sand", "residue", "salt water", "filtrate", "crystallisation", 
+              "evaporate", "crystals", "pure"
+            ]
+          },
+          {
+            id: "p3",
+            prompt_template: "Describe the process of simple distillation to separate pure water from salt water. Include equipment and key steps.",
+            marks: 5,
+            type: "short-answer",
+            difficulty: "medium",
+            randomise: true,
+            expected_keywords: [
+              "heat", "evaporate", "boiling point", "condenser", "cool", "distillate", "collect", "flask"
             ]
           },
           {
             id: "p4",
-            prompt_template: "Explain how paper chromatography works and what Rf values are.",
+            prompt_template: "A student uses paper chromatography to test food colourings. Describe the method and explain how to calculate an Rf value.",
+            marks: 6,
             type: "short-answer",
             difficulty: "hard",
             randomise: true,
             expected_keywords: [
               "baseline", "pencil", "solvent", "move up", "different distances",
-              "Rf value", "distance moved", "substance", "solvent front"
+              "Rf value", "distance moved", "substance", "solvent front", "formula"
             ]
           }
         ]

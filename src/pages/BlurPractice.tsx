@@ -501,6 +501,7 @@ const BlurPractice = () => {
                 {currentPrompt.type === "open" ? "Open-Ended" : "Short Answer"}
               </Badge>
               <Badge variant="outline">{currentPrompt.difficulty}</Badge>
+              <Badge variant="default" className="bg-primary">{currentPrompt.marks} marks</Badge>
             </div>
             <CardTitle className="text-xl mt-4">{currentPrompt.prompt_template}</CardTitle>
           </CardHeader>
