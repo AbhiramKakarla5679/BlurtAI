@@ -9,6 +9,15 @@ export interface PracticeItem {
   difficulty: "easy" | "medium" | "hard";
   randomise: boolean;
   expected_keywords: string[]; // Keywords specific to this question
+  feedback_guidance?: { // Optional - for personalized feedback
+    // What to mention if certain keywords are found/missing
+    topic_coverage: {
+      topic: string;
+      required_keywords: string[];
+      feedback_if_missing: string;
+      feedback_if_partial: string;
+    }[];
+  };
 }
 
 export interface Subsection {
@@ -327,7 +336,29 @@ export const sectionsData: TopicSection[] = [
               "atom", "smallest particle", "nucleus", "proton", "neutron", "electron", "shells",
               "element", "one type", "chemical symbol", "periodic table",
               "compound", "chemically bonded", "fixed proportions", "formula"
-            ]
+            ],
+            feedback_guidance: {
+              topic_coverage: [
+                {
+                  topic: "Atoms",
+                  required_keywords: ["atom", "nucleus", "proton", "neutron", "electron"],
+                  feedback_if_missing: "Your answer is missing key information about **atoms**. Remember to explain that an atom is the smallest particle of an element that can exist, and describe its structure: a nucleus containing protons and neutrons, with electrons arranged in shells around it.",
+                  feedback_if_partial: "You mentioned atoms but need to add more detail about the **atomic structure**. Make sure to explain the nucleus (protons + neutrons) and electrons in shells. Also mention that atoms are neutral (equal protons and electrons)."
+                },
+                {
+                  topic: "Elements",
+                  required_keywords: ["element", "one type", "chemical symbol"],
+                  feedback_if_missing: "You didn't cover **elements** in your answer. Add that an element is a pure substance containing only one type of atom, and that each element has its own chemical symbol (like H for hydrogen, Na for sodium).",
+                  feedback_if_partial: "Your section on **elements** needs more detail. Explain that elements contain only one type of atom and are represented by chemical symbols. Mention they're organized in the periodic table by atomic number."
+                },
+                {
+                  topic: "Compounds",
+                  required_keywords: ["compound", "chemically bonded", "fixed proportions"],
+                  feedback_if_missing: "Your answer is missing information about **compounds**. Explain that compounds are formed when two or more elements are chemically bonded together in fixed proportions, and that their properties differ from the original elements.",
+                  feedback_if_partial: "Expand your **compounds** section. Make sure to emphasize that compounds involve chemical bonds (not just mixing), have fixed proportions, and can only be separated by chemical reactions. Include examples like H₂O or NaCl."
+                }
+              ]
+            }
           },
           {
             id: "p2",
@@ -338,7 +369,29 @@ export const sectionsData: TopicSection[] = [
             expected_keywords: [
               "atom", "nucleus", "electron", "element", "compound", "chemical bond",
               "hydrogen", "oxygen", "sodium", "water", "sodium chloride", "ionic", "covalent"
-            ]
+            ],
+            feedback_guidance: {
+              topic_coverage: [
+                {
+                  topic: "Atomic structure examples",
+                  required_keywords: ["hydrogen", "proton", "electron", "neutron"],
+                  feedback_if_missing: "Include **specific atomic examples** like hydrogen (1 proton, 0 neutrons, 1 electron) to illustrate atomic structure clearly.",
+                  feedback_if_partial: "Your atomic examples need more detail - state the exact number of protons, neutrons, and electrons for at least one example."
+                },
+                {
+                  topic: "Element examples",
+                  required_keywords: ["sodium", "chlorine", "symbol", "metal", "non-metal"],
+                  feedback_if_missing: "Add **specific element examples** with their symbols (e.g., Na for sodium, Cl for chlorine) and classify them as metals or non-metals.",
+                  feedback_if_partial: "Strengthen your element examples by including chemical symbols and classifying each as metal or non-metal."
+                },
+                {
+                  topic: "Compound examples",
+                  required_keywords: ["water", "sodium chloride", "ionic", "covalent"],
+                  feedback_if_missing: "Include **compound examples** like H₂O (water) and NaCl (sodium chloride), and explain the type of bonding in each (covalent vs ionic).",
+                  feedback_if_partial: "Your compound examples should specify the bonding type (ionic or covalent) and what elements combine to form them."
+                }
+              ]
+            }
           },
           {
             id: "p3",
@@ -349,7 +402,29 @@ export const sectionsData: TopicSection[] = [
             expected_keywords: [
               "atom", "smallest", "element", "pure substance", "compound", "two or more",
               "chemically joined", "neutral", "mass", "radius", "nanometre"
-            ]
+            ],
+            feedback_guidance: {
+              topic_coverage: [
+                {
+                  topic: "Atom definition and facts",
+                  required_keywords: ["smallest", "element", "nucleus", "neutral"],
+                  feedback_if_missing: "Start with the **atom definition**: the smallest particle of an element that can exist. Add key facts like atoms being neutral (equal protons and electrons) and the nucleus containing almost all the mass.",
+                  feedback_if_partial: "Your atom definition is incomplete. Add that atoms are neutral overall, and mention their incredibly small size (radius ≈ 0.1 nanometres)."
+                },
+                {
+                  topic: "Element definition",
+                  required_keywords: ["pure substance", "one type"],
+                  feedback_if_missing: "Define **element** clearly: a pure substance that contains only one type of atom.",
+                  feedback_if_partial: "Clarify that elements are pure substances containing only one type of atom."
+                },
+                {
+                  topic: "Compound definition",
+                  required_keywords: ["two or more", "chemically", "fixed"],
+                  feedback_if_missing: "Define **compound**: a substance formed when two or more elements are chemically bonded together in fixed proportions.",
+                  feedback_if_partial: "Emphasize that compounds have fixed proportions and involve chemical bonding (not just physical mixing)."
+                }
+              ]
+            }
           },
           {
             id: "p4",
@@ -359,7 +434,23 @@ export const sectionsData: TopicSection[] = [
             randomise: true,
             expected_keywords: [
               "element", "pure substance", "one type of atom", "symbol"
-            ]
+            ],
+            feedback_guidance: {
+              topic_coverage: [
+                {
+                  topic: "Element definition",
+                  required_keywords: ["pure", "one type"],
+                  feedback_if_missing: "Your definition should state that an element is a **pure substance** containing only **one type of atom**.",
+                  feedback_if_partial: "Make sure both parts are clear: 'pure substance' AND 'one type of atom'."
+                },
+                {
+                  topic: "Example with symbol",
+                  required_keywords: ["symbol"],
+                  feedback_if_missing: "You must provide a **specific example** with its chemical symbol (e.g., 'Oxygen, symbol O' or 'Sodium, symbol Na').",
+                  feedback_if_partial: "Include both the element name and its symbol together."
+                }
+              ]
+            }
           },
           {
             id: "p5",
@@ -369,7 +460,23 @@ export const sectionsData: TopicSection[] = [
             randomise: true,
             expected_keywords: [
               "element", "one type", "compound", "two or more", "chemically bonded", "fixed proportions"
-            ]
+            ],
+            feedback_guidance: {
+              topic_coverage: [
+                {
+                  topic: "Element characteristics",
+                  required_keywords: ["one type", "atom"],
+                  feedback_if_missing: "Clearly state what makes an **element**: contains only one type of atom.",
+                  feedback_if_partial: "Be more explicit that elements have one type of atom only."
+                },
+                {
+                  topic: "Compound characteristics",
+                  required_keywords: ["two or more", "chemically bonded", "fixed"],
+                  feedback_if_missing: "Explain that **compounds** contain two or more elements that are chemically bonded in fixed proportions.",
+                  feedback_if_partial: "Emphasize the key difference: compounds involve **chemical bonding** and **fixed proportions**, not just mixing."
+                }
+              ]
+            }
           },
           {
             id: "p6",
@@ -379,7 +486,23 @@ export const sectionsData: TopicSection[] = [
             randomise: true,
             expected_keywords: [
               "ions", "charge", "balance", "metal", "non-metal", "positive", "negative", "formula"
-            ]
+            ],
+            feedback_guidance: {
+              topic_coverage: [
+                {
+                  topic: "Ion charges",
+                  required_keywords: ["charge", "positive", "negative", "balance"],
+                  feedback_if_missing: "Start by explaining that you need to **balance the charges** of the ions. Metal ions are positive (e.g., Na⁺ is +1) and non-metal ions are negative (e.g., Cl⁻ is -1).",
+                  feedback_if_partial: "Be more specific about charge balancing. Explain that the total charge must equal zero, so you combine ions in the right ratio."
+                },
+                {
+                  topic: "Writing the formula",
+                  required_keywords: ["formula", "ratio"],
+                  feedback_if_missing: "Explain the process: write the symbols, determine the charges, then combine in the correct ratio so charges cancel out. For NaCl: Na⁺ + Cl⁻ → NaCl (charges +1 and -1 cancel).",
+                  feedback_if_partial: "Use the NaCl example to demonstrate: show that Na⁺ (+1) and Cl⁻ (-1) combine in a 1:1 ratio because the charges cancel."
+                }
+              ]
+            }
           },
           {
             id: "p7",
@@ -389,7 +512,23 @@ export const sectionsData: TopicSection[] = [
             randomise: true,
             expected_keywords: [
               "oxygen", "-ate", "ending", "sulfate", "carbonate", "nitrate"
-            ]
+            ],
+            feedback_guidance: {
+              topic_coverage: [
+                {
+                  topic: "Naming rule",
+                  required_keywords: ["oxygen", "-ate"],
+                  feedback_if_missing: "State the rule clearly: **when a compound contains oxygen, the name ends in '-ate'**.",
+                  feedback_if_partial: "Be more explicit: compounds with oxygen end in '-ate'."
+                },
+                {
+                  topic: "Examples",
+                  required_keywords: ["sulfate", "carbonate", "nitrate"],
+                  feedback_if_missing: "Include **examples** like copper sulfate (CuSO₄), calcium carbonate (CaCO₃), or sodium nitrate (NaNO₃).",
+                  feedback_if_partial: "Add at least one specific example with its formula to illustrate the rule."
+                }
+              ]
+            }
           }
         ]
       },

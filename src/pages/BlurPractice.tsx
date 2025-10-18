@@ -30,6 +30,7 @@ const BlurPractice = () => {
   const [showQuestionFeedback, setShowQuestionFeedback] = useState(false);
   const [keywordsFound, setKeywordsFound] = useState<string[]>([]);
   const [keywordsMissed, setKeywordsMissed] = useState<string[]>([]);
+  const [personalizedFeedback, setPersonalizedFeedback] = useState<string[]>([]);
   const [timerEnabled, setTimerEnabled] = useState(false);
   const [timeElapsed, setTimeElapsed] = useState(0);
   const [timerInterval, setTimerInterval] = useState<NodeJS.Timeout | null>(null);
@@ -125,12 +126,40 @@ const BlurPractice = () => {
       }
     });
 
+    // Generate personalized feedback based on topic coverage
+    const feedback: string[] = [];
+    
+    if (currentPrompt.feedback_guidance && currentPrompt.feedback_guidance.topic_coverage) {
+      currentPrompt.feedback_guidance.topic_coverage.forEach((topicGuide) => {
+        const topicKeywordsFound = topicGuide.required_keywords.filter(kw => 
+          answerLower.includes(kw.toLowerCase())
+        );
+        
+        const coveragePercent = topicKeywordsFound.length / topicGuide.required_keywords.length;
+        
+        if (coveragePercent === 0) {
+          // Missing entire topic
+          feedback.push(topicGuide.feedback_if_missing);
+        } else if (coveragePercent < 0.7) {
+          // Partial coverage
+          feedback.push(topicGuide.feedback_if_partial);
+        }
+        // If > 70% coverage, topic is good - no feedback needed
+      });
+    }
+
+    // Add general encouragement if answer is strong
+    if (found.length / keywordsToCheck.length >= 0.8) {
+      feedback.unshift("✅ **Great work!** Your answer covers most of the key concepts comprehensively.");
+    }
+
     const score = keywordsToCheck.length > 0
       ? Math.round((found.length / keywordsToCheck.length) * 100)
       : 0;
 
     setKeywordsFound(found);
     setKeywordsMissed(missed);
+    setPersonalizedFeedback(feedback);
     setShowQuestionFeedback(true);
 
     // Save result
@@ -163,6 +192,7 @@ const BlurPractice = () => {
       setShowQuestionFeedback(false);
       setKeywordsFound([]);
       setKeywordsMissed([]);
+      setPersonalizedFeedback([]);
       setTimeElapsed(0);
     } else {
       // All questions completed - show final results
@@ -401,6 +431,22 @@ const BlurPractice = () => {
                   <h3 className="font-semibold mb-2">Your Answer:</h3>
                   <p className="text-sm whitespace-pre-wrap">{userAnswer}</p>
                 </div>
+
+                {/* Personalized Feedback Section */}
+                {personalizedFeedback.length > 0 && (
+                  <div className="p-4 bg-blue-50 dark:bg-blue-950/20 rounded-lg border-l-4 border-blue-500">
+                    <h3 className="font-semibold text-blue-700 dark:text-blue-400 mb-3 flex items-center gap-2">
+                      💡 What to Add to Your Answer
+                    </h3>
+                    <div className="space-y-3">
+                      {personalizedFeedback.map((feedback, idx) => (
+                        <div key={idx} className="text-sm">
+                          <p dangerouslySetInnerHTML={{ __html: feedback.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="p-4 bg-green-50 dark:bg-green-950/20 rounded-lg border-l-4 border-green-500">
