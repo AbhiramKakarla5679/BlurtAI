@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { ScrollArea } from "@/components/ui/scroll-area";
+// import { ScrollArea } from "@/components/ui/scroll-area";
 import { MessageCircle, X, Send } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -93,8 +93,8 @@ export const AIChatbot = ({ studyContent, highlightedText }: AIChatbotProps) => 
           <X className="h-4 w-4" />
         </Button>
       </CardHeader>
-      <CardContent className="flex-1 flex flex-col p-4 pt-0 overflow-hidden">
-        <div className="flex-1 overflow-y-auto pr-4 mb-4 space-y-4">
+      <CardContent className="flex-1 flex flex-col p-4 pt-0 overflow-hidden min-h-0">
+        <div ref={scrollRef} className="flex-1 overflow-y-auto pr-4 mb-4 space-y-4 overscroll-contain touch-pan-y">
           {messages.map((message, index) => (
             <div
               key={index}
