@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
@@ -89,6 +89,7 @@ const parseInternalSubsections = (html: string): InternalSubsection[] => {
 const BlurPractice = () => {
   const { topicId, subsectionId } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const { toast } = useToast();
   
   const [internalSubsections, setInternalSubsections] = useState<InternalSubsection[]>([]);
@@ -166,6 +167,19 @@ const BlurPractice = () => {
       }
     };
   }, [topicId, subsectionId]);
+
+  // Handle navigation state from Results page
+  useEffect(() => {
+    const state = location.state as any;
+    if (state?.moveToNext) {
+      handleMoveToNextSubsection();
+      window.history.replaceState({}, document.title);
+    } else if (state?.generateQuestion) {
+      setQuestionType(state.generateQuestion);
+      handleAnswerAnother(state.generateQuestion);
+      window.history.replaceState({}, document.title);
+    }
+  }, [location.state]);
 
   // Text selection handler for AI chatbot
   useEffect(() => {
@@ -393,19 +407,9 @@ const BlurPractice = () => {
 
       const result = await response.json();
 
-      toast({
-        title: "Answer marked!",
-        description: "Check your feedback below",
-      });
-
       const found = result.keyIdeasCovered || [];
       const missed = result.keyIdeasMissed || [];
       const feedback = result.feedback || "";
-
-      setKeywordsFound(found);
-      setKeywordsMissed(missed);
-      setFeedbackText(feedback);
-      setShowQuestionFeedback(true);
 
       const questionResult: QuestionResult = {
         questionIndex: questionResults.length,
@@ -422,6 +426,22 @@ const BlurPractice = () => {
       if (timerInterval) {
         clearInterval(timerInterval);
       }
+
+      // Navigate to Results page with feedback data
+      navigate("/results", {
+        state: {
+          question: currentGeneratedQuestion.question,
+          answer: userAnswer,
+          keyIdeasCovered: found,
+          keyIdeasMissed: missed,
+          score: result.score,
+          maxMarks: currentGeneratedQuestion.marks,
+          feedbackText: feedback,
+          topicId,
+          subsectionId,
+          questionType
+        }
+      });
     } catch (error) {
       toast({
         title: "Error",
@@ -897,18 +917,15 @@ const BlurPractice = () => {
                     </Button>
                   </div>
 
-                  {showPhotoUpload && (
+                  {showPhotoUpload && currentGeneratedQuestion && (
                     <PhotoUpload
                       studyContent={currentPairSubsections.map(s => s.html).join('\n\n')}
                       questions={generatedQuestions.map(q => q.question)}
-                      onFeedbackReceived={(feedback) => {
-                        setPhotoFeedback(feedback);
-                        setShowPhotoUpload(false);
-                        toast({
-                          title: "Photo analyzed!",
-                          description: "Check the feedback below",
-                        });
-                      }}
+                      currentQuestion={currentGeneratedQuestion.question}
+                      topicId={topicId || ''}
+                      subsectionId={subsectionId || ''}
+                      questionType={questionType}
+                      marks={currentGeneratedQuestion.marks}
                     />
                   )}
 

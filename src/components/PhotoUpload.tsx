@@ -1,23 +1,23 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Upload, X, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 
-interface PhotoFeedbackData {
-  keyIdeasCovered: string[];
-  keyIdeasMissed: string[];
-  feedbackText: string;
-}
-
 interface PhotoUploadProps {
   studyContent: string;
   questions: string[];
-  onFeedbackReceived: (feedback: PhotoFeedbackData) => void;
+  currentQuestion: string;
+  topicId: string;
+  subsectionId: string;
+  questionType: "blurt" | "exam";
+  marks: number;
 }
 
-export const PhotoUpload = ({ studyContent, questions, onFeedbackReceived }: PhotoUploadProps) => {
+export const PhotoUpload = ({ studyContent, questions, currentQuestion, topicId, subsectionId, questionType, marks }: PhotoUploadProps) => {
+  const navigate = useNavigate();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -54,14 +54,23 @@ export const PhotoUpload = ({ studyContent, questions, onFeedbackReceived }: Pho
 
       if (error) throw error;
 
-      onFeedbackReceived({
-        keyIdeasCovered: data.keyIdeasCovered || [],
-        keyIdeasMissed: data.keyIdeasMissed || [],
-        feedbackText: data.feedbackText || ''
-      });
       toast.success("Photo analyzed successfully!");
-      setSelectedFile(null);
-      setPreviewUrl(null);
+      
+      // Navigate to Results page with feedback
+      navigate("/results", {
+        state: {
+          question: currentQuestion,
+          answer: "Photo answer submitted",
+          keyIdeasCovered: data.keyIdeasCovered || [],
+          keyIdeasMissed: data.keyIdeasMissed || [],
+          score: data.score || 0,
+          maxMarks: marks,
+          feedbackText: data.feedbackText || '',
+          topicId,
+          subsectionId,
+          questionType
+        }
+      });
     } catch (error) {
       console.error('Error analyzing photo:', error);
       toast.error("Failed to analyze photo. Please try again.");
