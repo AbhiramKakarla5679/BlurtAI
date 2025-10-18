@@ -14,6 +14,50 @@ export type Database = {
   }
   public: {
     Tables: {
+      practice_sessions: {
+        Row: {
+          created_at: string
+          id: string
+          key_ideas_covered: string[]
+          key_ideas_missed: string[]
+          max_marks: number
+          overall_score: number
+          questions_count: number
+          section_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          key_ideas_covered?: string[]
+          key_ideas_missed?: string[]
+          max_marks: number
+          overall_score: number
+          questions_count?: number
+          section_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          key_ideas_covered?: string[]
+          key_ideas_missed?: string[]
+          max_marks?: number
+          overall_score?: number
+          questions_count?: number
+          section_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "practice_sessions_section_id_fkey"
+            columns: ["section_id"]
+            isOneToOne: false
+            referencedRelation: "sections"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           created_at: string

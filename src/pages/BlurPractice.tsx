@@ -144,10 +144,18 @@ const BlurPractice = () => {
     setCurrentPairSubsections(firstPair);
     setExpandedSections([0]); // Auto-expand first
 
-    // Calculate memorization time based on content length
-    const contentLength = firstPair.reduce((acc, sub) => acc + sub.html.length, 0);
-    const minutes = Math.min(Math.max(Math.ceil(contentLength / 1000), 2), 5);
-    setMemorizationDuration(minutes * 60);
+    // Calculate memorization time based on word count
+    // Extract text from HTML and count words
+    const textContent = firstPair.map(sub => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(sub.html, 'text/html');
+      return doc.body.textContent || '';
+    }).join(' ');
+    
+    const wordCount = textContent.trim().split(/\s+/).length;
+    // 10 seconds per 50 words
+    const seconds = Math.ceil((wordCount / 50) * 10);
+    setMemorizationDuration(Math.max(30, seconds)); // Minimum 30 seconds
 
     // Get practice items for this subsection
     setAllPracticeItems(targetSubsection.practice_items);

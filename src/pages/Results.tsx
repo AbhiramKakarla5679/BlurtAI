@@ -1,8 +1,10 @@
 import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowLeft, CheckCircle, AlertTriangle, BookOpen, FileQuestion, PenLine } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { supabase } from "@/integrations/supabase/client";
 
 interface FeedbackState {
   question: string;
@@ -29,6 +31,30 @@ const Results = () => {
 
   const { question, answer, keyIdeasCovered, keyIdeasMissed, score, maxMarks, topicId, subsectionId, questionType } = feedbackData;
   const percentage = Math.round((score / maxMarks) * 100);
+
+  // Save practice session to database
+  useEffect(() => {
+    const savePracticeSession = async () => {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) return;
+
+        await supabase.from("practice_sessions").insert({
+          user_id: user.id,
+          section_id: topicId,
+          overall_score: score,
+          max_marks: maxMarks,
+          questions_count: 1,
+          key_ideas_covered: keyIdeasCovered,
+          key_ideas_missed: keyIdeasMissed,
+        });
+      } catch (error) {
+        console.error("Error saving practice session:", error);
+      }
+    };
+
+    savePracticeSession();
+  }, [topicId, score, maxMarks, keyIdeasCovered, keyIdeasMissed]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-primary/5 to-secondary/5 p-6">
