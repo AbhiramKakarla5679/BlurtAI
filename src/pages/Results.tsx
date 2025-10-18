@@ -31,7 +31,7 @@ const Results = () => {
     return null;
   }
 
-  const { question, answer, keyIdeasCovered, keyIdeasMissed, score, maxMarks, topicId, subsectionId, subsectionTitle, questionType, photoImage } = feedbackData;
+  const { question, answer, keyIdeasCovered, keyIdeasMissed, score, maxMarks, topicId, subsectionId, subsectionTitle, questionType, photoImage, feedbackText } = feedbackData;
   const percentage = Math.round((score / maxMarks) * 100);
 
   // Save practice session to database
@@ -43,6 +43,8 @@ const Results = () => {
 
         const { error } = await supabase.from("practice_sessions").insert({
           user_id: user.id,
+          topic_slug: topicId,
+          subsection_slug: subsectionId,
           subsection_title: subsectionTitle,
           overall_score: score,
           max_marks: maxMarks,
@@ -62,7 +64,7 @@ const Results = () => {
     };
 
     savePracticeSession();
-  }, [topicId, subsectionTitle, score, maxMarks, keyIdeasCovered, keyIdeasMissed]);
+  }, [topicId, subsectionId, subsectionTitle, score, maxMarks, keyIdeasCovered, keyIdeasMissed]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-primary/5 to-secondary/5 p-6">

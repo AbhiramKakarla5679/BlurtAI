@@ -10,7 +10,7 @@ import { Progress as ProgressBar } from "@/components/ui/progress";
 interface Stats {
   totalAttempts: number;
   averageScore: number;
-  topicScores: { [topic: string]: { avg: number; count: number; lastScore: number } };
+  topicScores: { [topic: string]: { avg: number; count: number; lastScore: number; topicSlug?: string; subsectionSlug?: string } };
   recentImprovement: number;
   weeklyProgress: { week: string; avgScore: number; attempts: number }[];
   bestStreak: number;
@@ -58,10 +58,8 @@ const Progress = () => {
         max_marks,
         created_at,
         subsection_title,
-        sections (
-          title,
-          spec_tag
-        )
+        topic_slug,
+        subsection_slug
       `)
       .eq("user_id", user.id)
       .order("created_at", { ascending: false });
@@ -76,27 +74,31 @@ const Progress = () => {
         : 0;
 
       // Calculate per-subsection scores
-      const topicScores: { [topic: string]: { scores: number[]; count: number } } = {};
+      const topicScores: { [topic: string]: { scores: number[]; count: number; topicSlug?: string; subsectionSlug?: string } } = {};
       typedSessions.forEach((session) => {
-        if (session.sections) {
-          // Use subsection_title if available, otherwise fall back to section title
-          const topic = session.subsection_title || session.sections.title;
-          const percentage = Math.round((session.overall_score / session.max_marks) * 100);
-          
-          if (!topicScores[topic]) {
-            topicScores[topic] = { scores: [], count: 0 };
-          }
-          topicScores[topic].scores.push(percentage);
-          topicScores[topic].count++;
+        const topic = session.subsection_title;
+        const percentage = Math.round((session.overall_score / session.max_marks) * 100);
+        
+        if (!topicScores[topic]) {
+          topicScores[topic] = { 
+            scores: [], 
+            count: 0,
+            topicSlug: session.topic_slug,
+            subsectionSlug: session.subsection_slug
+          };
         }
+        topicScores[topic].scores.push(percentage);
+        topicScores[topic].count++;
       });
 
-      const formattedTopicScores: { [topic: string]: { avg: number; count: number; lastScore: number } } = {};
+      const formattedTopicScores: { [topic: string]: { avg: number; count: number; lastScore: number; topicSlug?: string; subsectionSlug?: string } } = {};
       Object.entries(topicScores).forEach(([topic, data]) => {
         formattedTopicScores[topic] = {
           avg: Math.round(data.scores.reduce((a, b) => a + b, 0) / data.scores.length),
           count: data.count,
           lastScore: data.scores[0],
+          topicSlug: data.topicSlug,
+          subsectionSlug: data.subsectionSlug,
         };
       });
 
@@ -312,7 +314,16 @@ const Progress = () => {
                       </div>
                       <div className="flex items-center gap-3">
                         <div className="text-2xl font-bold text-red-600 dark:text-red-400">{data.avg}%</div>
-                        <Button size="sm" onClick={() => navigate("/sections")}>
+                        <Button 
+                          size="sm" 
+                          onClick={() => {
+                            if (data.topicSlug && data.subsectionSlug) {
+                              navigate(`/blur-practice/${data.topicSlug}/${data.subsectionSlug}`);
+                            } else {
+                              navigate("/sections");
+                            }
+                          }}
+                        >
                           Practice
                         </Button>
                       </div>

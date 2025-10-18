@@ -24,7 +24,9 @@ export type Database = {
           overall_score: number
           questions_count: number
           section_id: string | null
+          subsection_slug: string | null
           subsection_title: string | null
+          topic_slug: string | null
           user_id: string
         }
         Insert: {
@@ -36,7 +38,9 @@ export type Database = {
           overall_score: number
           questions_count?: number
           section_id?: string | null
+          subsection_slug?: string | null
           subsection_title?: string | null
+          topic_slug?: string | null
           user_id: string
         }
         Update: {
@@ -48,7 +52,9 @@ export type Database = {
           overall_score?: number
           questions_count?: number
           section_id?: string | null
+          subsection_slug?: string | null
           subsection_title?: string | null
+          topic_slug?: string | null
           user_id?: string
         }
         Relationships: [
