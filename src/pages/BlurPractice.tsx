@@ -3,10 +3,20 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
-import { ArrowLeft, Timer, Send } from "lucide-react";
+import { ArrowLeft, Timer, Send, BookOpen, CheckCircle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { sectionsData, PracticeItem, Subsection } from "@/data/sectionsData";
 import { useToast } from "@/hooks/use-toast";
+import { Progress } from "@/components/ui/progress";
+
+type QuestionResult = {
+  questionIndex: number;
+  prompt: string;
+  answer: string;
+  keywordsFound: string[];
+  keywordsMissed: string[];
+  score: number;
+};
 
 const BlurPractice = () => {
   const { topicId, subsectionId } = useParams();
@@ -14,14 +24,18 @@ const BlurPractice = () => {
   const { toast } = useToast();
   
   const [subsection, setSubsection] = useState<Subsection | null>(null);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [currentPrompt, setCurrentPrompt] = useState<PracticeItem | null>(null);
   const [userAnswer, setUserAnswer] = useState("");
-  const [showFeedback, setShowFeedback] = useState(false);
+  const [showQuestionFeedback, setShowQuestionFeedback] = useState(false);
   const [keywordsFound, setKeywordsFound] = useState<string[]>([]);
   const [keywordsMissed, setKeywordsMissed] = useState<string[]>([]);
   const [timerEnabled, setTimerEnabled] = useState(false);
   const [timeElapsed, setTimeElapsed] = useState(0);
   const [timerInterval, setTimerInterval] = useState<NodeJS.Timeout | null>(null);
+  const [showIntro, setShowIntro] = useState(true);
+  const [questionResults, setQuestionResults] = useState<QuestionResult[]>([]);
+  const [showFinalResults, setShowFinalResults] = useState(false);
 
   useEffect(() => {
     // Find the subsection
@@ -30,10 +44,9 @@ const BlurPractice = () => {
       const foundSubsection = topic.subsections.find((s) => s.id === subsectionId);
       setSubsection(foundSubsection || null);
       
-      // Pick a random prompt
+      // Set first question
       if (foundSubsection && foundSubsection.practice_items.length > 0) {
-        const randomIndex = Math.floor(Math.random() * foundSubsection.practice_items.length);
-        setCurrentPrompt(foundSubsection.practice_items[randomIndex]);
+        setCurrentPrompt(foundSubsection.practice_items[0]);
       }
     }
 
@@ -41,12 +54,6 @@ const BlurPractice = () => {
     const timerPref = localStorage.getItem("timerEnabled");
     if (timerPref === "true") {
       setTimerEnabled(true);
-    }
-
-    // Autosave draft
-    const savedDraft = localStorage.getItem(`blur-draft-${subsectionId}`);
-    if (savedDraft) {
-      setUserAnswer(savedDraft);
     }
 
     return () => {
@@ -57,14 +64,7 @@ const BlurPractice = () => {
   }, [topicId, subsectionId]);
 
   useEffect(() => {
-    // Autosave draft on change
-    if (userAnswer) {
-      localStorage.setItem(`blur-draft-${subsectionId}`, userAnswer);
-    }
-  }, [userAnswer, subsectionId]);
-
-  useEffect(() => {
-    if (timerEnabled && !showFeedback) {
+    if (timerEnabled && !showQuestionFeedback && !showIntro && !showFinalResults) {
       const interval = setInterval(() => {
         setTimeElapsed((prev) => prev + 1);
       }, 1000);
@@ -72,12 +72,30 @@ const BlurPractice = () => {
       
       return () => clearInterval(interval);
     }
-  }, [timerEnabled, showFeedback]);
+  }, [timerEnabled, showQuestionFeedback, showIntro, showFinalResults]);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
     return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
+  };
+
+  const extractBriefContent = (html: string) => {
+    // Extract first subsection or first few paragraphs for preview
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const firstSubsection = doc.querySelector('.subsection');
+    if (firstSubsection) {
+      const heading = firstSubsection.querySelector('.subsection-heading')?.textContent || '';
+      const definition = firstSubsection.querySelector('.definition-block')?.textContent || '';
+      const keyFacts = firstSubsection.querySelector('.key-facts-block')?.textContent || '';
+      return { heading, definition, keyFacts: keyFacts.substring(0, 300) + '...' };
+    }
+    return { heading: '', definition: '', keyFacts: '' };
+  };
+
+  const handleStartPractice = () => {
+    setShowIntro(false);
   };
 
   const handleSubmit = () => {
@@ -90,15 +108,14 @@ const BlurPractice = () => {
       return;
     }
 
-    if (!subsection) return;
+    if (!subsection || !currentPrompt) return;
 
     // Question-specific keyword scoring
     const answerLower = userAnswer.toLowerCase();
     const found: string[] = [];
     const missed: string[] = [];
 
-    // Use question-specific keywords if available, otherwise fall back to subsection keywords
-    const keywordsToCheck = currentPrompt?.expected_keywords || subsection.canonical_keywords;
+    const keywordsToCheck = currentPrompt.expected_keywords || subsection.canonical_keywords;
 
     keywordsToCheck.forEach((keyword) => {
       if (answerLower.includes(keyword.toLowerCase())) {
@@ -108,34 +125,59 @@ const BlurPractice = () => {
       }
     });
 
+    const score = keywordsToCheck.length > 0
+      ? Math.round((found.length / keywordsToCheck.length) * 100)
+      : 0;
+
     setKeywordsFound(found);
     setKeywordsMissed(missed);
-    setShowFeedback(true);
+    setShowQuestionFeedback(true);
+
+    // Save result
+    const result: QuestionResult = {
+      questionIndex: currentQuestionIndex,
+      prompt: currentPrompt.prompt_template,
+      answer: userAnswer,
+      keywordsFound: found,
+      keywordsMissed: missed,
+      score
+    };
+    setQuestionResults([...questionResults, result]);
 
     // Stop timer
     if (timerInterval) {
       clearInterval(timerInterval);
     }
-
-    // Clear draft
-    localStorage.removeItem(`blur-draft-${subsectionId}`);
   };
 
-  const handleTryAgain = () => {
-    // Pick a different prompt
-    if (subsection && subsection.practice_items.length > 1) {
-      const otherPrompts = subsection.practice_items.filter((p) => p.id !== currentPrompt?.id);
-      if (otherPrompts.length > 0) {
-        const randomIndex = Math.floor(Math.random() * otherPrompts.length);
-        setCurrentPrompt(otherPrompts[randomIndex]);
-      }
-    }
+  const handleNextQuestion = () => {
+    if (!subsection) return;
+
+    const nextIndex = currentQuestionIndex + 1;
     
-    setUserAnswer("");
-    setShowFeedback(false);
-    setKeywordsFound([]);
-    setKeywordsMissed([]);
-    setTimeElapsed(0);
+    if (nextIndex < subsection.practice_items.length) {
+      // Move to next question
+      setCurrentQuestionIndex(nextIndex);
+      setCurrentPrompt(subsection.practice_items[nextIndex]);
+      setUserAnswer("");
+      setShowQuestionFeedback(false);
+      setKeywordsFound([]);
+      setKeywordsMissed([]);
+      setTimeElapsed(0);
+    } else {
+      // All questions completed - show final results
+      setShowFinalResults(true);
+    }
+  };
+
+  const getOverallScore = () => {
+    if (questionResults.length === 0) return 0;
+    const totalScore = questionResults.reduce((sum, result) => sum + result.score, 0);
+    return Math.round(totalScore / questionResults.length);
+  };
+
+  const handleFinish = () => {
+    navigate(`/topic/${topicId}`);
   };
 
   if (!subsection || !currentPrompt) {
@@ -160,6 +202,150 @@ const BlurPractice = () => {
     ? Math.round((keywordsFound.length / totalKeywords) * 100)
     : 0;
 
+  const progress = ((currentQuestionIndex + (showQuestionFeedback ? 1 : 0)) / subsection.practice_items.length) * 100;
+
+  // Intro screen with brief content
+  if (showIntro) {
+    const briefContent = extractBriefContent(subsection.content_html);
+    
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-background via-primary/5 to-secondary/5">
+        <div className="container mx-auto px-4 py-8 max-w-4xl">
+          <Button variant="ghost" onClick={() => navigate(`/topic/${topicId}`)} className="mb-4">
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Back to Topic
+          </Button>
+
+          <Card className="mb-6">
+            <CardHeader>
+              <div className="flex items-center gap-2 mb-2">
+                <BookOpen className="h-5 w-5 text-primary" />
+                <Badge variant="secondary">Preview</Badge>
+              </div>
+              <CardTitle className="text-2xl">{subsection.title}</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {briefContent.heading && (
+                <div>
+                  <h3 className="font-semibold text-lg mb-2">{briefContent.heading}</h3>
+                  <div className="p-4 bg-blue-50 dark:bg-blue-950/20 rounded-lg">
+                    <p className="text-sm">{briefContent.definition}</p>
+                  </div>
+                </div>
+              )}
+
+              {briefContent.keyFacts && (
+                <div className="p-4 bg-green-50 dark:bg-green-950/20 rounded-lg">
+                  <p className="text-sm">{briefContent.keyFacts}</p>
+                </div>
+              )}
+
+              <div className="p-6 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg border-l-4 border-primary">
+                <h3 className="font-semibold text-lg mb-3">📝 What's Next?</h3>
+                <ul className="space-y-2 text-sm mb-4">
+                  <li>✅ Answer <strong>{subsection.practice_items.length} blurting questions</strong></li>
+                  <li>✅ Get instant feedback on each answer</li>
+                  <li>✅ See your overall score at the end</li>
+                  <li>✅ Identify areas to review</li>
+                </ul>
+                <Button onClick={handleStartPractice} size="lg" className="w-full">
+                  Start Blurting Practice →
+                </Button>
+              </div>
+
+              <div className="text-center">
+                <Button variant="link" onClick={() => navigate(`/topic/${topicId}`)}>
+                  View full notes first
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
+  }
+
+  // Final results screen
+  if (showFinalResults) {
+    const overallScore = getOverallScore();
+    
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-background via-primary/5 to-secondary/5">
+        <div className="container mx-auto px-4 py-8 max-w-4xl">
+          <Card className="mb-6">
+            <CardHeader className="text-center">
+              <div className="flex justify-center mb-4">
+                <CheckCircle className="h-16 w-16 text-green-500" />
+              </div>
+              <CardTitle className="text-3xl mb-2">Subsection Complete! 🎉</CardTitle>
+              <p className="text-muted-foreground">{subsection.title}</p>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="p-8 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-lg text-center">
+                <p className="text-sm text-muted-foreground mb-2">Overall Score</p>
+                <p className="text-6xl font-bold text-primary mb-2">{overallScore}%</p>
+                <p className="text-sm text-muted-foreground">
+                  Completed {questionResults.length} of {subsection.practice_items.length} questions
+                </p>
+              </div>
+
+              <div className="space-y-3">
+                <h3 className="font-semibold text-lg">Question Breakdown:</h3>
+                {questionResults.map((result, idx) => (
+                  <div key={idx} className="p-4 bg-muted rounded-lg">
+                    <div className="flex items-center justify-between mb-2">
+                      <p className="font-medium text-sm">Question {idx + 1}</p>
+                      <Badge variant={result.score >= 70 ? "default" : result.score >= 50 ? "secondary" : "destructive"}>
+                        {result.score}%
+                      </Badge>
+                    </div>
+                    <p className="text-xs text-muted-foreground mb-2">{result.prompt}</p>
+                    <div className="flex gap-4 text-xs">
+                      <span className="text-green-600">✓ {result.keywordsFound.length} found</span>
+                      <span className="text-yellow-600">⚠ {result.keywordsMissed.length} missed</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="p-4 bg-blue-50 dark:bg-blue-950/20 rounded-lg border-l-4 border-blue-500">
+                <h3 className="font-semibold text-blue-700 dark:text-blue-400 mb-2">💡 Next Steps</h3>
+                <p className="text-sm mb-3">
+                  {overallScore >= 80 
+                    ? "Excellent work! You've mastered this subsection. Ready for the next one?"
+                    : overallScore >= 60
+                    ? "Good effort! Review the missed keywords and try another subsection."
+                    : "Review the full notes and try practicing again to improve your score."}
+                </p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button onClick={handleFinish} className="flex-1" size="lg">
+                  Choose Next Subsection
+                </Button>
+                <Button 
+                  variant="outline" 
+                  onClick={() => {
+                    setShowFinalResults(false);
+                    setShowIntro(true);
+                    setCurrentQuestionIndex(0);
+                    setCurrentPrompt(subsection.practice_items[0]);
+                    setQuestionResults([]);
+                    setTimeElapsed(0);
+                  }} 
+                  className="flex-1"
+                >
+                  Retry This Subsection
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
+  }
+
+  // Question screen
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-primary/5 to-secondary/5">
       <div className="container mx-auto px-4 py-8 max-w-4xl">
@@ -169,38 +355,44 @@ const BlurPractice = () => {
         </Button>
 
         <div className="mb-6">
-          <h1 className="text-3xl font-bold mb-2">Blur Practice</h1>
-          <p className="text-muted-foreground">{subsection.title}</p>
+          <div className="flex items-center justify-between mb-2">
+            <h1 className="text-2xl font-bold">
+              Question {currentQuestionIndex + 1} of {subsection.practice_items.length}
+            </h1>
+            {timerEnabled && !showQuestionFeedback && (
+              <div className="flex items-center gap-2 text-sm">
+                <Timer className="h-4 w-4" />
+                <span className="font-mono">{formatTime(timeElapsed)}</span>
+              </div>
+            )}
+          </div>
+          <Progress value={progress} className="h-2" />
+          <p className="text-xs text-muted-foreground mt-2">{subsection.title}</p>
         </div>
 
         <Card className="mb-6">
           <CardHeader>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
               <Badge variant={currentPrompt.type === "open" ? "default" : "secondary"}>
                 {currentPrompt.type === "open" ? "Open-Ended" : "Short Answer"}
               </Badge>
-              {timerEnabled && (
-                <div className="flex items-center gap-2 text-sm">
-                  <Timer className="h-4 w-4" />
-                  <span className="font-mono">{formatTime(timeElapsed)}</span>
-                </div>
-              )}
+              <Badge variant="outline">{currentPrompt.difficulty}</Badge>
             </div>
             <CardTitle className="text-xl mt-4">{currentPrompt.prompt_template}</CardTitle>
           </CardHeader>
           <CardContent>
-            {!showFeedback ? (
+            {!showQuestionFeedback ? (
               <div className="space-y-4">
                 <Textarea
                   value={userAnswer}
                   onChange={(e) => setUserAnswer(e.target.value)}
                   placeholder="Write everything you remember here..."
                   className="min-h-[300px] text-base"
-                  disabled={showFeedback}
+                  autoFocus
                 />
-                <Button onClick={handleSubmit} className="w-full">
+                <Button onClick={handleSubmit} className="w-full" size="lg">
                   <Send className="mr-2 h-4 w-4" />
-                  Submit & Get Feedback
+                  Submit Answer
                 </Button>
               </div>
             ) : (
@@ -239,28 +431,18 @@ const BlurPractice = () => {
                 </div>
 
                 <div className="p-6 bg-primary/10 rounded-lg text-center">
-                  <p className="text-sm text-muted-foreground mb-2">Coverage Score</p>
+                  <p className="text-sm text-muted-foreground mb-2">Question Score</p>
                   <p className="text-4xl font-bold text-primary mb-1">{coveragePercent}%</p>
                   <p className="text-xs text-muted-foreground">
                     {keywordsFound.length} out of {totalKeywords} key concepts for this question
                   </p>
                 </div>
 
-                <div className="p-4 bg-blue-50 dark:bg-blue-950/20 rounded-lg border-l-4 border-blue-500">
-                  <h3 className="font-semibold text-blue-700 dark:text-blue-400 mb-2">💡 Tip</h3>
-                  <p className="text-sm">
-                    Review the missed keywords in the topic content, then try again with a different prompt!
-                  </p>
-                </div>
-
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Button onClick={handleTryAgain} className="flex-1">
-                    Try Again (New Prompt)
-                  </Button>
-                  <Button variant="outline" onClick={() => navigate(`/topic/${topicId}`)} className="flex-1">
-                    Back to Content
-                  </Button>
-                </div>
+                <Button onClick={handleNextQuestion} className="w-full" size="lg">
+                  {currentQuestionIndex < subsection.practice_items.length - 1 
+                    ? "Next Question →" 
+                    : "See Final Results →"}
+                </Button>
               </div>
             )}
           </CardContent>

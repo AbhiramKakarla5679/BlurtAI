@@ -38,7 +38,7 @@ const TopicView = () => {
     );
   };
 
-  const startBlurPractice = (subsectionId: string) => {
+  const startSubsectionPractice = (subsectionId: string) => {
     navigate(`/blur-practice/${id}/${subsectionId}`);
   };
 
@@ -124,9 +124,46 @@ const TopicView = () => {
         {/* Show timeline only for atomic structure topic */}
         {id === "atomic-structure" && <PeriodicTableTimeline />}
 
-        {/* Notes Section - All content first */}
+        {/* Practice Subsections Grid */}
         <div className="mb-8">
-          <h2 className="text-2xl font-bold mb-4">📚 Study Notes</h2>
+          <h2 className="text-2xl font-bold mb-4">📝 Choose a Subsection to Practice</h2>
+          <p className="text-muted-foreground mb-6">
+            Each subsection includes brief notes and multiple blurting questions. Complete all questions to get your overall score!
+          </p>
+          <div className="grid md:grid-cols-2 gap-4">
+            {topic.subsections.map((subsection: Subsection, index) => (
+              <Card key={subsection.id} className="hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <div className="flex items-center gap-3 mb-2">
+                    <Badge variant="secondary" className="text-lg px-3 py-1">
+                      {index + 1}
+                    </Badge>
+                    <CardTitle className="text-lg">{subsection.title}</CardTitle>
+                  </div>
+                  <Badge variant="outline" className="w-fit">
+                    {subsection.practice_items.length} questions
+                  </Badge>
+                </CardHeader>
+                <CardContent>
+                  <Button 
+                    onClick={() => startSubsectionPractice(subsection.id)} 
+                    className="w-full"
+                  >
+                    <PlayCircle className="mr-2 h-4 w-4" />
+                    Start Practice
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+
+        {/* Full Notes Section - Collapsible Reference */}
+        <div className="mt-12">
+          <h2 className="text-2xl font-bold mb-4">📚 Full Study Notes (Reference)</h2>
+          <p className="text-sm text-muted-foreground mb-4">
+            Expand any section to review the complete notes before or after practicing.
+          </p>
           <div className="space-y-4">
             {topic.subsections.map((subsection: Subsection) => (
               <Card key={subsection.id} className="overflow-hidden">
@@ -163,37 +200,6 @@ const TopicView = () => {
                     </CardContent>
                   </CollapsibleContent>
                 </Collapsible>
-              </Card>
-            ))}
-          </div>
-        </div>
-
-        {/* Practice Section - After all notes */}
-        <div className="mt-12">
-          <h2 className="text-2xl font-bold mb-4">✍️ Blurting Practice</h2>
-          <div className="space-y-4">
-            {topic.subsections.map((subsection: Subsection) => (
-              <Card key={`practice-${subsection.id}`} className="overflow-hidden">
-                <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="text-lg">{subsection.title}</CardTitle>
-                    <Badge variant="outline" className="text-xs">
-                      {subsection.practice_items.length} practice items
-                    </Badge>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <div className="p-4 bg-primary/5 rounded-lg border-l-4 border-primary">
-                    <h4 className="font-semibold mb-2">🎯 Ready to test yourself?</h4>
-                    <p className="text-sm text-muted-foreground mb-4">
-                      Practice active recall (blurting) with randomized prompts
-                    </p>
-                    <Button onClick={() => startBlurPractice(subsection.id)} className="w-full sm:w-auto">
-                      <PlayCircle className="mr-2 h-4 w-4" />
-                      Start Blur Practice
-                    </Button>
-                  </div>
-                </CardContent>
               </Card>
             ))}
           </div>
