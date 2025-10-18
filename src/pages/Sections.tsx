@@ -129,23 +129,23 @@ const Sections = () => {
                 <CardTitle className="text-xl">{section.title}</CardTitle>
               </CardHeader>
               <CardContent>
-                <CardDescription className="mb-4">
-                  <span className="font-medium text-foreground">Learning Objectives:</span>
-                  <ul className="mt-2 space-y-1">
+                <div className="mb-4">
+                  <p className="font-medium text-foreground mb-2">Learning Objectives:</p>
+                  <ul className="space-y-1 text-sm text-muted-foreground">
                     {section.learning_objectives.slice(0, 2).map((obj, idx) => (
-                      <li key={idx} className="text-sm flex items-start gap-2">
+                      <li key={idx} className="flex items-start gap-2">
                         <span className="text-primary mt-1">•</span>
                         <span>{obj}</span>
                       </li>
                     ))}
                     {section.learning_objectives.length > 2 && (
-                      <li className="text-sm text-muted-foreground">
+                      <li className="text-muted-foreground">
                         +{section.learning_objectives.length - 2} more...
                       </li>
                     )}
                   </ul>
-                </CardDescription>
-                <Button className="w-full mt-4">
+                </div>
+                <Button className="w-full">
                   <BookOpen className="mr-2 h-4 w-4" />
                   Read Section
                 </Button>
