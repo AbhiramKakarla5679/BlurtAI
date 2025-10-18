@@ -37,9 +37,8 @@ serve(async (req) => {
 Your task:
 1. Carefully read the student's handwritten answers
 2. Compare them against the study content and questions provided
-3. Identify what they got right and what they missed
+3. Identify key ideas they covered and key ideas they missed
 4. Provide specific, constructive feedback
-5. Give a score out of 100 based on accuracy and completeness
 
 Be encouraging but honest. Point out specific concepts they understood well and areas needing improvement.`
           },
@@ -48,7 +47,7 @@ Be encouraging but honest. Point out specific concepts they understood well and 
             content: [
               {
                 type: 'text',
-                text: `Study Content:\n${studyContent}\n\nQuestions Asked:\n${questions.join('\n')}\n\nPlease analyze the student's handwritten answers in the image and provide detailed feedback.`
+                text: `Study Content:\n${studyContent}\n\nQuestions Asked:\n${questions.join('\n')}\n\nPlease analyze the student's handwritten answers in the image.`
               },
               {
                 type: 'image_url',
@@ -58,7 +57,38 @@ Be encouraging but honest. Point out specific concepts they understood well and 
               }
             ]
           }
-        ]
+        ],
+        tools: [
+          {
+            type: "function",
+            function: {
+              name: "analyze_student_answer",
+              description: "Analyze the student's answer and provide structured feedback",
+              parameters: {
+                type: "object",
+                properties: {
+                  keyIdeasCovered: {
+                    type: "array",
+                    items: { type: "string" },
+                    description: "List of key ideas the student correctly included"
+                  },
+                  keyIdeasMissed: {
+                    type: "array",
+                    items: { type: "string" },
+                    description: "List of key ideas the student missed or got wrong"
+                  },
+                  feedbackText: {
+                    type: "string",
+                    description: "Detailed feedback on the student's answer"
+                  }
+                },
+                required: ["keyIdeasCovered", "keyIdeasMissed", "feedbackText"],
+                additionalProperties: false
+              }
+            }
+          }
+        ],
+        tool_choice: { type: "function", function: { name: "analyze_student_answer" } }
       }),
     });
 
@@ -69,10 +99,16 @@ Be encouraging but honest. Point out specific concepts they understood well and 
     }
 
     const data = await response.json();
-    const feedback = data.choices[0].message.content;
+    const toolCall = data.choices[0].message.tool_calls?.[0];
+    
+    if (!toolCall) {
+      throw new Error('No tool call in response');
+    }
+
+    const result = JSON.parse(toolCall.function.arguments);
 
     return new Response(
-      JSON.stringify({ feedback }),
+      JSON.stringify(result),
       {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       },

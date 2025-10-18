@@ -41,6 +41,12 @@ type QuestionResult = {
   feedbackText: string;
 };
 
+type PhotoFeedbackData = {
+  keyIdeasCovered: string[];
+  keyIdeasMissed: string[];
+  feedbackText: string;
+};
+
 type GeneratedQuestion = {
   question: string;
   marks: number;
@@ -113,7 +119,7 @@ const BlurPractice = () => {
   const [questionType, setQuestionType] = useState<"blurt" | "exam">("blurt");
   const [showQuestionTypeSelector, setShowQuestionTypeSelector] = useState(false);
   const [showPhotoUpload, setShowPhotoUpload] = useState(false);
-  const [photoFeedback, setPhotoFeedback] = useState<string | null>(null);
+  const [photoFeedback, setPhotoFeedback] = useState<PhotoFeedbackData | null>(null);
   const [highlightedText, setHighlightedText] = useState<string>("");
   const [showMemorizationTimer, setShowMemorizationTimer] = useState(false);
   const [memorizationDuration, setMemorizationDuration] = useState(180); // 3 minutes default
@@ -426,14 +432,23 @@ const BlurPractice = () => {
     }
   };
 
-  const handleAnswerAnother = async () => {
+  const handleAnswerAnother = async (newQuestionType?: "blurt" | "exam") => {
+    if (newQuestionType) {
+      setQuestionType(newQuestionType);
+    }
     setUserAnswer("");
     setShowQuestionFeedback(false);
     setKeywordsFound([]);
     setKeywordsMissed([]);
     setFeedbackText("");
     setTimeElapsed(0);
-    await generateNewQuestion();
+    setPhotoFeedback(null);
+    setIsGeneratingQuestion(true);
+    try {
+      await generateNewQuestion();
+    } finally {
+      setIsGeneratingQuestion(false);
+    }
   };
 
   const handleMoveToNextSubsection = async () => {
@@ -898,17 +913,58 @@ const BlurPractice = () => {
                   )}
 
                   {photoFeedback && (
-                    <Card className="border-l-4 border-blue-500 bg-muted/30">
-                      <CardHeader>
-                        <CardTitle className="text-lg flex items-center gap-2">
+                    <div className="space-y-4">
+                      {/* AI Feedback */}
+                      <div className="p-6 bg-blue-50 dark:bg-blue-950/20 rounded-lg border-l-4 border-blue-500">
+                        <h3 className="font-semibold text-lg mb-3 flex items-center gap-2 text-blue-700 dark:text-blue-400">
                           <span className="text-xl">📷</span>
                           Photo Feedback
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-sm whitespace-pre-wrap">{photoFeedback}</p>
-                      </CardContent>
-                    </Card>
+                        </h3>
+                        <div className="prose prose-sm max-w-none text-foreground">
+                          <p className="text-sm whitespace-pre-line">{photoFeedback.feedbackText}</p>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {/* Key Ideas Covered */}
+                        <div className="p-6 bg-green-50 dark:bg-green-950/20 rounded-lg border-l-4 border-green-500">
+                          <h3 className="font-semibold text-base mb-4 flex items-center gap-2 text-green-700 dark:text-green-400">
+                            <CheckCircle className="h-5 w-5" />
+                            Key Ideas Covered ({photoFeedback.keyIdeasCovered.length})
+                          </h3>
+                          <div className="space-y-2">
+                            {photoFeedback.keyIdeasCovered.length > 0 ? (
+                              photoFeedback.keyIdeasCovered.map((keyword, idx) => (
+                                <div key={idx} className="p-3 bg-green-100 dark:bg-green-900/30 rounded-md text-sm text-green-900 dark:text-green-100">
+                                  {keyword}
+                                </div>
+                              ))
+                            ) : (
+                              <p className="text-sm text-muted-foreground">No key ideas covered</p>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Key Ideas Missed */}
+                        <div className="p-6 bg-yellow-50 dark:bg-yellow-950/20 rounded-lg border-l-4 border-yellow-500">
+                          <h3 className="font-semibold text-base mb-4 flex items-center gap-2 text-yellow-700 dark:text-yellow-400">
+                            <span className="text-xl">⚠</span>
+                            Key Ideas Missed ({photoFeedback.keyIdeasMissed.length})
+                          </h3>
+                          <div className="space-y-2">
+                            {photoFeedback.keyIdeasMissed.length > 0 ? (
+                              photoFeedback.keyIdeasMissed.map((keyword, idx) => (
+                                <div key={idx} className="p-3 bg-yellow-100 dark:bg-yellow-900/30 rounded-md text-sm text-yellow-900 dark:text-yellow-100">
+                                  {keyword}
+                                </div>
+                              ))
+                            ) : (
+                              <p className="text-sm text-muted-foreground">All key ideas covered!</p>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   )}
                 </div>
               ) : (
@@ -985,9 +1041,24 @@ const BlurPractice = () => {
 
                   {/* Action Buttons */}
                   <div className="flex flex-col gap-3">
-                    <Button onClick={handleAnswerAnother} size="lg" variant="default" disabled={isGeneratingQuestion}>
-                      {isGeneratingQuestion ? "Generating..." : "Answer Another Question"}
-                    </Button>
+                    <div className="grid grid-cols-2 gap-3">
+                      <Button 
+                        onClick={() => handleAnswerAnother("blurt")} 
+                        size="lg" 
+                        variant="default" 
+                        disabled={isGeneratingQuestion}
+                      >
+                        {isGeneratingQuestion && questionType === "blurt" ? "Generating..." : "Generate Blurt Question"}
+                      </Button>
+                      <Button 
+                        onClick={() => handleAnswerAnother("exam")} 
+                        size="lg" 
+                        variant="default" 
+                        disabled={isGeneratingQuestion}
+                      >
+                        {isGeneratingQuestion && questionType === "exam" ? "Generating..." : "Generate Exam Question"}
+                      </Button>
+                    </div>
                     <Button 
                       onClick={handleMoveToNextSubsection} 
                       size="lg" 

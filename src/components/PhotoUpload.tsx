@@ -5,10 +5,16 @@ import { Upload, X, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 
+interface PhotoFeedbackData {
+  keyIdeasCovered: string[];
+  keyIdeasMissed: string[];
+  feedbackText: string;
+}
+
 interface PhotoUploadProps {
   studyContent: string;
   questions: string[];
-  onFeedbackReceived: (feedback: string) => void;
+  onFeedbackReceived: (feedback: PhotoFeedbackData) => void;
 }
 
 export const PhotoUpload = ({ studyContent, questions, onFeedbackReceived }: PhotoUploadProps) => {
@@ -48,7 +54,11 @@ export const PhotoUpload = ({ studyContent, questions, onFeedbackReceived }: Pho
 
       if (error) throw error;
 
-      onFeedbackReceived(data.feedback);
+      onFeedbackReceived({
+        keyIdeasCovered: data.keyIdeasCovered || [],
+        keyIdeasMissed: data.keyIdeasMissed || [],
+        feedbackText: data.feedbackText || ''
+      });
       toast.success("Photo analyzed successfully!");
       setSelectedFile(null);
       setPreviewUrl(null);

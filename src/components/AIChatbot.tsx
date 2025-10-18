@@ -31,7 +31,7 @@ export const AIChatbot = ({ studyContent, highlightedText }: AIChatbotProps) => 
 
   useEffect(() => {
     if (highlightedText && isOpen) {
-      handleSendMessage(`Explain this: "${highlightedText}"`);
+      setInput(highlightedText);
     }
   }, [highlightedText]);
 
@@ -94,7 +94,7 @@ export const AIChatbot = ({ studyContent, highlightedText }: AIChatbotProps) => 
         </Button>
       </CardHeader>
       <CardContent className="flex-1 flex flex-col p-4 pt-0 overflow-hidden min-h-0">
-        <div ref={scrollRef} className="flex-1 overflow-y-auto pr-4 mb-4 space-y-4 overscroll-contain touch-pan-y">
+        <div ref={scrollRef} className="flex-1 overflow-y-auto pr-4 mb-4 space-y-4" style={{ overscrollBehavior: 'contain', WebkitOverflowScrolling: 'touch' }}>
           {messages.map((message, index) => (
             <div
               key={index}
