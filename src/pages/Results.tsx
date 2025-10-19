@@ -399,7 +399,7 @@ const Results = () => {
             })}
           >
             <BookOpen className="mr-2 h-5 w-5" />
-            Move to Next
+            Next Chapter
           </Button>
           <Button
             variant="outline"

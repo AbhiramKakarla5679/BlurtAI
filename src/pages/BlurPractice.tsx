@@ -1096,12 +1096,12 @@ const BlurPractice = () => {
                         {isGeneratingQuestion && questionType === "exam" ? "Generating..." : "Generate Exam Question"}
                       </Button>
                     </div>
-                    <Button 
-                      onClick={handleMoveToNextSubsection} 
-                      size="lg" 
+                    <Button
+                      onClick={handleMoveToNextSubsection}
+                      size="lg"
                       variant="outline"
                     >
-                      Move to Next Section
+                      Next Chapter
                     </Button>
                     <Button 
                       onClick={() => navigate(`/sections/${topicId}`)} 
