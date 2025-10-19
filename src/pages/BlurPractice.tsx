@@ -435,6 +435,15 @@ const BlurPractice = () => {
         clearInterval(timerInterval);
       }
 
+      // Get study content for AI question generation
+      const studyContentForAI = currentPairSubsections
+        .map(sub => {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(sub.html, 'text/html');
+          return doc.body.textContent || '';
+        })
+        .join("\n\n");
+
       // Navigate to Results page with feedback data
       navigate("/results", {
         state: {
@@ -448,7 +457,8 @@ const BlurPractice = () => {
           topicId,
           subsectionId,
           subsectionTitle: currentPairSubsections.map(s => s.title).join(', '),
-          questionType
+          questionType,
+          studyContent: studyContentForAI
         }
       });
     } catch (error) {
